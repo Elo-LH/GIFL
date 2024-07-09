@@ -1,0 +1,24 @@
+body {
+  background-color: #03071E;
+  color: #FFF5DA;
+}
+
+a {
+  text-decoration: none;
+  padding: 1rem;
+  background: linear-gradient(#D00000, #F48C06);
+  color: #03071E;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 0.2rem;
+}
+
+h1 {
+  color: #E85D04;
+}
+
+h2 {
+  color: #F48C06;
+}
+
+/*# sourceMappingURL=style.css.map */

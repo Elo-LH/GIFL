@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	<nav>
+		{% for category in categories %}
+			<a href="index.php?route=category&category_id={{category.id}}">{{category.title}}</a>
+		{% endfor %}
+	</nav>
+{% endblock %}
+
+{% block main %}
+	<h1>Page d'accueil</h1>
+	{% for post in posts %}
+		<h2>{{post.title}}</h2>
+		<p>{{post.excerpt}}</p>
+	{% endfor %}
+{% endblock %}
