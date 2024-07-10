@@ -1,22 +1,21 @@
 @import "vars";
 
-body {
-    background-color: $darkBrown;
-    color: $lightYellow;
-}
-
-a{
-    text-decoration: none;
-    padding: 1rem;
-    background: linear-gradient($lightRed, $darkYellow);
-    color: $darkBrown;
-    border-radius: 5px;
-    font-weight: bold;
-    margin: 0.2rem;
-}
-h1{
-    color: $orange;
-}
-h2{
-    color: $darkYellow;
-}
+* {
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    /* Putting default font-size to 10px */
+    font-size: 0.625em; /* fallback IE8+ */
+    font-size: calc(
+      1em * 0.625
+    ); /* IE9-IE11 math fixing. See http://bit.ly/1g4X0bX */
+    scroll-behavior: smooth;
+  }
+  body {
+    font-size: 1.6em; /* base font-size is equivalent "16px" */
+    background-color: $darkBlue;
+    color: $white;
+  }

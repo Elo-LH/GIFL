@@ -1,24 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  background-color: #03071E;
-  color: #FFF5DA;
+  margin: 0;
+  padding: 0;
+  /* Putting default font-size to 10px */
+  font-size: 0.625em; /* fallback IE8+ */
+  font-size: 0.625em; /* IE9-IE11 math fixing. See http://bit.ly/1g4X0bX */
+  scroll-behavior: smooth;
 }
 
-a {
-  text-decoration: none;
-  padding: 1rem;
-  background: linear-gradient(#D00000, #F48C06);
-  color: #03071E;
-  border-radius: 5px;
-  font-weight: bold;
-  margin: 0.2rem;
-}
-
-h1 {
-  color: #E85D04;
-}
-
-h2 {
-  color: #F48C06;
+body {
+  font-size: 1.6em; /* base font-size is equivalent "16px" */
+  background-color: #110400;
+  color: #FFF1CD;
 }
 
 /*# sourceMappingURL=style.css.map */
