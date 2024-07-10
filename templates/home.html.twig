@@ -2,10 +2,17 @@
 
 {% block header %}
 	<nav>
-		<p>Header</p>
+		<a href=""><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
+		<a class="middle-link" href="">Search</a>
 	</nav>
 {% endblock %}
 
 {% block main %}
-	<h1>Page d'accueil</h1>
+	<h1>Animate your life</h1>
+	<button class="yellow-button">Join GIFL</button>
+	<button class="pink-button">Login</button>
+	<div class="gifs-display-wrapper"></div>
+	{% for gif in gifs %}
+		<img src="{{gif.link}}">
+	{% endfor %}
 {% endblock %}

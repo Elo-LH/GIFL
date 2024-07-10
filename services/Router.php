@@ -2,21 +2,19 @@
 
 class Router
 {
-    private BlogController $bc;
+    private PublicController $pc;
 
     public function __construct()
     {
 
-        $this->bc = new BlogController();
+        $this->pc = new PublicController();
     }
     public function handleRequest(array $get): void
     {
         if (!isset($get["route"])) {
-            $this->bc->home();
-        } else if ($get["route"] === "category") {
-            $this->bc->category($get["category_id"]);
+            $this->pc->home();
         } else {
-            $this->bc->home();
+            $this->pc->home();
         }
     }
 }
