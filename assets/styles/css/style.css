@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
@@ -23,7 +25,7 @@ body {
 TITLES
 ========================================================================== */
 h1 {
-  font-size: 20rem;
+  font-size: clamp(9rem, 10vw, 20rem);
   color: #D108FF;
   font-family: "Neucha";
   padding: 0.4em;
@@ -42,16 +44,16 @@ button {
   box-shadow: 0 0.4em #70008A;
   text-transform: capitalize;
   margin: 0.6em;
+  font-size: clamp(1.6rem, 3vw, 3rem);
 }
 
 .yellow-button {
-  font-size: 3rem;
   background-color: #FFBA08;
   color: #70008A;
 }
 
 .pink-button {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   background-color: #D108FF;
   color: #170327;
 }
@@ -62,23 +64,38 @@ button {
   align-items: center;
   justify-content: flex-end;
 }
+@media screen and (max-width: 900px) {
+  .buttons-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 1em;
+  }
+}
 
 /* ==========================================================================
 HEADER
 ========================================================================== */
 .page-header {
+  bottom: 0;
   display: flex;
   position: fixed;
-  top: 0;
   left: 0;
-  min-height: 100svh;
-  border-right: 2px #D108FF solid;
-  width: max(20vh, 200px);
+  width: max-content;
+  padding: 1em;
+  padding-left: 2em;
+}
+@media screen and (min-width: 900px) {
+  .page-header {
+    top: 0;
+    min-height: 100svh;
+    border-right: 2px #D108FF solid;
+    width: max(20vh, 200px);
+    padding: 1em;
+  }
 }
 
 .logo-GIFL {
-  width: 120px;
-  margin-top: 20px;
+  width: clamp(80px, 8vw, 120px);
 }
 
 .page-header-nav {
@@ -87,7 +104,12 @@ HEADER
   align-items: center;
   justify-content: space-evenly;
   height: auto;
-  margin-inline: auto;
+  margin: 0;
+}
+@media screen and (min-width: 900px) {
+  .page-header-nav {
+    margin-inline: auto;
+  }
 }
 
 .middle-link {
@@ -96,7 +118,7 @@ HEADER
   border-top: 2px #D108FF solid;
   border-bottom: 2px #D108FF solid;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   padding: 0.6em 2em;
 }
 
@@ -113,12 +135,21 @@ HOME PAGE
 ========================================================================== */
 main {
   width: auto;
-  margin-left: max(20vh, 200px);
+}
+@media screen and (min-width: 900px) {
+  main {
+    margin-left: max(20vh, 200px);
+  }
 }
 
 .home-page-bottom-wrapper {
   display: flex;
   flex-direction: row;
+}
+@media screen and (max-width: 900px) {
+  .home-page-bottom-wrapper {
+    justify-content: center;
+  }
 }
 
 .home-page-bottom-wrapper > * {
@@ -151,20 +182,25 @@ main {
   height: 40vh;
   overflow: hidden;
 }
+@media screen and (min-width: 900px) {
+  .gifs-display-column {
+    height: 40vh;
+  }
+}
 
 .gifs-column {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  animation: 5s scrollToBot infinite linear;
+  animation: 12s scrollToBot infinite linear;
 }
 
 .shadow-view {
-  animation: 5s scrollToBot infinite linear;
+  animation: 12s scrollToBot infinite linear;
 }
 
 .scroll-slow {
-  animation: 10s scrollToBot infinite linear;
+  animation: 20s scrollToBot infinite linear;
 }
 
 .shadow-view.scroll-reverse {
