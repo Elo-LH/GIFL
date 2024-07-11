@@ -1,18 +1,67 @@
 {% extends "layout.html.twig" %}
 
 {% block header %}
-	<nav>
-		<a href=""><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
-		<a class="middle-link" href="">Search</a>
-	</nav>
+	<header class="page-header">
+		<nav class="page-header-nav">
+			<a href=""><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
+			<div class="links-wrapper">
+				<a class="middle-link" href="">Search</a>
+			</div>
+		</nav>
+	</header>
 {% endblock %}
 
+
 {% block main %}
-	<h1>Animate your life</h1>
-	<button class="yellow-button">Join GIFL</button>
-	<button class="pink-button">Login</button>
-	<div class="gifs-display-wrapper"></div>
-	{% for gif in gifs %}
-		<img src="{{gif.link}}">
-	{% endfor %}
+	<main>
+		<h1>Animate your life</h1>
+		<div class="home-page-bottom-wrapper">
+			<div class="buttons-wrapper">
+				<button class="yellow-button">Join GIFL</button>
+				<button class="pink-button">Login</button>
+			</div>
+			<div class="gifs-display-wrapper">
+				<div class="gifs-display-column">
+					<div class="gifs-column first-view">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+					<div class="gifs-column shadow-view ">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+
+				</div>
+				<div class="gifs-display-column">
+
+					<div class="gifs-column first-view scroll-slow">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+					<div class="gifs-column shadow-view scroll-slow">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+				</div>
+				<div class="gifs-display-column">
+					<div class="gifs-column first-view">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+					<div class="gifs-column shadow-view">
+						{% for gif in gifs %}
+							<img class="gif-display" src="{{gif.link}}">
+						{% endfor %}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</main>
 {% endblock %}

@@ -16,6 +16,164 @@ body {
   font-size: 1.6em; /* base font-size is equivalent "16px" */
   background-color: #110400;
   color: #FFF1CD;
+  font-family: "Noto Sans", sans-serif;
+}
+
+/* ==========================================================================
+TITLES
+========================================================================== */
+h1 {
+  font-size: 20rem;
+  color: #D108FF;
+  font-family: "Neucha";
+  padding: 0.4em;
+  margin: 0;
+}
+
+/* ==========================================================================
+BUTTONS
+========================================================================== */
+button {
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  padding: 1em 2em;
+  border-radius: 2em;
+  box-shadow: 0 0.4em #70008A;
+  text-transform: capitalize;
+  margin: 0.6em;
+}
+
+.yellow-button {
+  font-size: 3rem;
+  background-color: #FFBA08;
+  color: #70008A;
+}
+
+.pink-button {
+  font-size: 2rem;
+  background-color: #D108FF;
+  color: #170327;
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+HEADER
+========================================================================== */
+.page-header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100svh;
+  border-right: 2px #D108FF solid;
+  width: max(20vh, 200px);
+}
+
+.logo-GIFL {
+  width: 120px;
+  margin-top: 20px;
+}
+
+.page-header-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: auto;
+  margin-inline: auto;
+}
+
+.middle-link {
+  color: #FFBA08;
+  font-weight: bold;
+  border-top: 2px #D108FF solid;
+  border-bottom: 2px #D108FF solid;
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 0.6em 2em;
+}
+
+.links-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+/* ==========================================================================
+HOME PAGE
+========================================================================== */
+main {
+  width: auto;
+  margin-left: max(20vh, 200px);
+}
+
+.home-page-bottom-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.home-page-bottom-wrapper > * {
+  width: 50%;
+}
+
+.gifs-display-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+@keyframes scrollToBot {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+.gifs-display-column {
+  position: relative;
+  white-space: nowrap;
+  width: 200px;
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  height: 40vh;
+  overflow: hidden;
+}
+
+.gifs-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: 5s scrollToBot infinite linear;
+}
+
+.shadow-view {
+  animation: 5s scrollToBot infinite linear;
+}
+
+.scroll-slow {
+  animation: 10s scrollToBot infinite linear;
+}
+
+.shadow-view.scroll-reverse {
+  position: absolute;
+  top: -100%;
+}
+
+.gif-display {
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
