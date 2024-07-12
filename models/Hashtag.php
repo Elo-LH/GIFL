@@ -3,7 +3,7 @@ class Hashtag
 {
     private ?int $id = null;
 
-    public function __construct(private string $name)
+    public function __construct(private string $name, private DateTime $createdAt = new DateTime())
     {
     }
 
@@ -23,5 +23,14 @@ class Hashtag
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }

@@ -13,15 +13,23 @@
 
 
 {% block main %}
+
 	<main>
 		<h1 class="h1-regular">Trending hashtags</h1>
-		<div class="horizontal-gifs-wrapper snaps-inline">
-			{% for gif in gifs %}
-				<img class="gif-horizontal" src="{{gif.link}}">
+		<div class="horizontal-trending-wrapper snaps-inline">
+			{% for key, hashtag in hashtags %}
+				<div class="horizontal-trending-card">
+					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}">
+					<p class="horizontal-trending-hashtag">#{{hashtag.name}}</p>
+				</div>
 			{% endfor %}
 		</div>
-		<input type="text">
-		<button class="yellow-button">Search GIFs</button>
-		<button class="yellow-button">Search collections</button>
+		<div class="search-bar">
+			<input type="text" class="input-search">
+			<div class="search-bar-buttons-wrapper">
+				<button class="yellow-button small-button">Search GIFs</button>
+				<button class="yellow-button small-button">Search collections</button>
+			</div>
+		</div>
 	</main>
 {% endblock %}
