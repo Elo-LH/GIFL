@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	<header class="page-header">
+		<nav class="page-header-nav">
+			<a href="index.php"><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
+			<div class="links-wrapper">
+				<a class="middle-link" href="index.php?route=search">Search</a>
+			</div>
+		</nav>
+	</header>
+{% endblock %}
+
+
+{% block main %}
+	<main>
+		<h1 class="h1-regular">Trending hashtags</h1>
+		<div class="horizontal-gifs-wrapper snaps-inline">
+			{% for gif in gifs %}
+				<img class="gif-horizontal" src="{{gif.link}}">
+			{% endfor %}
+		</div>
+		<input type="text">
+		<button class="yellow-button">Search GIFs</button>
+		<button class="yellow-button">Search collections</button>
+	</main>
+{% endblock %}

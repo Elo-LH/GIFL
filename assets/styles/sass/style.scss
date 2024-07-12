@@ -29,12 +29,17 @@ body {
 TITLES
 ========================================================================== */
 
-h1 {
+.h1-home-page {
   font-size: clamp(9rem, 10vw, 20rem);
   color: $neonPink;
   font-family: 'Neucha';
   padding: 0.4em;
   margin: 0;
+}
+.h1-regular{
+  font-size: clamp(3rem, 4vw, 5rem);
+  color: $yellow;
+  padding: 0.4em;
 }
   
 /* ==========================================================================
@@ -204,3 +209,30 @@ overflow: hidden;
 }
 
 
+/* ==========================================================================
+PUBLIC SEARCH PAGE
+========================================================================== */
+
+.horizontal-gifs-wrapper{
+  border: 2px solid $yellow;
+  width: 98%;
+  height: 20vh;
+  overflow: scroll;
+  overflow-y: hidden;
+  margin-inline: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+@media screen and (max-width: 900px) {
+  .snaps-inline{
+    scroll-snap-type: inline mandatory;
+   }
+   .snaps-inline > * {
+     scroll-snap-align:start;
+   }
+ 
+ }
+
+.gif-horizontal{
+  height: 100%;
+}

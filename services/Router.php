@@ -13,6 +13,8 @@ class Router
     {
         if (!isset($get["route"])) {
             $this->pc->home();
+        } else if ($get["route"] === "search") {
+            $this->pc->search();
         } else {
             $this->pc->home();
         }

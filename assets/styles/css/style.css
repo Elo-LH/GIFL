@@ -24,12 +24,18 @@ body {
 /* ==========================================================================
 TITLES
 ========================================================================== */
-h1 {
+.h1-home-page {
   font-size: clamp(9rem, 10vw, 20rem);
   color: #D108FF;
   font-family: "Neucha";
   padding: 0.4em;
   margin: 0;
+}
+
+.h1-regular {
+  font-size: clamp(3rem, 4vw, 5rem);
+  color: #FFBA08;
+  padding: 0.4em;
 }
 
 /* ==========================================================================
@@ -210,6 +216,32 @@ main {
 
 .gif-display {
   width: 100%;
+}
+
+/* ==========================================================================
+PUBLIC SEARCH PAGE
+========================================================================== */
+.horizontal-gifs-wrapper {
+  border: 2px solid #FFBA08;
+  width: 98%;
+  height: 20vh;
+  overflow: scroll;
+  overflow-y: hidden;
+  margin-inline: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+
+@media screen and (max-width: 900px) {
+  .snaps-inline {
+    scroll-snap-type: inline mandatory;
+  }
+  .snaps-inline > * {
+    scroll-snap-align: start;
+  }
+}
+.gif-horizontal {
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
