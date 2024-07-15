@@ -24,4 +24,20 @@ class HashtagManager extends AbstractManager
         }
         return null;
     }
+    public function findByName($name): ?Hashtag
+    {
+        $query = $this->db->prepare("SELECT * FROM hashtags WHERE name LIKE :name ORDER BY created_at DESC");
+        $parameters = [
+            "name" => "%" . $name . "%"
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $hashtag = new Hashtag($result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+            $hashtag->setId($result["hashtag_id"]);
+            return $hashtag;
+        } else {
+            return null;
+        }
+    }
 }

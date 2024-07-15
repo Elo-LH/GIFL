@@ -21,6 +21,15 @@
 			{% for gif in gifs %}
 				<img class="gif-display" src="{{gif.link}}">
 			{% endfor %}
+		{% else %}
+			<h1>{{hashtag.name}}</h1>
+			<p>Created
+				{{collection.createdAt.format('d/m/Y')}}</p>
+
+			{% for gif in gifs %}
+				<img class="gif-display" src="{{gif.link}}">
+			{% endfor %}
 		{% endif %}
+
 	</main>
 {% endblock %}

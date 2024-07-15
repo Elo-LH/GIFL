@@ -8,7 +8,7 @@ class CollectionManager extends AbstractManager
 
     public function findByName($name): ?Collection
     {
-        $query = $this->db->prepare("SELECT * FROM collections WHERE name LIKE :name ORDER BY created_at DESC LIMIT 10");
+        $query = $this->db->prepare("SELECT * FROM collections WHERE name LIKE :name ORDER BY created_at DESC");
         $parameters = [
             "name" => "%" . $name . "%"
         ];
