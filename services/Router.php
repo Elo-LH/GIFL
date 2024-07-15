@@ -18,7 +18,7 @@ class Router
         } else if ($get["route"] === "search-result") {
             $this->pc->searchResult();
         } else if ($get["route"] === "error") {
-            $this->pc->error();
+            $this->pc->error($_GET['error']);
         } else {
             $this->pc->home();
         }

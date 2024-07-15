@@ -55,4 +55,42 @@ class GifManager extends AbstractManager
         $gif->setId($item['gif_id']);
         return $gif;
     }
+    public function findByHashtag($hashtag_id): ?array
+    {
+        $um = new UserManager;
+        $query = $this->db->prepare('SELECT * FROM gifs_hashtags JOIN gifs ON gifs_hashtags.gif_id = gifs.gif_id JOIN hashtags ON gifs_hashtags.hashtag_id = hashtags.hashtag_id WHERE hashtags.hashtag_id = :id ORDER BY gifs.created_at DESC');
+        $parameters = [
+            "id" => $hashtag_id
+        ];
+        $query->execute($parameters);
+        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
+        $gifs = [];
+        //enter fetched gifs from DB into instances array
+        foreach ($fetchedResults as $item) {
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']));
+            $gif->setId($item['gif_id']);
+            array_push($gifs, $gif);
+        };
+        return $gifs;
+    }
+    public function findByCollection($collection_id): ?array
+    {
+        $um = new UserManager;
+        $query = $this->db->prepare('SELECT * FROM collections_gifs JOIN gifs ON collections_gifs.gif_id = gifs.gif_id JOIN collections ON collections_gifs.collection_id = collections.collection_id WHERE collections.collection_id = :id ORDER BY gifs.created_at DESC');
+        $parameters = [
+            "id" => $collection_id
+        ];
+        $query->execute($parameters);
+        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
+        $gifs = [];
+        //enter fetched gifs from DB into instances array
+        foreach ($fetchedResults as $item) {
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']));
+            $gif->setId($item['gif_id']);
+            array_push($gifs, $gif);
+        };
+        return $gifs;
+    }
 }

@@ -12,9 +12,15 @@
 {% endblock %}
 
 {% block main %}
+	<main>
+		{% if search is same as("collection") %}
+			<h1>{{collection.name}}</h1>
+			<p>Created
+				{{collection.createdAt.format('d/m/Y')}}</p>
 
-	<p>search result</p>
-	{% if search is same as("collection") %}
-		{{collection.name}}
-	{% endif %}
+			{% for gif in gifs %}
+				<img class="gif-display" src="{{gif.link}}">
+			{% endfor %}
+		{% endif %}
+	</main>
 {% endblock %}

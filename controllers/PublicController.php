@@ -39,14 +39,14 @@ class PublicController extends AbstractController
                 //search in db the collection corresponding to input
                 $cm = new CollectionManager;
                 $collection = $cm->findByName($input);
-                if (is_null($collection)){
+                if (is_null($collection)) {
                     //If no collection has been found, display nothing was found
-
+                    $this->redirect("index.php?route=error&error=No collection found");
                 }
                 //load gifs corresponding to this colllection
                 $gm = new GifManager;
-                $gifs = $gm->findByCollection($collection)
-                $this->render("search-result.html.twig", ["search" => "collection", "collection" => $collection]);
+                $gifs = $gm->findByCollection($collection->getId());
+                $this->render("search-result.html.twig", ["search" => "collection", "collection" => $collection, "gifs" => $gifs]);
             }
         } else {
             //If input is empty, redirect to search page
