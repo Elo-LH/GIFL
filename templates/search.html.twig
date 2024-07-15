@@ -24,12 +24,14 @@
 				</div>
 			{% endfor %}
 		</div>
-		<div class="search-bar">
+
+		<form action="index.php?route=search-result" method="POST" class="search-bar">
 			<input type="text" class="input-search">
 			<div class="search-bar-buttons-wrapper">
-				<button class="yellow-button small-button">Search GIFs</button>
-				<button class="yellow-button small-button">Search collections</button>
+				<button type="submit" name="action" value="hashtag" class="yellow-button small-button">Search GIFs</button>
+				<button type="submit" name="action" value="collection" class="yellow-button small-button">Search collections</button>
 			</div>
-		</div>
+		</form>
+
 	</main>
 {% endblock %}

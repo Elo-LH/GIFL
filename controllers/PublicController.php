@@ -22,4 +22,12 @@ class PublicController extends AbstractController
         }
         $this->render("search.html.twig", ["hashtagsLatestGifs" => $hashtagsLatestGifs, "hashtags" => $hashtags]);
     }
+    public function searchResult(): void
+    {
+        if ($_POST['action'] === 'hashtag') {
+            $this->render("search-result.html.twig", ["search" => "hashtag"]);
+        } else {
+            $this->render("search-result.html.twig", ["search" => "collection"]);
+        }
+    }
 }

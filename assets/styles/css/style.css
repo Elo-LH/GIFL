@@ -263,7 +263,8 @@ PUBLIC SEARCH PAGE
   width: 100%;
   font-size: clamp(1.6rem, 2.6vw, 2rem);
   font-weight: bold;
-  color: yellow;
+  color: #FFBA08;
+  text-shadow: 0 calc(clamp(1.6rem, 2.6vw, 2rem) / 6) #70008A;
   text-align: center;
   position: absolute;
   top: 50%;
