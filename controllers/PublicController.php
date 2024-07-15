@@ -8,6 +8,10 @@ class PublicController extends AbstractController
         $gifs = $gm->findRandom10();
         $this->render("home.html.twig", ["gifs" => $gifs]);
     }
+    public function error($error): void
+    {
+        $this->render("error.html.twig", ["error" => $error]);
+    }
     public function search(): void
     {
         $gm = new GifManager;
@@ -24,10 +28,29 @@ class PublicController extends AbstractController
     }
     public function searchResult(): void
     {
-        if ($_POST['action'] === 'hashtag') {
-            $this->render("search-result.html.twig", ["search" => "hashtag"]);
+
+        if (isset($_POST['input-search']) && $_POST['input-search'] != "") {
+            $input = $_POST['input-search'];
+            if ($_POST['action'] === 'hashtag') {
+                //search in db the hashtage corresponding to input
+                //load gifs corresponding to this hashtag
+                $this->render("search-result.html.twig", ["search" => "hashtag"]);
+            } else {
+                //search in db the collection corresponding to input
+                $cm = new CollectionManager;
+                $collection = $cm->findByName($input);
+                if (is_null($collection)){
+                    //If no collection has been found, display nothing was found
+
+                }
+                //load gifs corresponding to this colllection
+                $gm = new GifManager;
+                $gifs = $gm->findByCollection($collection)
+                $this->render("search-result.html.twig", ["search" => "collection", "collection" => $collection]);
+            }
         } else {
-            $this->render("search-result.html.twig", ["search" => "collection"]);
+            //If input is empty, redirect to search page
+            $this->redirect("index.php?route=search");
         }
     }
 }
