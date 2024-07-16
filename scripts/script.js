@@ -1,11 +1,3 @@
-// import Masonry from 'masonry-layout'
-
-// window.onload = () => {
-//   const masonryGrid = document.querySelector('.masonry-grid')
-//   console.log(masonryGrid)
-//   const masonry = new Masonry(grid)
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
   console.log('script loaded')
 

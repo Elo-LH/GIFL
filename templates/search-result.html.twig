@@ -17,7 +17,7 @@
 			<h1>{{collection.name}}</h1>
 			<p>Created
 				{{collection.createdAt.format('d/m/Y')}}</p>
-			<div class="masonry-grid" data-masonry='{ "itemSelector": ".masonry-grid-item", "gutter": 2 }'>
+			<div class="masonry-grid">
 				{% for gif in gifs %}
 					<div class="masonry-grid-item">
 						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
@@ -29,7 +29,7 @@
 			<h1>#{{hashtag.name}}</h1>
 			<p>Created
 				{{hashtag.createdAt.format('d/m/Y')}}</p>
-			<div class="masonry-grid" data-masonry='{ "itemSelector": ".masonry-grid-item", "gutter": 2 }'>
+			<div class="masonry-grid">
 				{% for gif in gifs %}
 					<div class="masonry-grid-item">
 						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
