@@ -314,4 +314,20 @@ PUBLIC SEARCH PAGE
   }
 }
 
+.masonry-grid-item {
+  width: calc(50% - 2px);
+}
+@media screen and (min-width: 900px) {
+  .masonry-grid-item {
+    width: calc(20% - 8px);
+  }
+}
+.masonry-grid-item a {
+  width: 100%;
+  height: 100%;
+}
+.masonry-grid-item img {
+  width: 100%;
+}
+
 /*# sourceMappingURL=style.css.map */
