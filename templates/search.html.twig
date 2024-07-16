@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	<header class="page-header">
+		<nav class="page-header-nav">
+			<a href="index.php"><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
+			<div class="links-wrapper">
+				<a class="middle-link" href="index.php?route=search">Search</a>
+			</div>
+		</nav>
+	</header>
+{% endblock %}
+
+
+{% block main %}
+
+	<main>
+		<h1 class="h1-regular">Trending hashtags</h1>
+		<div class="horizontal-trending-wrapper snaps-inline">
+			{% for key, hashtag in hashtags %}
+				<a href="index.php?route=hashtag-page&hashtag={{hashtag.id}}" class="horizontal-trending-card">
+					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}">
+					<p class="horizontal-trending-hashtag">#{{hashtag.name}}</p>
+				</a>
+			{% endfor %}
+		</div>
+
+		<form action="index.php?route=search-result" method="POST" class="search-bar">
+			<input type="text" name="input-search" id="input-search" class="input-search">
+			<div class="search-bar-buttons-wrapper">
+				<button type="submit" name="action" value="hashtag" class="yellow-button small-button">Search GIFs</button>
+				<button type="submit" name="action" value="collection" class="yellow-button small-button">Search collections</button>
+			</div>
+		</form>
+
+	</main>
+{% endblock %}

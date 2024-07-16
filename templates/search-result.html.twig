@@ -1,0 +1,43 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	<header class="page-header">
+		<nav class="page-header-nav">
+			<a href="index.php"><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
+			<div class="links-wrapper">
+				<a class="middle-link" href="index.php?route=search">Search</a>
+			</div>
+		</nav>
+	</header>
+{% endblock %}
+
+{% block main %}
+	<main>
+		{% if search is same as("collection") %}
+			<h1>{{collection.name}}</h1>
+			<p>Created
+				{{collection.createdAt.format('d/m/Y')}}</p>
+			<div class="masonry-grid">
+				{% for gif in gifs %}
+					<div class="masonry-grid-item">
+						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<h1>#{{hashtag.name}}</h1>
+			<p>Created
+				{{hashtag.createdAt.format('d/m/Y')}}</p>
+			<div class="masonry-grid">
+				{% for gif in gifs %}
+					<div class="masonry-grid-item">
+						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+	</main>
+{% endblock %}

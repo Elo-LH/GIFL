@@ -13,6 +13,16 @@ class Router
     {
         if (!isset($get["route"])) {
             $this->pc->home();
+        } else if ($get["route"] === "search") {
+            $this->pc->search();
+        } else if ($get["route"] === "search-result") {
+            $this->pc->searchResult();
+        } else if ($get["route"] === "hashtag-page") {
+            $this->pc->hashtagPage();
+        } else if ($get["route"] === "gif") {
+            $this->pc->gif();
+        } else if ($get["route"] === "error") {
+            $this->pc->error($_GET['error']);
         } else {
             $this->pc->home();
         }
