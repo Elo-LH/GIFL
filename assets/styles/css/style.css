@@ -71,6 +71,7 @@ button {
 .buttons-wrapper {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
 }
@@ -328,6 +329,64 @@ PUBLIC SEARCH PAGE
 }
 .masonry-grid-item img {
   width: 100%;
+}
+
+/* ==========================================================================
+PUBLIC GIF PAGE
+========================================================================== */
+.gif-card {
+  width: 90%;
+  max-width: 1000px;
+  padding: 2rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.gif-card-top {
+  display: flex;
+}
+.gif-card-top img {
+  width: 60%;
+}
+@media screen and (max-width: 900px) {
+  .gif-card-top {
+    flex-direction: column;
+  }
+  .gif-card-top img {
+    width: 100%;
+  }
+}
+.gif-card-top .hashtags-wrapper {
+  padding-left: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gif-card-top a {
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: bold;
+  color: #FFBA08;
+  text-shadow: 0 calc(clamp(1.6rem, 2.6vw, 2rem) / 6) #70008A;
+  text-decoration: none;
+}
+
+.gif-card-bottom {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.gif-card-bottom input {
+  flex-shrink: 1;
+}
+.gif-card-bottom button {
+  flex-shrink: 0;
+}
+
+.gif-card-buttons-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 /*# sourceMappingURL=style.css.map */

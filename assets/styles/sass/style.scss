@@ -72,6 +72,7 @@ color: $aubergine;
 .buttons-wrapper{
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
   @media screen and (max-width: 900px) {
@@ -306,4 +307,57 @@ box-shadow: 0.2em 0.2em  $aubergine;
   img{
     width: 100%;
   }
+}
+
+/* ==========================================================================
+PUBLIC GIF PAGE
+========================================================================== */
+.gif-card{
+  width: 90%;
+  max-width: 1000px;
+  padding: 2rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+}
+.gif-card-top{
+  display: flex;
+  img{
+    width: 60%;
+  }
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    img{
+      width: 100%;
+    }
+  }
+  .hashtags-wrapper{
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  a{
+    font-size: clamp(1.6rem, 2.6vw, 2rem);
+    font-weight: bold;
+    color: $yellow;
+    text-shadow: 0 calc(clamp(1.6rem, 2.6vw, 2rem) /6) $aubergine ;
+ text-decoration: none;
+  }
+}
+.gif-card-bottom{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  input{
+    flex-shrink: 1;
+  }
+  button{
+    flex-shrink: 0;
+  }
+}
+.gif-card-buttons-wrapper{
+  display: flex;
+  flex-wrap: nowrap;
 }

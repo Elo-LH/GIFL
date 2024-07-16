@@ -15,15 +15,23 @@
 {% block main %}
 
 	<main>
-		<img src="{{gif.link}}" alt="">
-
-		{% for hashtag in hashtags %}
-			<p>{{hashtag.name}}</p>
-
-		{% endfor %}
-		<input type="text" value="{{gif.link}}">
-		<button class="yellow-button small-button">Copy Link</button>
-		<button class="yellow-button small-button">Download GIF</button>
+		<div class="gif-card">
+			<div class="gif-card-top">
+				<img src="{{gif.link}}" alt="">
+				<div class="hashtags-wrapper">
+					{% for hashtag in hashtags %}
+						<a href="index.php?route=hashtag&hashtag={{hashtag.id}}" class="gif-card-hashtag">#{{hashtag.name}}</a>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="gif-card-bottom">
+				<input class="input-search" type="text" value="{{gif.link}}">
+				<div class="gif-card-buttons-wrapper">
+					<button class="yellow-button small-button">Copy Link</button>
+					<button class="yellow-button small-button">Download GIF</button>
+				</div>
+			</div>
+		</div>
 
 	</main>
 {% endblock %}
