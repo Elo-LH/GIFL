@@ -14,8 +14,8 @@
 {% block main %}
 	<main>
 		{% if search is same as("collection") %}
-			<h1>{{collection.name}}</h1>
-			<p>Created
+			<h1 class="h1-regular">{{collection.name}}</h1>
+			<p class="subtitle">Created
 				{{collection.createdAt.format('d/m/Y')}}</p>
 			<div class="masonry-grid">
 				{% for gif in gifs %}
@@ -26,8 +26,8 @@
 				{% endfor %}
 			</div>
 		{% else %}
-			<h1>#{{hashtag.name}}</h1>
-			<p>Created
+			<h1 class="h1-regular">#{{hashtag.name}}</h1>
+			<p class="subtitle">Created
 				{{hashtag.createdAt.format('d/m/Y')}}</p>
 			<div class="masonry-grid">
 				{% for gif in gifs %}

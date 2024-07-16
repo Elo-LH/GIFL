@@ -38,6 +38,12 @@ TITLES
   padding: 0.4em;
 }
 
+.subtitle {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  color: #FFF1CD;
+  padding: 0.6em;
+}
+
 /* ==========================================================================
 BUTTONS
 ========================================================================== */
@@ -365,7 +371,7 @@ PUBLIC GIF PAGE
   align-items: center;
 }
 .gif-card-top a {
-  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-size: clamp(1.6rem, 3vw, 3rem);
   font-weight: bold;
   color: #FFBA08;
   text-shadow: 0 calc(clamp(1.6rem, 2.6vw, 2rem) / 6) #70008A;
