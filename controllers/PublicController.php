@@ -61,4 +61,25 @@ class PublicController extends AbstractController
             $this->redirect("index.php?route=search");
         }
     }
+    public function hashtagPage(): void
+    {
+
+        if (isset($_GET['hashtag'])) {
+            $hashtagId = $_GET['hashtag'];
+            //search in db the hashtag corresponding to input
+            $hm = new HashtagManager;
+            $hashtag = $hm->findbyId($hashtagId);
+            if (is_null($hashtag)) {
+                //If no hashtag has been found, display nothing was found
+                $this->redirect("index.php?route=error&error=No hashtag found");
+            }
+            //load gifs corresponding to this hashtag
+            $gm = new GifManager;
+            $gifs = $gm->findByHashtag($hashtag->getId());
+            $this->render("search-result.html.twig", ["search" => "hashtag", "hashtag" => $hashtag, "gifs" => $gifs]);
+        } else {
+            //If input is empty, redirect to search page
+            $this->redirect("index.php?route=search");
+        }
+    }
 }

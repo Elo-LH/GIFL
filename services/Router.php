@@ -17,6 +17,8 @@ class Router
             $this->pc->search();
         } else if ($get["route"] === "search-result") {
             $this->pc->searchResult();
+        } else if ($get["route"] === "hashtag-page") {
+            $this->pc->hashtagPage();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {
