@@ -82,4 +82,22 @@ class PublicController extends AbstractController
             $this->redirect("index.php?route=search");
         }
     }
+    public function gif(): void
+    {
+        if (isset($_GET['gif'])) {
+            $gifId = $_GET['gif'];
+            //search in db the gif corresponding to id
+            $gm = new GifManager;
+            $gif = $gm->findbyId($gifId);
+            if (is_null($gif)) {
+                //If no gif has been found, display nothing was found
+                $this->redirect("index.php?route=error&error=No GIF found");
+            }
+            $hashtags = $gm->findHashtags($gifId);
+            $this->render("gif.html.twig", ["gif" => $gif, "hashtags" => $hashtags]);
+        } else {
+            //If input is empty, redirect to search page
+            $this->redirect("index.php?route=search");
+        }
+    }
 }
