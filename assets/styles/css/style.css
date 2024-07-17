@@ -462,4 +462,27 @@ REGISTER AND LOGIN PAGE
   justify-content: center;
 }
 
+/* ==========================================================================
+SIGN OUT PAGE
+========================================================================== */
+.sign-out-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin-inline: auto;
+}
+@media screen and (max-width: 900px) {
+  .sign-out-box {
+    width: 90%;
+    margin-top: 5rem;
+  }
+}
+
+.sign-out-box p {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
 /*# sourceMappingURL=style.css.map */

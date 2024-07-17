@@ -70,9 +70,13 @@ class AuthController extends AbstractController
             $this->redirect("index.php?route=home");
         }
     }
-    public function signOut(): void
+    public function checkSignOut(): void
     {
         session_destroy();
         $this->redirect("index.php?route=sign-out");
+    }
+    public function signOut(): void
+    {
+        $this->render("sign-out.html.twig", []);
     }
 }

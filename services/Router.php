@@ -31,6 +31,10 @@ class Router
             $this->ac->checkSignIn();
         } else if ($get["route"] === "check-sign-up") {
             $this->ac->checkSignUp();
+        } else if ($get["route"] === "sign-out") {
+            $this->ac->signOut();
+        } else if ($get["route"] === "check-sign-out") {
+            $this->ac->checkSignOut();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {
