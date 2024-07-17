@@ -3,7 +3,7 @@ class User
 {
     private ?int $id = null;
 
-    public function __construct(private string $email, private string $name, private string $password, private bool $admin = true, private ?string $avatar = null)
+    public function __construct(private string $email, private string $name, private string $password, private bool $admin = false, private ?string $avatar = null)
     {
     }
 
@@ -50,5 +50,13 @@ class User
     public function setAdmin(bool $admin): void
     {
         $this->admin = $admin;
+    }
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+    public function setAvatar(string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }
