@@ -59,6 +59,20 @@ button {
   font-size: clamp(1.6rem, 3vw, 3rem);
 }
 
+.link-button {
+  display: block;
+  text-decoration: none;
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  padding: 1em 2em;
+  border-radius: 2em;
+  box-shadow: 0 0.4em #70008A;
+  text-transform: capitalize;
+  margin: 0.6em;
+  font-size: clamp(1.6rem, 3vw, 3rem);
+}
+
 .yellow-button {
   background-color: #FFBA08;
   color: #70008A;
@@ -393,6 +407,59 @@ PUBLIC GIF PAGE
 .gif-card-buttons-wrapper {
   display: flex;
   flex-wrap: nowrap;
+}
+
+/* ==========================================================================
+REGISTER AND LOGIN PAGE
+========================================================================== */
+.form-input {
+  border: 2px solid #FFBA08;
+  background-color: #170327;
+  margin: 0.6em;
+  padding: 0.4em 0.8em;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #FFF1CD;
+  flex-grow: 1;
+  box-shadow: 0.2em 0.2em #70008A;
+}
+@media screen and (max-width: 900px) {
+  .form-input {
+    margin: 0.2em;
+    padding: 0.4em 0.8em;
+  }
+}
+
+.form-label {
+  color: #FFBA08;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  display: block;
+}
+
+.sign-form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2rem;
+}
+.sign-form-input-wrapper .avatar {
+  width: 100%;
+}
+@media screen and (max-width: 900px) {
+  .sign-form-input-wrapper {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+.avatar {
+  width: 100%;
+}
+
+.sign-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline: 10%;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=style.css.map */

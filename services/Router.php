@@ -3,11 +3,13 @@
 class Router
 {
     private PublicController $pc;
+    private AuthController $ac;
 
     public function __construct()
     {
 
         $this->pc = new PublicController();
+        $this->ac = new AuthController();
     }
     public function handleRequest(array $get): void
     {
@@ -21,6 +23,14 @@ class Router
             $this->pc->hashtagPage();
         } else if ($get["route"] === "gif") {
             $this->pc->gif();
+        } else if ($get["route"] === "sign-in") {
+            $this->ac->signIn();
+        } else if ($get["route"] === "sign-up") {
+            $this->ac->signUp();
+        } else if ($get["route"] === "check-sign-in") {
+            $this->ac->checkSignIn();
+        } else if ($get["route"] === "check-sign-up") {
+            $this->ac->checkSignUp();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {

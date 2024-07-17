@@ -2,10 +2,6 @@
 
 class AuthController extends AbstractController
 {
-    public function __construct()
-    {
-    }
-
     public function signIn(): void
     {
         $this->render("sign-in.html.twig", []);
@@ -78,9 +74,5 @@ class AuthController extends AbstractController
     {
         session_destroy();
         $this->redirect("index.php?route=sign-out");
-    }
-    public function error($error): void
-    {
-        $this->render("error.html.twig", ["error" => $error]);
     }
 }
