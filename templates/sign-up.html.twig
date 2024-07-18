@@ -16,6 +16,7 @@
 	<main>
 		<h1 class="h1-regular">Sign Up</h1>
 		<form class="sign-form" action="index.php?route=check-sign-up" method="post">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
 			<div class="sign-form-input-wrapper">
 				<label class="form-label" for="email">Email</label>
 				<input class="form-input" type="email" name="email" id="email" required>
