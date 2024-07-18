@@ -54,9 +54,13 @@ class AuthController extends AbstractController
         $name = $_POST['name'];
         $password = $_POST['password'];
         $avatar = $_POST['avatar'];
+        if ($avatar == "") {
+            $gm = new GifManager;
+            $avatar = $gm->getRandom1()->getLink();
+        }
         $hash = password_hash($password, PASSWORD_DEFAULT);
         //init manager
-        $user = new User($name, $email, $hash, $avatar);
+        $user = new User($name, $email, $hash, false, $avatar);
         $instance = new UserManager;
         //find user 
         $userFound = $instance->findByEmail($email);

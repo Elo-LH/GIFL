@@ -3,7 +3,7 @@ class User
 {
     private ?int $id = null;
 
-    public function __construct(private string $email, private string $name, private string $password, private bool $admin = false, private ?string $avatar = null)
+    public function __construct(private string $email, private string $name, private string $password, private ?string $avatar, private bool $admin = false)
     {
     }
 
