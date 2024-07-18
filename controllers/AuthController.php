@@ -60,7 +60,7 @@ class AuthController extends AbstractController
         }
         $hash = password_hash($password, PASSWORD_DEFAULT);
         //init manager
-        $user = new User($name, $email, $hash, false, $avatar);
+        $user = new User($email, $name, $hash, $avatar);
         $instance = new UserManager;
         //find user 
         $userFound = $instance->findByEmail($email);
