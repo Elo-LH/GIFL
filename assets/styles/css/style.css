@@ -116,8 +116,6 @@ HEADER
 @media screen and (max-width: 900px) {
   .page-header {
     top: 0;
-    height: 15vh;
-    border-bottom: 2px #D108FF solid;
     width: 100%;
   }
 }
@@ -125,6 +123,63 @@ HEADER
   .page-header img {
     padding-top: 2rem;
   }
+}
+
+.page-header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  margin: 0;
+  width: 100%;
+}
+@media screen and (min-width: 900px) {
+  .page-header-nav {
+    min-height: 100svh;
+    width: max(20vh, 200px);
+    border-right: 2px #D108FF solid;
+    margin-inline: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 900px) {
+  .page-header-nav {
+    height: 15vh;
+    border-bottom: 2px #D108FF solid;
+  }
+}
+.page-header-nav.burger-display {
+  position: relative;
+  flex-direction: column;
+  height: 40vh;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-color: #110400;
+}
+.page-header-nav.burger-display .link-logo-GIFL {
+  order: 1;
+  height: 30%;
+}
+.page-header-nav.burger-display .header-session-info {
+  height: 30%;
+  order: 2;
+}
+.page-header-nav.burger-display .disconnect-link {
+  order: 3;
+  display: block;
+  width: 40%;
+}
+.page-header-nav.burger-display .links-wrapper {
+  order: 4;
+  display: flex;
+  margin: 1rem;
+  width: 50%;
+}
+.page-header-nav.burger-display .arrow-burger-container {
+  order: 5;
+  max-height: calc(80px + 2rem);
 }
 
 .logo-GIFL {
@@ -156,27 +211,9 @@ HEADER
   }
 }
 
-.disconnect-link {
-  display: none;
-}
-
-.page-header-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: auto;
-  margin: 0;
-  width: 100%;
-}
-@media screen and (min-width: 900px) {
-  .page-header-nav {
-    min-height: 100svh;
-    width: max(20vh, 200px);
-    border-right: 2px #D108FF solid;
-    margin-inline: auto;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+@media screen and (max-width: 900px) {
+  .disconnect-link {
+    display: none;
   }
 }
 
@@ -204,7 +241,6 @@ HEADER
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
 }
 @media screen and (max-width: 900px) {
   .links-wrapper {

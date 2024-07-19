@@ -114,14 +114,65 @@ HEADER
   width: max-content;
   @media screen and (max-width: 900px) {
     top: 0;
-    height: 15vh;
-    border-bottom: 2px $neonPink solid;
     width: 100%;
   }
   img{
-   
     @media screen and (min-width: 900px) {
       padding-top: 2rem;
+    }
+  }
+ 
+}
+.page-header-nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  margin: 0;
+  width: 100%;
+  @media screen and (min-width: 900px) {
+    min-height: 100svh;
+    width: max(20vh, 200px);
+    border-right: 2px $neonPink solid;
+    margin-inline: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 900px) {
+    height: 15vh;
+    border-bottom: 2px $neonPink solid;
+  }
+  &.burger-display{
+    position: relative;
+    flex-direction: column;
+    height: 40vh;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: $darkBlue;
+    .link-logo-GIFL{
+      order: 1;
+      height: 30%;
+    }
+    
+    .header-session-info{
+      height: 30%;
+      order: 2;
+    }
+    .disconnect-link{
+      order: 3;
+      display: block;
+      width: 40%;
+    }
+    .links-wrapper{
+      order: 4;
+      display: flex;
+margin: 1rem;
+width: 50%;
+    }
+    .arrow-burger-container{
+      order: 5;
+      max-height: calc(80px + 2rem);
     }
   }
 }
@@ -149,25 +200,11 @@ HEADER
   }
 }
 .disconnect-link{
-  display: none;
-}
-.page-header-nav{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: auto;
-  margin: 0;
-  width: 100%;
-  @media screen and (min-width: 900px) {
-    min-height: 100svh;
-    width: max(20vh, 200px);
-    border-right: 2px $neonPink solid;
-    margin-inline: auto;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+  @media screen and (max-width: 900px) {
+   display: none;
   }
 }
+
 .header-link{
   color: $yellow;
   font-weight: bold;
@@ -184,16 +221,18 @@ text-align: center;
   border-top: 2px $neonPink solid;
   border-bottom: 2px $neonPink solid;
 }
+
 .links-wrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
   @media screen and (max-width: 900px) {
     display: none;
   }
+  
 }
+
 
 .arrow-burger-container{
   position: relative;
@@ -259,7 +298,6 @@ transform: translateY(0);
   }
   to{
     transform: translateY(-100%);
-
   }
 }
 
