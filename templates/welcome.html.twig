@@ -9,6 +9,12 @@
 			{% if session.email is defined %}
 				<img class="page-header-avatar" src="{{session.avatar}}" alt="">
 				<p>{{session.name}}</p>
+
+				<div class="arrow-burger-container">
+					<img class="arrow-yellow" src="../assets/images/Triangle-yellow.svg" alt="">
+					<img class="arrow-pink" src="../assets/images/Triangle-pink.svg" alt="">
+				</div>
+
 				<div class="links-wrapper">
 					<a class="header-link top-border-link" href="index.php?route=search">My collections</a>
 					<a class="header-link top-border-link" href="index.php?route=search">Search</a>
