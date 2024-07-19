@@ -7,22 +7,22 @@
 
 
 			{% if session.email is defined %}
-				<img src="{{session.avatar}}" alt="">
+				<img class="page-header-avatar" src="{{session.avatar}}" alt="">
 				<p>{{session.name}}</p>
 				<div class="links-wrapper">
-					<a class="upper-link" href="index.php?route=search">My collections</a>
-					<a class="middle-link" href="index.php?route=search">Search</a>
-					<a class="middle-link" href="index.php?route=search">Upload</a>
-					<a class="lower-link" href="index.php?route=search">Parameters</a>
+					<a class="header-link top-border-link" href="index.php?route=search">My collections</a>
+					<a class="header-link top-border-link" href="index.php?route=search">Search</a>
+					<a class="header-link top-border-link" href="index.php?route=search">Upload</a>
+					<a class="header-link full-border-link" href="index.php?route=search">Parameters</a>
 				</div>
 			{% else %}
 				<div class="links-wrapper">
-					<a class="middle-link" href="index.php?route=search">Search</a>
+					<a class="header-link full-border-link" href="index.php?route=search">Search</a>
 				</div>
 			{% endif %}
 
 			{% if session.email is defined %}
-				<a class="disconnect-link" href="index.php?route=check-sign-out">Disconnect</a>
+				<a class="header-link" href="index.php?route=check-sign-out">Disconnect</a>
 			{% endif %}
 		</nav>
 	</header>

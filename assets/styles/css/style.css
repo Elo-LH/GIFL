@@ -112,8 +112,6 @@ HEADER
   position: fixed;
   left: 0;
   width: max-content;
-  padding: 1em;
-  padding-left: 2em;
 }
 @media screen and (min-width: 900px) {
   .page-header {
@@ -121,12 +119,18 @@ HEADER
     min-height: 100svh;
     border-right: 2px #D108FF solid;
     width: max(20vh, 200px);
-    padding: 1em;
   }
+}
+.page-header img {
+  padding-top: 2rem;
 }
 
 .logo-GIFL {
   width: clamp(80px, 8vw, 120px);
+}
+
+.page-header-avatar {
+  width: 95%;
 }
 
 .page-header-nav {
@@ -143,14 +147,23 @@ HEADER
   }
 }
 
-.middle-link {
+.header-link {
   color: #FFBA08;
   font-weight: bold;
-  border-top: 2px #D108FF solid;
-  border-bottom: 2px #D108FF solid;
   text-decoration: none;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
-  padding: 0.6em 2em;
+  padding: 0.6em 1em;
+  width: 80%;
+  text-align: center;
+}
+
+.top-border-link {
+  border-top: 2px #D108FF solid;
+}
+
+.full-border-link {
+  border-top: 2px #D108FF solid;
+  border-bottom: 2px #D108FF solid;
 }
 
 .links-wrapper {
