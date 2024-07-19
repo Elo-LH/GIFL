@@ -34,6 +34,7 @@ class AuthController extends AbstractController
                         //connect session
                         $_SESSION['email'] = $email;
                         $_SESSION['name'] = $userFound->getName();
+                        $_SESSION['avatar'] = $userFound->getAvatar();
 
                         if ($userFound->isAdmin()) {
 
@@ -42,7 +43,7 @@ class AuthController extends AbstractController
                         } else {
                             $_SESSION['role'] = "USER";
                             //redirect to logged in home page
-                            $this->render("welcome.html.twig", []);
+                            $this->redirect("index.php?route=welcome");
                         }
                     } else {
                         $this->redirect("index.php?route=error&error=Incorrect password");

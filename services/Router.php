@@ -4,12 +4,14 @@ class Router
 {
     private PublicController $pc;
     private AuthController $ac;
+    private PrivateController $prc;
 
     public function __construct()
     {
 
         $this->pc = new PublicController();
         $this->ac = new AuthController();
+        $this->prc = new PrivateController();
     }
     public function handleRequest(array $get): void
     {
@@ -35,6 +37,8 @@ class Router
             $this->ac->signOut();
         } else if ($get["route"] === "check-sign-out") {
             $this->ac->checkSignOut();
+        } else if ($get["route"] === "welcome") {
+            $this->prc->welcome();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {
