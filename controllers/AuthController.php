@@ -17,8 +17,8 @@ class AuthController extends AbstractController
             if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
 
                 //get form data
-                $email = $_POST['email'];
-                $password = $_POST['password'];
+                $email = htmlspecialchars($_POST['email']);
+                $password = htmlspecialchars($_POST['password']);
                 //init manager
                 $instance = new UserManager;
                 //find user 
@@ -64,17 +64,18 @@ class AuthController extends AbstractController
     {
 
         // check if data received from form
-        if (isset($_POST["email"]) && isset($_POST["name"]) && isset($_POST["password"])) {
+        if (isset($_POST["email"]) && isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["password-confirm"])) {
             // check CSRF token
             $tokenManager = new CSRFTokenManager();
 
             if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
 
                 //get form data
-                $email = $_POST['email'];
-                $name = $_POST['name'];
-                $password = $_POST['password'];
-                $avatar = $_POST['avatar'];
+                $email = htmlspecialchars($_POST['email']);
+                $name = htmlspecialchars($_POST['name']);
+                $password = htmlspecialchars($_POST['password']);
+                $passwordConfirm = htmlspecialchars($_POST['password-confirm']);
+                $avatar = htmlspecialchars($_POST['avatar']);
                 // If no avatar chosen byc user, assign one random GIF
                 if ($avatar == "") {
                     $gm = new GifManager;
