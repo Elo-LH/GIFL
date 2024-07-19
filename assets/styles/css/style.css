@@ -126,6 +126,7 @@ HEADER
 }
 
 .page-header-nav {
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -180,6 +181,9 @@ HEADER
 .page-header-nav.burger-display .arrow-burger-container {
   order: 5;
   max-height: calc(80px + 2rem);
+}
+.page-header-nav.burger-display .arrow-pink, .page-header-nav.burger-display .arrow-yellow {
+  transform: rotate(180deg);
 }
 
 .logo-GIFL {
@@ -261,7 +265,15 @@ HEADER
   }
 }
 
+.arrow-burger-container:hover .arrow-pink {
+  transform: translateY(-70%);
+}
+.arrow-burger-container:hover .arrow-yellow {
+  transform: translateY(-30%);
+}
+
 .arrow-pink {
+  transition: 0.5s;
   max-width: 80px;
   position: absolute;
   top: 50%;

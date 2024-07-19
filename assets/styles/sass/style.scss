@@ -124,6 +124,7 @@ HEADER
  
 }
 .page-header-nav{
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,6 +174,9 @@ width: 50%;
     .arrow-burger-container{
       order: 5;
       max-height: calc(80px + 2rem);
+    }
+    .arrow-pink,.arrow-yellow{
+      transform: rotate(180deg);
     }
   }
 }
@@ -244,7 +248,16 @@ text-align: center;
     display: none;
   }
 }
+.arrow-burger-container:hover{
+  .arrow-pink{
+    transform: translateY(-70%);
+  }
+  .arrow-yellow{
+    transform: translateY(-30%);
+  }
+}
 .arrow-pink{
+  transition: 0.5s;
   max-width: 80px;
   position: absolute;
   top: 50%; 
