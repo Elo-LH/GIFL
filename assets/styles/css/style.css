@@ -59,6 +59,20 @@ button {
   font-size: clamp(1.6rem, 3vw, 3rem);
 }
 
+.link-button {
+  display: block;
+  text-decoration: none;
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  padding: 1em 2em;
+  border-radius: 2em;
+  box-shadow: 0 0.4em #70008A;
+  text-transform: capitalize;
+  margin: 0.6em;
+  font-size: clamp(1.6rem, 3vw, 3rem);
+}
+
 .yellow-button {
   background-color: #FFBA08;
   color: #70008A;
@@ -98,45 +112,132 @@ HEADER
   position: fixed;
   left: 0;
   width: max-content;
-  padding: 1em;
-  padding-left: 2em;
 }
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 900px) {
   .page-header {
     top: 0;
-    min-height: 100svh;
-    border-right: 2px #D108FF solid;
-    width: max(20vh, 200px);
-    padding: 1em;
+    width: 100%;
   }
+}
+@media screen and (min-width: 900px) {
+  .page-header img {
+    padding-top: 2rem;
+  }
+}
+
+.page-header-nav {
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  margin: 0;
+  width: 100%;
+}
+@media screen and (min-width: 900px) {
+  .page-header-nav {
+    min-height: 100svh;
+    width: max(20vh, 200px);
+    border-right: 2px #D108FF solid;
+    margin-inline: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 900px) {
+  .page-header-nav {
+    height: 15vh;
+    border-bottom: 2px #D108FF solid;
+  }
+}
+.page-header-nav.burger-display {
+  position: relative;
+  flex-direction: column;
+  height: 40vh;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-color: #110400;
+}
+.page-header-nav.burger-display .link-logo-GIFL {
+  order: 1;
+  height: 30%;
+}
+.page-header-nav.burger-display .header-session-info {
+  height: 30%;
+  order: 2;
+}
+.page-header-nav.burger-display .disconnect-link {
+  order: 3;
+  display: block;
+  width: 40%;
+}
+.page-header-nav.burger-display .links-wrapper {
+  order: 4;
+  display: flex;
+  margin: 1rem;
+  width: 50%;
+}
+.page-header-nav.burger-display .arrow-burger-container {
+  order: 5;
+  max-height: calc(80px + 2rem);
+}
+.page-header-nav.burger-display .arrow-pink, .page-header-nav.burger-display .arrow-yellow {
+  transform: rotate(180deg);
 }
 
 .logo-GIFL {
   width: clamp(80px, 8vw, 120px);
+  margin: 1rem;
 }
 
-.page-header-nav {
+.header-session-info {
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  height: auto;
-  margin: 0;
 }
-@media screen and (min-width: 900px) {
-  .page-header-nav {
-    margin-inline: auto;
+@media screen and (max-width: 900px) {
+  .header-session-info {
+    width: 30%;
+    height: 100%;
   }
 }
 
-.middle-link {
+@media screen and (max-width: 900px) {
+  .page-header-avatar {
+    max-height: 80%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .page-header-avatar {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .disconnect-link {
+    display: none;
+  }
+}
+
+.header-link {
   color: #FFBA08;
   font-weight: bold;
-  border-top: 2px #D108FF solid;
-  border-bottom: 2px #D108FF solid;
   text-decoration: none;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
-  padding: 0.6em 2em;
+  padding: 0.6em 1em;
+  width: 80%;
+  text-align: center;
+}
+
+.top-border-link {
+  border-top: 2px #D108FF solid;
+}
+
+.full-border-link {
+  border-top: 2px #D108FF solid;
+  border-bottom: 2px #D108FF solid;
 }
 
 .links-wrapper {
@@ -144,7 +245,48 @@ HEADER
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
+}
+@media screen and (max-width: 900px) {
+  .links-wrapper {
+    display: none;
+  }
+}
+
+.arrow-burger-container {
+  position: relative;
+  width: 20%;
+  min-width: calc(80px + 2rem);
+  height: 100%;
+  padding: 1rem;
+}
+@media screen and (min-width: 900px) {
+  .arrow-burger-container {
+    display: none;
+  }
+}
+
+.arrow-burger-container:hover .arrow-pink {
+  transform: translateY(-70%);
+}
+.arrow-burger-container:hover .arrow-yellow {
+  transform: translateY(-30%);
+}
+
+.arrow-pink {
+  transition: 0.5s;
+  max-width: 80px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  width: 100%;
+}
+
+.arrow-yellow {
+  max-width: 80px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-40%);
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -152,9 +294,11 @@ HOME PAGE
 ========================================================================== */
 main {
   width: auto;
+  margin-top: 15vh;
 }
 @media screen and (min-width: 900px) {
   main {
+    margin-top: 0;
     margin-left: max(20vh, 200px);
   }
 }
@@ -393,6 +537,82 @@ PUBLIC GIF PAGE
 .gif-card-buttons-wrapper {
   display: flex;
   flex-wrap: nowrap;
+}
+
+/* ==========================================================================
+REGISTER AND LOGIN PAGE
+========================================================================== */
+.form-input {
+  border: 2px solid #FFBA08;
+  background-color: #170327;
+  margin: 0.6em;
+  padding: 0.4em 0.8em;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #FFF1CD;
+  flex-grow: 1;
+  box-shadow: 0.2em 0.2em #70008A;
+}
+@media screen and (max-width: 900px) {
+  .form-input {
+    margin: 0.2em;
+    padding: 0.4em 0.8em;
+  }
+}
+
+.form-label {
+  color: #FFBA08;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  display: block;
+}
+
+.sign-form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2rem;
+}
+.sign-form-input-wrapper .avatar {
+  width: 100%;
+}
+@media screen and (max-width: 900px) {
+  .sign-form-input-wrapper {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+.avatar {
+  width: 100%;
+}
+
+.sign-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline: 10%;
+  justify-content: center;
+}
+
+/* ==========================================================================
+SIGN OUT PAGE
+========================================================================== */
+.sign-out-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin-inline: auto;
+}
+@media screen and (max-width: 900px) {
+  .sign-out-box {
+    width: 90%;
+    margin-top: 5rem;
+  }
+}
+
+.sign-out-box p {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
 }
 
 /*# sourceMappingURL=style.css.map */

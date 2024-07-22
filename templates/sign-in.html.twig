@@ -39,54 +39,20 @@
 
 {% block main %}
 	<main>
-		<h1 class="h1-home-page">Animate your life</h1>
-		<div class="home-page-bottom-wrapper">
-			<div class="buttons-wrapper">
-				<a href="index.php?route=sign-up" class="yellow-button link-button">Join GIFL</a>
-				<a href="index.php?route=sign-in" class="pink-button link-button">Login</a>
+		<h1 class="h1-regular">Sign In</h1>
+		<form class="sign-form" action="index.php?route=check-sign-in" method="post">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="email">Email</label>
+				<input class="form-input" type="email" name="email" id="email" required>
 			</div>
-			<div class="gifs-display-wrapper">
-				<div class="gifs-display-column">
-					<div class="gifs-column first-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view ">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-
-				</div>
-				<div class="gifs-display-column">
-
-					<div class="gifs-column first-view scroll-slow">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view scroll-slow">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-				</div>
-				<div class="gifs-display-column">
-					<div class="gifs-column first-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-
-				</div>
-
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="password">Password</label>
+				<input class="form-input" type="password" name="password" id="password" required>
 			</div>
-		</div>
+
+
+			<button class="yellow-button small-button" type="submit">Sign In</button>
+		</form>
 	</main>
 {% endblock %}

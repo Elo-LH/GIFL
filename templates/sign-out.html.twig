@@ -39,54 +39,12 @@
 
 {% block main %}
 	<main>
-		<h1 class="h1-home-page">Animate your life</h1>
-		<div class="home-page-bottom-wrapper">
-			<div class="buttons-wrapper">
-				<a href="index.php?route=sign-up" class="yellow-button link-button">Join GIFL</a>
-				<a href="index.php?route=sign-in" class="pink-button link-button">Login</a>
-			</div>
-			<div class="gifs-display-wrapper">
-				<div class="gifs-display-column">
-					<div class="gifs-column first-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view ">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-
-				</div>
-				<div class="gifs-display-column">
-
-					<div class="gifs-column first-view scroll-slow">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view scroll-slow">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-				</div>
-				<div class="gifs-display-column">
-					<div class="gifs-column first-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-					<div class="gifs-column shadow-view">
-						{% for gif in gifs %}
-							<img class="gif-display" src="{{gif.link}}">
-						{% endfor %}
-					</div>
-
-				</div>
-
-			</div>
+		<h1 class="h1-regular">Signed Out</h1>
+		<div class="sign-out-box">
+			<p>Your are now successfully logged out.</p>
+			<img src="https://64.media.tumblr.com/a67151fc7af49341c9e8cde1c036d1e2/47fa1a522342c539-25/s500x750/57d6c023bd9f4380b8b2aa922992d45f5618c71c.gifv" alt="Captain Holt is devastated">
+			<a class="link-button yellow-button small-button" href="index.php">Home</a>
 		</div>
+
 	</main>
 {% endblock %}

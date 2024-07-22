@@ -54,6 +54,18 @@ class GifManager extends AbstractManager
         };
         return $gifs;
     }
+    public function getRandom1(): Gif
+    {
+        $um = new UserManager;
+        $query = $this->db->prepare('SELECT * FROM gifs ORDER BY RAND() LIMIT 1');
+        $parameters = [];
+        $query->execute($parameters);
+        $item = $query->fetch(PDO::FETCH_ASSOC);
+        $user = $um->findById($item['user_id']);
+        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']));
+        $gif->setId($item['gif_id']);
+        return $gif;
+    }
     public function findLatestWithHashtag($hashtag_id): Gif
     {
         $um = new UserManager;

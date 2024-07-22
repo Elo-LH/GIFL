@@ -1,13 +1,39 @@
 {% extends "layout.html.twig" %}
 
 {% block header %}
-	<nav>
-		<a href="index.php">Accueil</a>
-		{% for category in categories %}
-			<a href="index.php?route=category&category_id={{category.id}}">{{category.title}}</a>
-		{% endfor %}
+	<header class="page-header">
+		<nav class="page-header-nav">
+			<a class="link-logo-GIFL" href="index.php"><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
 
-	</nav>
+
+			{% if session.email is defined %}
+				<div class="header-session-info">
+					<img class="page-header-avatar" src="{{session.avatar}}" alt="">
+					<p>{{session.name}}</p>
+				</div>
+
+				<div class="arrow-burger-container">
+					<img class="arrow-yellow" src="../assets/images/Triangle-yellow.svg" alt="">
+					<img class="arrow-pink" src="../assets/images/Triangle-pink.svg" alt="">
+				</div>
+
+				<div class="links-wrapper">
+					<a class="header-link top-border-link" href="index.php?route=search">My collections</a>
+					<a class="header-link top-border-link" href="index.php?route=search">Search</a>
+					<a class="header-link top-border-link" href="index.php?route=search">Upload</a>
+					<a class="header-link full-border-link" href="index.php?route=search">Parameters</a>
+				</div>
+			{% else %}
+				<div class="links-wrapper">
+					<a class="header-link full-border-link" href="index.php?route=search">Search</a>
+				</div>
+			{% endif %}
+
+			{% if session.email is defined %}
+				<a class="header-link disconnect-link" href="index.php?route=check-sign-out">Disconnect</a>
+			{% endif %}
+		</nav>
+	</header>
 {% endblock %}
 
 {% block main %}
