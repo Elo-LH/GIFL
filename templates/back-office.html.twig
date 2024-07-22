@@ -28,7 +28,6 @@
 					{% endif %}
 					<a class="header-link full-border-link" href="index.php?route=search">Parameters</a>
 
-
 				</div>
 			{% else %}
 				<div class="links-wrapper">
@@ -46,6 +45,77 @@
 
 {% block main %}
 	<main>
-		<h1>Welcome</h1>
+		<h1>Back-office</h1>
+		<h2>Users</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>
+						#
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Password
+					</th>
+					<th>
+						Admin
+					</th>
+					<th>
+						Update
+					</th>
+					<th>
+						Delete
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{user.id}}</td>
+						<td>{{user.email}}</td>
+						<td>{{user.name}}</td>
+						<td>{{user.password}}</td>
+						<td>{{user.admin}}</td>
+						<td>
+							<a href="index.php?route=update-user&user={{user.id}}">Update</a>
+						</td>
+						<td>
+							<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>
+						#
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Password
+					</th>
+					<th>
+						Admin
+					</th>
+					<th>
+						Update
+					</th>
+					<th>
+						Delete
+					</th>
+				</tr>
+			</tfoot>
+		</table>
 	</main>
 {% endblock %}

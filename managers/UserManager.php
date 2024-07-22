@@ -42,6 +42,25 @@ class UserManager extends AbstractManager
         }
         return null;
     }
+
+    public function findAll(): ?array
+    {
+        $query = $this->db->prepare('SELECT * FROM users');
+        $parameters = [];
+        $query->execute($parameters);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $users = [];
+        if ($results) {
+            foreach ($results as $result) {
+                $user = new User($result["email"], $result["name"], $result["password"], $result["avatar"], $result["admin"]);
+                $user->setId($result["user_id"]);
+                array_push($users, $user);
+            }
+            return $users;
+        }
+        return null;
+    }
+
     public function createUser(User $user): void
     {
         $parameters = [
@@ -53,5 +72,13 @@ class UserManager extends AbstractManager
         $query = $this->db->prepare('INSERT INTO users (email, name, password, avatar) VALUES (:email, :name, :password, :avatar)');
         $query->execute($parameters);
         $user->setId($this->db->lastInsertId());
+    }
+    public function deleteUser(int $id): void
+    {
+        $query = $this->db->prepare('DELETE FROM users WHERE user_id=:id');
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
     }
 }

@@ -5,6 +5,7 @@ class Router
     private PublicController $pc;
     private AuthController $ac;
     private PrivateController $prc;
+    private AdminController $adc;
 
     public function __construct()
     {
@@ -12,6 +13,7 @@ class Router
         $this->pc = new PublicController();
         $this->ac = new AuthController();
         $this->prc = new PrivateController();
+        $this->adc = new AdminController();
     }
     public function handleRequest(array $get): void
     {
@@ -39,6 +41,12 @@ class Router
             $this->ac->checkSignOut();
         } else if ($get["route"] === "welcome") {
             $this->prc->welcome();
+        } else if ($get["route"] === "back-office") {
+            $this->adc->backOffice();
+        } else if ($get["route"] === "modify-user") {
+            $this->adc->modifyUser();
+        } else if ($get["route"] === "delete-user") {
+            $this->adc->deleteUser();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {

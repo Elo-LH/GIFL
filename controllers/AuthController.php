@@ -38,10 +38,10 @@ class AuthController extends AbstractController
 
                         if ($userFound->isAdmin()) {
 
-                            $_SESSION['role'] = "ADMIN";
-                            $this->redirect("index.php?route=admin-page");
+                            $_SESSION['admin'] = true;
+                            $this->redirect("index.php?route=welcome");
                         } else {
-                            $_SESSION['role'] = "USER";
+
                             //redirect to logged in home page
                             $this->redirect("index.php?route=welcome");
                         }
