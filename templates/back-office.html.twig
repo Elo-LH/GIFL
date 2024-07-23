@@ -170,5 +170,18 @@
 				</tr>
 			</tfoot>
 		</table>
+
+		{% if reportedGifs is defined %}
+
+			<h2>Reported GIFS</h2>
+			{% for gif in reportedGifs %}
+				<img src="{{gif.link}}" alt="">
+				<a href="index.php?route=delete-gif&gif={{gif.id}}">Delete GIF</a>
+				<a href="index.php?route=reinstate-gif&gif={{gif.id}}">Reinstate GIF</a>
+
+			{% endfor %}
+		{% endif %}
 	</main>
+
+
 {% endblock %}

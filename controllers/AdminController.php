@@ -9,7 +9,14 @@ class AdminController extends AbstractController
             //get all users
             $um = new UserManager();
             $users = $um->findAll();
-            $this->render("back-office.html.twig", ["users" => $users]);
+            //get reported GIFS if there is
+            $gm = new GifManager();
+            $reportedGifs = $gm->findReported();
+            if (is_null($reportedGifs)) {
+                $this->render("back-office.html.twig", ["users" => $users]);
+            } else {
+                $this->render("back-office.html.twig", ["users" => $users, "reportedGifs" => $reportedGifs]);
+            }
         } else {
             $this->redirect("index.php?route=home");
         }
@@ -81,6 +88,36 @@ class AdminController extends AbstractController
                 $um = new UserManager;
                 //get post info
                 $um->toggleAdmin($id);
+                $this->redirect("index.php?route=back-office");
+            }
+        } else {
+            $this->redirect("index.php?route=home");
+        }
+    }
+    public function deleteGif(): void
+    {
+        if (isset($_SESSION['admin'])) {
+            //get user id from params
+            if (isset($_GET['gif'])) {
+                $id = $_GET['gif'];
+                //init manager
+                $gm = new GifManager();
+                $gm->deleteGif($id);
+                $this->redirect("index.php?route=back-office");
+            }
+        } else {
+            $this->redirect("index.php?route=home");
+        }
+    }
+    public function reinstateGif(): void
+    {
+        if (isset($_SESSION['admin'])) {
+            if (isset($_GET['gif'])) {
+                $id = $_GET['gif'];
+                //init manager
+                $gm = new GifManager;
+                //get post info
+                $gm->toggleReported($id);
                 $this->redirect("index.php?route=back-office");
             }
         } else {

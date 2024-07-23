@@ -49,6 +49,10 @@ class Router
             $this->adc->deleteUser();
         } else if ($get["route"] === "toggle-admin") {
             $this->adc->toggleAdmin();
+        } else if ($get["route"] === "delete-gif") {
+            $this->adc->deleteGif();
+        } else if ($get["route"] === "reinstate-gif") {
+            $this->adc->reinstateGif();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {
