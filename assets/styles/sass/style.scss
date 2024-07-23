@@ -601,6 +601,9 @@ BACK OFFICE
   margin-inline: auto;
   margin-bottom: 5rem;
   border-collapse: collapse;
+  display: block;
+    overflow-x: auto;
+    white-space: nowrap;
  
   tr{
     height: 7rem;
@@ -617,6 +620,16 @@ BACK OFFICE
   }
   td{
     min-width: 30px;
-  }
 
+  }
+}
+.reported-gifs-wrapper{
+  display: flex;
+  justify-content: center;
+}
+.reported-gif-card{
+  display: flex;
+  padding: 2rem;
+  align-items: center;
+  margin-inline: auto;
 }

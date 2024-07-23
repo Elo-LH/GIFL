@@ -175,9 +175,15 @@
 
 			<h2>Reported GIFS</h2>
 			{% for gif in reportedGifs %}
-				<img src="{{gif.link}}" alt="">
-				<a href="index.php?route=delete-gif&gif={{gif.id}}">Delete GIF</a>
-				<a href="index.php?route=reinstate-gif&gif={{gif.id}}">Reinstate GIF</a>
+				<div class="reported-gifs-wrapper">
+					<div class="reported-gif-card">
+						<img src="{{gif.link}}" alt="">
+						<div class="buttons-wrapper">
+							<a class="link-button yellow-button very-small-button" href="index.php?route=reinstate-gif&gif={{gif.id}}">Reinstate GIF</a>
+							<a class="link-button pink-button very-small-button" href="index.php?route=delete-gif&gif={{gif.id}}">Delete GIF</a>
+						</div>
+					</div>
+				</div>
 
 			{% endfor %}
 		{% endif %}
