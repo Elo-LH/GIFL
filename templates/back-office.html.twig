@@ -7,10 +7,10 @@
 
 {% block main %}
 	<main>
-		<h1>Back-office</h1>
+		<h1 class="h1-regular">Back-office</h1>
 		{# if user has been defined load form to update this user else load create user  #}
 		{% if user is defined %}
-			<h2>Update User</h2>
+			<h2 class='subtitle'>Update User</h2>
 			<form class="sign-form" action="index.php?route=update-user&user={{user.id}}" method="post">
 				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
 
@@ -41,7 +41,7 @@
 			</form>
 
 		{% else %}
-			<h2>Create User</h2>
+			<h2 class='subtitle'>Create User</h2>
 			<form class="sign-form" action="index.php?route=check-sign-up" method="post">
 				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
 				<div class="sign-form-input-wrapper">
@@ -72,8 +72,8 @@
 			</form>
 		{% endif %}
 
-		<h2>Users</h2>
-		<table>
+		<h2 class='subtitle'>Users</h2>
+		<table class="back-office-users-table">
 			<thead>
 				<tr>
 					<th>
@@ -114,11 +114,11 @@
 							<td><img width="50px" src="{{user.avatar}}" alt=""></td>
 							{% if user.admin %}
 								<td>
-									<a href="index.php?route=toggle-admin&user={{user.id}}">Remove rights</a>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-admin&user={{user.id}}">Remove rights</a>
 								</td>
 							{% else %}
 								<td>
-									<a href="index.php?route=toggle-admin&user={{user.id}}">Give rights</a>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-admin&user={{user.id}}">Give rights</a>
 								</td>
 							{% endif %}
 
@@ -129,11 +129,11 @@
 								<td>---</td>
 							{% else %}
 								<td>
-									<a href="index.php?route=update-user&user={{user.id}}">Update</a>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=update-user&user={{user.id}}">Update</a>
 								</td>
 
 								<td>
-									<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
+									<a class="link-button pink-button very-small-button" href="index.php?route=delete-user&user={{user.id}}">Delete</a>
 								</td>
 							{% endif %}
 						</tr>

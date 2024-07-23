@@ -82,8 +82,12 @@ color: $aubergine;
 .small-button{
   font-size: clamp(1.4rem, 2.6vw, 2rem);
 }
+.very-small-button{
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  padding: 0.4em 0.8em;
+}
 .pink-button{
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  
   background-color: $neonPink;
   color: $darkPurple;
 }
@@ -568,4 +572,34 @@ SIGN OUT PAGE
   text-align: center;
   margin-bottom: 1rem;
   font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+
+/* ==========================================================================
+BACK OFFICE
+========================================================================== */
+
+.back-office-users-table{
+  width: 90%;
+  margin-inline: auto;
+  margin-bottom: 5rem;
+  border-collapse: collapse;
+ 
+  tr{
+    height: 7rem;
+    text-align: center;
+  }
+  tr:nth-child(odd){
+    background-color: $darkPurple;
+  }
+  thead, tfoot{
+    color: $yellow;
+    tr:nth-child(odd){
+      background-color: $darkBlue;
+    }
+  }
+  td{
+    min-width: 30px;
+  }
+
 }
