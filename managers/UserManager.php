@@ -113,4 +113,13 @@ class UserManager extends AbstractManager
         $query = $this->db->prepare("UPDATE users SET email=:email, name=:name, avatar=:avatar WHERE user_id =:id");
         $query->execute($parameters);
     }
+    public function toggleAdmin(int $id)
+    {
+
+        $parameters = [
+            "id" => $id
+        ];
+        $query = $this->db->prepare("UPDATE users SET admin= !admin WHERE user_id =:id");
+        $query->execute($parameters);
+    }
 }

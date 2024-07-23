@@ -112,7 +112,17 @@
 							<td>{{user.name}}</td>
 							<td>{{user.password}}</td>
 							<td><img width="50px" src="{{user.avatar}}" alt=""></td>
-							<td>{{user.admin}}</td>
+							{% if user.admin %}
+								<td>
+									<a href="index.php?route=toggle-admin&user={{user.id}}">Remove rights</a>
+								</td>
+							{% else %}
+								<td>
+									<a href="index.php?route=toggle-admin&user={{user.id}}">Give rights</a>
+								</td>
+							{% endif %}
+
+
 							{# Doesn't allow update or modificatioon of user GIF public domain #}
 							{% if user.id == 1 %}
 								<td>---</td>
@@ -121,6 +131,7 @@
 								<td>
 									<a href="index.php?route=update-user&user={{user.id}}">Update</a>
 								</td>
+
 								<td>
 									<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
 								</td>

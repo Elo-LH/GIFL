@@ -60,4 +60,15 @@ class AdminController extends AbstractController
 
         header('Location:index.php?route=adminpage');
     }
+    public function toggleAdmin(): void
+    {
+        if (isset($_GET['user'])) {
+            $id = $_GET['user'];
+            //init manager
+            $um = new UserManager;
+            //get post info
+            $um->toggleAdmin($id);
+            $this->redirect("index.php?route=back-office");
+        }
+    }
 }

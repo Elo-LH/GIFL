@@ -47,6 +47,8 @@ class Router
             $this->adc->updateUser();
         } else if ($get["route"] === "delete-user") {
             $this->adc->deleteUser();
+        } else if ($get["route"] === "toggle-admin") {
+            $this->adc->toggleAdmin();
         } else if ($get["route"] === "error") {
             $this->pc->error($_GET['error']);
         } else {
