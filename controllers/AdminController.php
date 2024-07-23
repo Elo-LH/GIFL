@@ -21,18 +21,19 @@ class AdminController extends AbstractController
             $this->redirect("index.php?route=back-office");
         }
     }
-    public function updateUser(): void
-    {
-        if (isset($_GET['user'])) {
-            $id = $_GET['user'];
-        //init manager
-        $instance = new UserManager;
-        $user = new User($_POST['name'], $_POST['email'], $_POST['password'], $_POST['role']);
-        $user->setId($_GET['user']);
-        $instance->modifyUser($user);
-        $route = "users";
-        require 'templates/layout.phtml';
-    }
+    // public function updateUser(): void
+    // {
+    //     if (isset($_GET['user'])) {
+    //         $id = $_GET['user'];
+    //         //init manager
+    //         $instance = new UserManager;
+    //         $user = new User($_POST['name'], $_POST['email'], $_POST['password'], $_POST['role']);
+    //         $user->setId($_GET['user']);
+    //         $instance->modifyUser($user);
+    //         $route = "users";
+    //         require 'templates/layout.phtml';
+    //     }
+    // }
     public function createUser(): void
     {
         //init manager

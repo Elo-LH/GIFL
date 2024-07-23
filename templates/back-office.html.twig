@@ -81,12 +81,17 @@
 						<td>{{user.name}}</td>
 						<td>{{user.password}}</td>
 						<td>{{user.admin}}</td>
-						<td>
-							<a href="index.php?route=update-user&user={{user.id}}">Update</a>
-						</td>
-						<td>
-							<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
-						</td>
+						{% if user.id == 1 %}
+							<td>---</td>
+							<td>---</td>
+						{% else %}
+							<td>
+								<a href="index.php?route=update-user&user={{user.id}}">Update</a>
+							</td>
+							<td>
+								<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
+							</td>
+						{% endif %}
 					</tr>
 
 				{% endfor %}

@@ -75,6 +75,27 @@ class UserManager extends AbstractManager
     }
     public function deleteUser(int $id): void
     {
+        //change user_id of public collections to GIFL public domain
+        $query = $this->db->prepare('UPDATE collections SET user_id=1 WHERE user_id=:id AND private=0');
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+        //delete private collections 
+        //delete from collections AND collections_hashtags AND collections_gifs
+        $query = $this->db->prepare('DELETE FROM collections WHERE user_id=:id AND private=1');
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+
+        //change user_id of all updated GIFS to GIFL public domain
+        $query = $this->db->prepare('UPDATE gifs SET user_id=1 WHERE user_id=:id');
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+        //delete from users 
         $query = $this->db->prepare('DELETE FROM users WHERE user_id=:id');
         $parameters = [
             "id" => $id
