@@ -98,13 +98,6 @@ button {
   align-items: center;
   justify-content: flex-end;
 }
-@media screen and (max-width: 900px) {
-  .buttons-wrapper {
-    position: absolute;
-    right: 0;
-    bottom: 1em;
-  }
-}
 
 /* ==========================================================================
 HEADER
@@ -327,7 +320,11 @@ main {
 }
 @media screen and (max-width: 900px) {
   .home-page-bottom-wrapper {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    gap: 2rem;
   }
 }
 

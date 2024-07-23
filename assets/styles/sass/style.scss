@@ -97,13 +97,6 @@ color: $aubergine;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
-  @media screen and (max-width: 900px) {
-   position: absolute;
-   right: 0;
-   bottom: 1em;
-  
-  }
-
 }
 
 /* ==========================================================================
@@ -312,10 +305,13 @@ main{
 }
 .home-page-bottom-wrapper{
   display: flex;
-  flex-direction: row;
+flex-direction: row;
   @media screen and (max-width: 900px) {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
     justify-content: center;
-  
+   align-items: center;
+   gap: 2rem;
   }
 }
 .home-page-bottom-wrapper > * {
