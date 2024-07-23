@@ -110,6 +110,8 @@ button {
 HEADER
 ========================================================================== */
 .page-header {
+  position: relative;
+  z-index: 1000;
   display: flex;
   position: fixed;
   left: 0;
@@ -128,13 +130,13 @@ HEADER
 }
 
 .page-header-nav {
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: auto;
   margin: 0;
   width: 100%;
+  background-color: #110400;
 }
 @media screen and (min-width: 900px) {
   .page-header-nav {
@@ -184,8 +186,19 @@ HEADER
   order: 5;
   max-height: calc(80px + 2rem);
 }
-.page-header-nav.burger-display .arrow-pink, .page-header-nav.burger-display .arrow-yellow {
-  transform: rotate(180deg);
+.page-header-nav.burger-display .arrow-pink {
+  transform: translateY(-60%);
+}
+.page-header-nav.burger-display .arrow-yellow {
+  transform: translateY(-40%);
+}
+.page-header-nav.burger-display .arrow-burger-container:hover .arrow-pink {
+  cursor: pointer;
+  transform: translateY(-40%);
+}
+.page-header-nav.burger-display .arrow-burger-container:hover .arrow-yellow {
+  cursor: pointer;
+  transform: translateY(-60%);
 }
 
 .logo-GIFL {
@@ -268,10 +281,12 @@ HEADER
 }
 
 .arrow-burger-container:hover .arrow-pink {
-  transform: translateY(-70%);
+  cursor: pointer;
+  transform: translateY(-60%) rotate(180deg);
 }
 .arrow-burger-container:hover .arrow-yellow {
-  transform: translateY(-30%);
+  cursor: pointer;
+  transform: translateY(-40%) rotate(180deg);
 }
 
 .arrow-pink {
@@ -279,7 +294,7 @@ HEADER
   max-width: 80px;
   position: absolute;
   top: 50%;
-  transform: translateY(-60%);
+  transform: translateY(-40%) rotate(180deg);
   width: 100%;
 }
 
@@ -288,7 +303,7 @@ HEADER
   transition: 0.5s;
   position: absolute;
   top: 50%;
-  transform: translateY(-40%);
+  transform: translateY(-60%) rotate(180deg);
   width: 100%;
 }
 
