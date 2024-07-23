@@ -43,8 +43,8 @@ class Router
             $this->prc->welcome();
         } else if ($get["route"] === "back-office") {
             $this->adc->backOffice();
-        } else if ($get["route"] === "modify-user") {
-            $this->adc->modifyUser();
+        } else if ($get["route"] === "update-user") {
+            $this->adc->updateUser();
         } else if ($get["route"] === "delete-user") {
             $this->adc->deleteUser();
         } else if ($get["route"] === "error") {

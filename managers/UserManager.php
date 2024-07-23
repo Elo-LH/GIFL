@@ -102,4 +102,15 @@ class UserManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
+    public function updateUser(int $id, string $email, string $name, string $avatar)
+    {
+        $parameters = [
+            "id" => $id,
+            "email" => $email,
+            "name" => $name,
+            "avatar" => $avatar,
+        ];
+        $query = $this->db->prepare("UPDATE users SET email=:email, name=:name, avatar=:avatar WHERE user_id =:id");
+        $query->execute($parameters);
+    }
 }

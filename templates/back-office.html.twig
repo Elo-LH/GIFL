@@ -46,6 +46,63 @@
 {% block main %}
 	<main>
 		<h1>Back-office</h1>
+		{% if user is defined %}
+			<h2>Update User</h2>
+			<form class="sign-form" action="index.php?route=update-user&user={{user.id}}" method="post">
+				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+
+				<div class="sign-form-input-wrapper">
+					<label class="form-label" for="email">Email</label>
+					<input class="form-input" type="email" name="email" id="email" value={{user.email}} required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="name">Name</label>
+					<input class="form-input" type="text" name="name" id="name" value={{user.name}} required>
+				</div>
+
+				<div class="sign-form-input-wrapper avatar">
+
+					<label class="form-label" for="avatar">Avatar (optionnal)</label>
+					<input class="form-input" type="avatar" name="avatar" id="avatar" value={{user.avatar}}>
+				</div>
+
+				<button class="yellow-button small-button" type="submit">Update user</button>
+			</form>
+		{% else %}
+
+
+			<h2>Create User</h2>
+			<form class="sign-form" action="index.php?route=check-sign-up" method="post">
+				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+				<div class="sign-form-input-wrapper">
+					<label class="form-label" for="email">Email</label>
+					<input class="form-input" type="email" name="email" id="email" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="name">Name</label>
+					<input class="form-input" type="text" name="name" id="name" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="password">Password</label>
+					<input class="form-input" type="password" name="password" id="password" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="password-confirm">Password confirm</label>
+					<input class="form-input" type="password" name="password-confirm" id="password-confirm" required>
+				</div>
+				<div class="sign-form-input-wrapper avatar">
+
+					<label class="form-label" for="avatar">Avatar (optionnal)</label>
+					<input class="form-input" type="avatar" name="avatar" id="avatar">
+				</div>
+				<button class="yellow-button small-button" type="submit">Create User</button>
+			</form>
+		{% endif %}
+
 		<h2>Users</h2>
 		<table>
 			<thead>
