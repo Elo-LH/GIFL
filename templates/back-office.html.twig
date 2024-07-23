@@ -1,51 +1,14 @@
 {% extends "layout.html.twig" %}
 
 {% block header %}
-	<header class="page-header">
-		<nav class="page-header-nav">
-			<a class="link-logo-GIFL" href="index.php"><img class="logo-GIFL" src="../assets/images/logoGIFL.png" alt="GIFL Home page"></a>
-
-
-			{% if session.email is defined %}
-				<div class="header-session-info">
-					<img class="page-header-avatar" src="{{session.avatar}}" alt="">
-					<p>{{session.name}}</p>
-				</div>
-
-				<div class="arrow-burger-container">
-					<img class="arrow-yellow" src="../assets/images/Triangle-yellow.svg" alt="">
-					<img class="arrow-pink" src="../assets/images/Triangle-pink.svg" alt="">
-				</div>
-
-				<div class="links-wrapper">
-					<a class="header-link top-border-link" href="index.php?route=search">My collections</a>
-					<a class="header-link top-border-link" href="index.php?route=search">Search</a>
-					<a class="header-link top-border-link" href="index.php?route=search">Upload</a>
-
-					{% if session.admin %}
-						<a class="header-link top-border-link" href="index.php?route=back-office">Back-Office</a>
-
-					{% endif %}
-					<a class="header-link full-border-link" href="index.php?route=search">Parameters</a>
-
-				</div>
-			{% else %}
-				<div class="links-wrapper">
-					<a class="header-link full-border-link" href="index.php?route=search">Search</a>
-				</div>
-			{% endif %}
-
-			{% if session.email is defined %}
-				<a class="header-link disconnect-link" href="index.php?route=check-sign-out">Disconnect</a>
-			{% endif %}
-		</nav>
-	</header>
+	{% include 'header.html.twig' %}
 {% endblock %}
 
 
 {% block main %}
 	<main>
 		<h1>Back-office</h1>
+		{# if user has been defined load form to update this user else load create user  #}
 		{% if user is defined %}
 			<h2>Update User</h2>
 			<form class="sign-form" action="index.php?route=update-user&user={{user.id}}" method="post">
@@ -78,8 +41,6 @@
 			</form>
 
 		{% else %}
-
-
 			<h2>Create User</h2>
 			<form class="sign-form" action="index.php?route=check-sign-up" method="post">
 				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
@@ -143,25 +104,29 @@
 			</thead>
 			<tbody>
 				{% for user in users %}
-					<tr>
-						<td>{{user.id}}</td>
-						<td>{{user.email}}</td>
-						<td>{{user.name}}</td>
-						<td>{{user.password}}</td>
-						<td><img width="50px" src="{{user.avatar}}" alt=""></td>
-						<td>{{user.admin}}</td>
-						{% if user.id == 1 %}
-							<td>---</td>
-							<td>---</td>
-						{% else %}
-							<td>
-								<a href="index.php?route=update-user&user={{user.id}}">Update</a>
-							</td>
-							<td>
-								<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
-							</td>
-						{% endif %}
-					</tr>
+					{# Doesn't show connected user in list #}
+					{% if user.email != session.email %}
+						<tr>
+							<td>{{user.id}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.password}}</td>
+							<td><img width="50px" src="{{user.avatar}}" alt=""></td>
+							<td>{{user.admin}}</td>
+							{# Doesn't allow update or modificatioon of user GIF public domain #}
+							{% if user.id == 1 %}
+								<td>---</td>
+								<td>---</td>
+							{% else %}
+								<td>
+									<a href="index.php?route=update-user&user={{user.id}}">Update</a>
+								</td>
+								<td>
+									<a href="index.php?route=delete-user&user={{user.id}}">Delete</a>
+								</td>
+							{% endif %}
+						</tr>
+					{% endif %}
 
 				{% endfor %}
 			</tbody>

@@ -5,10 +5,14 @@ class AdminController extends AbstractController
 
     public function backOffice(): void
     {
-        //get all users
-        $um = new UserManager();
-        $users = $um->findAll();
-        $this->render("back-office.html.twig", ["users" => $users]);
+        if (isset($_SESSION['email'])) {
+            //get all users
+            $um = new UserManager();
+            $users = $um->findAll();
+            $this->render("back-office.html.twig", ["users" => $users]);
+        } else {
+            $this->redirect("index.php?route=home");
+        }
     }
     public function deleteUser(): void
     {

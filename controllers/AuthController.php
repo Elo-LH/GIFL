@@ -32,6 +32,7 @@ class AuthController extends AbstractController
                     $isPasswordCorrect = password_verify($password, $hashFound);
                     if ($isPasswordCorrect) {
                         //connect session
+
                         $_SESSION['email'] = $email;
                         $_SESSION['name'] = $userFound->getName();
                         $_SESSION['avatar'] = $userFound->getAvatar();
@@ -98,8 +99,13 @@ class AuthController extends AbstractController
                             //if email not found create new user
                         } else {
                             $instance->createUser($user);
-                            //redirect to home
-                            $this->redirect("index.php?route=home");
+                            //redirect to back-office if user connected
+                            if (isset($_SESSION['email'])) {
+                                $this->redirect("index.php?route=back-office");
+                            } else {
+                                //else redirect to home
+                                $this->redirect("index.php?route=home");
+                            }
                         }
                     } else {
                         $this->redirect("index.php?route=error&error=Passwords must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one number and one special character.
