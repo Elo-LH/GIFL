@@ -63,7 +63,7 @@ margin: 0.6em;
 font-size: clamp(1.6rem, 3vw, 3rem);
 }
 .link-button{
-  display: block;
+
   text-decoration: none;
   border: none;
   font-family: 'Noto Sans', sans-serif;
@@ -82,8 +82,12 @@ color: $aubergine;
 .small-button{
   font-size: clamp(1.4rem, 2.6vw, 2rem);
 }
+.very-small-button{
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  padding: 0.4em 0.8em;
+}
 .pink-button{
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  
   background-color: $neonPink;
   color: $darkPurple;
 }
@@ -93,13 +97,6 @@ color: $aubergine;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
-  @media screen and (max-width: 900px) {
-   position: absolute;
-   right: 0;
-   bottom: 1em;
-  
-  }
-
 }
 
 /* ==========================================================================
@@ -107,7 +104,8 @@ HEADER
 ========================================================================== */
 
 .page-header{
-  bottom: 0;
+  position: relative;
+  z-index: 1000;
   display: flex;
   position: fixed;
   left: 0;
@@ -124,13 +122,14 @@ HEADER
  
 }
 .page-header-nav{
-  z-index: 1000;
+ 
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: auto;
   margin: 0;
   width: 100%;
+  background-color: $darkBlue;
   @media screen and (min-width: 900px) {
     min-height: 100svh;
     width: max(20vh, 200px);
@@ -175,8 +174,24 @@ width: 50%;
       order: 5;
       max-height: calc(80px + 2rem);
     }
-    .arrow-pink,.arrow-yellow{
-      transform: rotate(180deg);
+    .arrow-pink{
+      transform: translateY(-60%)
+    }
+    
+    .arrow-yellow{
+      transform: translateY(-40%)
+    }
+    .arrow-burger-container:hover{
+      .arrow-pink{
+        cursor: pointer;
+         transform: translateY(-40%) ;
+      
+      }
+      .arrow-yellow{
+        cursor: pointer;
+       transform: translateY(-60%) ;
+    
+      }
     }
   }
 }
@@ -234,9 +249,7 @@ text-align: center;
   @media screen and (max-width: 900px) {
     display: none;
   }
-  
 }
-
 
 .arrow-burger-container{
   position: relative;
@@ -250,10 +263,14 @@ text-align: center;
 }
 .arrow-burger-container:hover{
   .arrow-pink{
-    transform: translateY(-70%);
+    cursor: pointer;
+     transform: translateY(-60%) rotate(180deg);
+  
   }
   .arrow-yellow{
-    transform: translateY(-30%);
+    cursor: pointer;
+   transform: translateY(-40%) rotate(180deg);
+
   }
 }
 .arrow-pink{
@@ -261,15 +278,16 @@ text-align: center;
   max-width: 80px;
   position: absolute;
   top: 50%; 
-  transform: translateY(-60%);
+  transform: translateY(-40%) rotate(180deg);
 width: 100%;
 }
 .arrow-yellow{
   max-width: 80px;
-
+  transition: 0.5s;
   position: absolute;
   top: 50%; 
-  transform: translateY(-40%);
+  transform: translateY(-60%) rotate(180deg);
+
   width: 100%;
   }
 
@@ -287,10 +305,13 @@ main{
 }
 .home-page-bottom-wrapper{
   display: flex;
-  flex-direction: row;
+flex-direction: row;
   @media screen and (max-width: 900px) {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
     justify-content: center;
-  
+   align-items: center;
+   gap: 2rem;
   }
 }
 .home-page-bottom-wrapper > * {
@@ -568,4 +589,47 @@ SIGN OUT PAGE
   text-align: center;
   margin-bottom: 1rem;
   font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+
+/* ==========================================================================
+BACK OFFICE
+========================================================================== */
+
+.back-office-users-table{
+  width: 90%;
+  margin-inline: auto;
+  margin-bottom: 5rem;
+  border-collapse: collapse;
+  display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+ 
+  tr{
+    height: 7rem;
+    text-align: center;
+  }
+  tr:nth-child(odd){
+    background-color: $darkPurple;
+  }
+  thead, tfoot{
+    color: $yellow;
+    tr:nth-child(odd){
+      background-color: $darkBlue;
+    }
+  }
+  td{
+    min-width: 30px;
+
+  }
+}
+.reported-gifs-wrapper{
+  display: flex;
+  justify-content: center;
+}
+.reported-gif-card{
+  display: flex;
+  padding: 2rem;
+  align-items: center;
+  margin-inline: auto;
 }

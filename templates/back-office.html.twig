@@ -1,0 +1,193 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	{% include 'header.html.twig' %}
+{% endblock %}
+
+
+{% block main %}
+	<main>
+		<h1 class="h1-regular">Back-office</h1>
+		{# if user has been defined load form to update this user else load create user  #}
+		{% if user is defined %}
+			<h2 class='subtitle'>Update User</h2>
+			<form class="sign-form" action="index.php?route=update-user&user={{user.id}}" method="post">
+				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+
+				<div class="sign-form-input-wrapper">
+					<label class="form-label" for="email">Email</label>
+					<input class="form-input" type="email" name="email" id="email" value={{user.email}} required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="name">Name</label>
+					<input class="form-input" type="text" name="name" id="name" value={{user.name}} required>
+				</div>
+
+				<div class="sign-form-input-wrapper avatar">
+
+					<label class="form-label" for="avatar">Avatar (optionnal)</label>
+					{% if user.avatar is null %}
+						<input class="form-input" type="avatar" name="avatar" id="avatar">
+					{% else %}
+						<input class="form-input" type="avatar" name="avatar" id="avatar" value={{user.avatar}}>
+
+					{% endif %}
+
+				</div>
+
+				<button class="yellow-button small-button" type="submit">Update user</button>
+				<a href="index.php?route=back-office" class="link-button pink-button small-button">Back to create user</a>
+			</form>
+
+		{% else %}
+			<h2 class='subtitle'>Create User</h2>
+			<form class="sign-form" action="index.php?route=check-sign-up" method="post">
+				<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+				<div class="sign-form-input-wrapper">
+					<label class="form-label" for="email">Email</label>
+					<input class="form-input" type="email" name="email" id="email" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="name">Name</label>
+					<input class="form-input" type="text" name="name" id="name" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="password">Password</label>
+					<input class="form-input" type="password" name="password" id="password" required>
+				</div>
+				<div class="sign-form-input-wrapper">
+
+					<label class="form-label" for="password-confirm">Password confirm</label>
+					<input class="form-input" type="password" name="password-confirm" id="password-confirm" required>
+				</div>
+				<div class="sign-form-input-wrapper avatar">
+
+					<label class="form-label" for="avatar">Avatar (optionnal)</label>
+					<input class="form-input" type="avatar" name="avatar" id="avatar">
+				</div>
+				<button class="yellow-button small-button" type="submit">Create User</button>
+			</form>
+		{% endif %}
+
+		<h2 class='subtitle'>Users</h2>
+		<table class="back-office-users-table">
+			<thead>
+				<tr>
+					<th>
+						#
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Password
+					</th>
+					<th>
+						Avatar
+					</th>
+					<th>
+						Admin
+					</th>
+					<th>
+						Update
+					</th>
+					<th>
+						Delete
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					{# Doesn't show connected user in list #}
+					{% if user.email != session.email %}
+						<tr>
+							<td>{{user.id}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.password}}</td>
+							<td><img width="50px" src="{{user.avatar}}" alt=""></td>
+							{% if user.admin %}
+								<td>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-admin&user={{user.id}}">Remove rights</a>
+								</td>
+							{% else %}
+								<td>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-admin&user={{user.id}}">Give rights</a>
+								</td>
+							{% endif %}
+
+
+							{# Doesn't allow update or modificatioon of user GIF public domain #}
+							{% if user.id == 1 %}
+								<td>---</td>
+								<td>---</td>
+							{% else %}
+								<td>
+									<a class="link-button yellow-button very-small-button" href="index.php?route=update-user&user={{user.id}}">Update</a>
+								</td>
+
+								<td>
+									<a class="link-button pink-button very-small-button" href="index.php?route=delete-user&user={{user.id}}">Delete</a>
+								</td>
+							{% endif %}
+						</tr>
+					{% endif %}
+
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>
+						#
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Password
+					</th>
+					<th>
+						Avatar
+					</th>
+					<th>
+						Admin
+					</th>
+					<th>
+						Update
+					</th>
+					<th>
+						Delete
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+
+		{% if reportedGifs is defined %}
+
+			<h2>Reported GIFS</h2>
+			{% for gif in reportedGifs %}
+				<div class="reported-gifs-wrapper">
+					<div class="reported-gif-card">
+						<img src="{{gif.link}}" alt="">
+						<div class="buttons-wrapper">
+							<a class="link-button yellow-button very-small-button" href="index.php?route=reinstate-gif&gif={{gif.id}}">Reinstate GIF</a>
+							<a class="link-button pink-button very-small-button" href="index.php?route=delete-gif&gif={{gif.id}}">Delete GIF</a>
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+		{% endif %}
+	</main>
+
+
+{% endblock %}

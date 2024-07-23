@@ -3,7 +3,7 @@ class Gif
 {
     private ?int $id = null;
 
-    public function __construct(private string $link, private User $author, private DateTime $createdAt = new DateTime())
+    public function __construct(private string $link, private User $author, private DateTime $createdAt = new DateTime(), private bool $reported = false)
     {
     }
 
@@ -41,5 +41,14 @@ class Gif
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function isReported(): bool
+    {
+        return $this->reported;
+    }
+    public function setReported(bool $reported): void
+    {
+        $this->reported = $reported;
     }
 }
