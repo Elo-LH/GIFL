@@ -64,11 +64,19 @@
 				<div class="sign-form-input-wrapper avatar">
 
 					<label class="form-label" for="avatar">Avatar (optionnal)</label>
-					<input class="form-input" type="avatar" name="avatar" id="avatar" value={{user.avatar}}>
+					{% if user.avatar is null %}
+						<input class="form-input" type="avatar" name="avatar" id="avatar">
+					{% else %}
+						<input class="form-input" type="avatar" name="avatar" id="avatar" value={{user.avatar}}>
+
+					{% endif %}
+
 				</div>
 
 				<button class="yellow-button small-button" type="submit">Update user</button>
+				<a href="index.php?route=back-office" class="link-button pink-button small-button">Back to create user</a>
 			</form>
+
 		{% else %}
 
 
@@ -120,6 +128,9 @@
 						Password
 					</th>
 					<th>
+						Avatar
+					</th>
+					<th>
 						Admin
 					</th>
 					<th>
@@ -137,6 +148,7 @@
 						<td>{{user.email}}</td>
 						<td>{{user.name}}</td>
 						<td>{{user.password}}</td>
+						<td><img width="50px" src="{{user.avatar}}" alt=""></td>
 						<td>{{user.admin}}</td>
 						{% if user.id == 1 %}
 							<td>---</td>
@@ -166,6 +178,9 @@
 					</th>
 					<th>
 						Password
+					</th>
+					<th>
+						Avatar
 					</th>
 					<th>
 						Admin

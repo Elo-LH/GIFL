@@ -28,10 +28,15 @@ class AdminController extends AbstractController
             //init manager
             $um = new UserManager;
             //if modifications have been submitted
-            if (isset($_POST['email']) && isset($_POST['name']) && isset($_POST['avatar'])) {
-
+            if (isset($_POST['email']) && isset($_POST['name'])) {
+                if (isset($_POST['avatar']) && $_POST['avatar'] == "") {
+                    $gm = new GifManager;
+                    $avatar = $gm->getRandom1()->getLink();
+                } else {
+                    $avatar = $_POST['avatar'];
+                }
                 //apply modifications in db
-                $um->updateUser($id, $_POST['email'], $_POST['name'], $_POST['avatar']);
+                $um->updateUser($id, $_POST['email'], $_POST['name'], $avatar);
             }
             //find user
             $user = $um->findById($id);

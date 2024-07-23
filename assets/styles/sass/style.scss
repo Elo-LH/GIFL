@@ -63,7 +63,7 @@ margin: 0.6em;
 font-size: clamp(1.6rem, 3vw, 3rem);
 }
 .link-button{
-  display: block;
+
   text-decoration: none;
   border: none;
   font-family: 'Noto Sans', sans-serif;
@@ -175,7 +175,7 @@ width: 50%;
       order: 5;
       max-height: calc(80px + 2rem);
     }
-    .arrow-pink,.arrow-yellow{
+    .arrow-pink, .arrow-yellow{
       transform: rotate(180deg);
     }
   }
@@ -266,7 +266,7 @@ width: 100%;
 }
 .arrow-yellow{
   max-width: 80px;
-
+  transition: 0.5s;
   position: absolute;
   top: 50%; 
   transform: translateY(-40%);
