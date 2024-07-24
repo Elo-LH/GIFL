@@ -29,4 +29,22 @@ class PrivateController extends AbstractController
             $this->render("home.html.twig", []);
         }
     }
+    public function myCollections(): void
+    {
+        if (isset($_SESSION['email'])) {
+            //get collections of user
+            $cm = new CollectionManager;
+            $collections = $cm->findByUserId($_SESSION['id']);
+            //get all gifs of each collection
+            $gm = new GifManager;
+            $collectionGifs = [];
+            foreach ($collections as $collection) {
+                $gifs = $gm->findByCollection($collection->getId());
+                array_push($collectionGifs, $gifs);
+            }
+            $this->render("my-collections.html.twig", ["collections" => $collections, "collectionGifs" => $collectionGifs]);
+        } else {
+            $this->render("home.html.twig", []);
+        }
+    }
 }
