@@ -41,6 +41,8 @@ class Router
             $this->ac->checkSignOut();
         } else if ($get["route"] === "welcome") {
             $this->prc->welcome();
+        } else if ($get["route"] === "my-collections") {
+            $this->prc->myCollections();
         } else if ($get["route"] === "back-office") {
             $this->adc->backOffice();
         } else if ($get["route"] === "update-user") {

@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	{% include 'header.html.twig' %}
+{% endblock %}
+
+{% block main %}
+	<main>
+		<h1 class="h1-regular">My collections</h1>
+		{% for collection in collections %}
+			<div class="collection-horizontal-pointer">
+				<a href="index.php?route=collection&collection={{collection.id}}" class="collection-horizontal-pointer-text-wrapper">
+					<p class="collection-horizontal-pointer-text">{{collection.name}}</p>
+				</a>
+				<img class="collection-horizontal-pointer-arrow" src="../assets/images/Arrow-yellow.svg" alt="">
+			</div>
+			{% set index = loop.index0 %}
+			<div class="horizontal-trending-wrapper snaps-inline">
+				{% for gif in collectionGifs[index] %}
+					<a href="index.php?route=gif&gif={{gif.id}}" class="horizontal-trending-card">
+						<img class="horizontal-trending-gif" src="{{gif.link}}" alt="">
+					</a>
+				{% endfor %}
+			</div>
+		{% endfor %}
+
+	</main>
+
+{% endblock %}
