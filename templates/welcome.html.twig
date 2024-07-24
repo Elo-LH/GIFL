@@ -20,13 +20,15 @@
 		<div class="collections-container masonry-grid">
 			{% for collection in collections %}
 				<div class="collection-card masonry-grid-item">
+					<img class="collection-card-gif" src="{{gifs[loop.index0].link}}" alt="">
 					<div class="collection-card-pointer">
+
 						<div class="collection-card-pointer-text">
 							<p>{{collection.name}}</p>
 						</div>
-						<img class="collection-card-pointer-arrow" src="../assets/images/Triangle-yellow.svg" alt="">
+						<img class="collection-card-pointer-arrow" src="../assets/images/Arrow-yellow.svg" alt="">
 					</div>
-					<img class="collection-card-gif" src="{{gifs[loop.index0].link}}" alt="">
+
 				</div>
 
 			{% endfor %}
