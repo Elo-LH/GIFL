@@ -41,6 +41,14 @@ TITLES
   color: $yellow;
   padding: 0.4em;
 }
+
+.h2-regular{
+  font-size: clamp(2.4rem, 3.6vw, 4rem);
+  color: $yellow;
+  padding: 0.4em;
+  font-weight: normal;
+  padding-bottom: 0.2em;
+}
 .subtitle{
   font-size: clamp(1.6rem, 3vw, 2rem);
   color: $white;
@@ -460,11 +468,11 @@ box-shadow: 0.2em 0.2em  $aubergine;
   @media screen and (min-width: 900px) {
     width: calc(20% - 20px);
   }
-  a{
+  .masonry-grid-link{
     display: block;
     width: 100%;
   }
-  img{
+  .masonry-grid-img{
     width: 100%;
   }
 }
@@ -632,4 +640,40 @@ BACK OFFICE
   padding: 2rem;
   align-items: center;
   margin-inline: auto;
+}
+
+
+/* ==========================================================================
+WELCOME
+========================================================================== */
+
+.collections-container{
+  background-color: $darkPurple;
+  border: 2px solid $yellow;
+  width: 98%;
+  margin-inline: auto;
+}
+.collection-card{
+  position: relative;
+  .collection-card-gif{
+  margin-top: 2em;
+  width: 100%;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+}
+.collection-card-pointer{
+ display: flex;
+ justify-content: flex-start;
+}
+.collection-card-pointer-arrow {
+  height: 2em;
+  width: 2em;
+  transform: rotate(90deg);
+}
+.collection-card-pointer-text{
+  width: 50%;
+ 
+  height: 2em;
+  background-color: $yellow;
+  color: $aubergine;
 }

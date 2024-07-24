@@ -7,9 +7,6 @@
 
 {% block main %}
 	<main>
-		<h1>Welcome
-			{{session.name}}
-		</h1>
 		<h2 class="h2-regular">Trending hashtags</h2>
 		<div class="horizontal-trending-wrapper snaps-inline">
 			{% for key, hashtag in hashtags %}
@@ -19,13 +16,20 @@
 				</a>
 			{% endfor %}
 		</div>
-		<h2>My collections</h2>
-		{% for collection in collections %}
-			<div class="collection-card">
-				<p>{{collection.name}}</p>
-				<img src="{{gifs[loop.index0].link}}" alt="">
-			</div>
+		<h2 class="h2-regular">My collections</h2>
+		<div class="collections-container masonry-grid">
+			{% for collection in collections %}
+				<div class="collection-card masonry-grid-item">
+					<div class="collection-card-pointer">
+						<div class="collection-card-pointer-text">
+							<p>{{collection.name}}</p>
+						</div>
+						<img class="collection-card-pointer-arrow" src="../assets/images/Triangle-yellow.svg" alt="">
+					</div>
+					<img class="collection-card-gif" src="{{gifs[loop.index0].link}}" alt="">
+				</div>
 
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</main>
 {% endblock %}
