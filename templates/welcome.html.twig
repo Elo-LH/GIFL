@@ -7,6 +7,25 @@
 
 {% block main %}
 	<main>
-		<h1>Welcome</h1>
+		<h1>Welcome
+			{{session.name}}
+		</h1>
+		<h2 class="h2-regular">Trending hashtags</h2>
+		<div class="horizontal-trending-wrapper snaps-inline">
+			{% for key, hashtag in hashtags %}
+				<a href="index.php?route=hashtag-page&hashtag={{hashtag.id}}" class="horizontal-trending-card">
+					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}">
+					<p class="horizontal-trending-hashtag">#{{hashtag.name}}</p>
+				</a>
+			{% endfor %}
+		</div>
+		<h2>My collections</h2>
+		{% for collection in collections %}
+			<div class="collection-card">
+				<p>{{collection.name}}</p>
+				<img src="{{gifs[loop.index0].link}}" alt="">
+			</div>
+
+		{% endfor %}
 	</main>
 {% endblock %}

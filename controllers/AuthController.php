@@ -32,7 +32,7 @@ class AuthController extends AbstractController
                     $isPasswordCorrect = password_verify($password, $hashFound);
                     if ($isPasswordCorrect) {
                         //connect session
-
+                        $_SESSION['id'] = $userFound->getId();
                         $_SESSION['email'] = $email;
                         $_SESSION['name'] = $userFound->getName();
                         $_SESSION['avatar'] = $userFound->getAvatar();

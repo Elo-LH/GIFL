@@ -3,7 +3,7 @@ class Collection
 {
     private ?int $id = null;
 
-    public function __construct(private User $author, private string $name, private DateTime $createdAt = new DateTime())
+    public function __construct(private User $author, private string $name, private bool $private, private DateTime $createdAt = new DateTime())
     {
     }
 
@@ -32,6 +32,15 @@ class Collection
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getPrivate(): string
+    {
+        return $this->private;
+    }
+    public function setPrivate(string $private): void
+    {
+        $this->private = $private;
     }
 
     public function getCreatedAt(): DateTime
