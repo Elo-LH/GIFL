@@ -13,7 +13,7 @@
 			<div class="masonry-grid">
 				{% for gif in gifs %}
 					<div class="masonry-grid-item">
-						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
+						<a class="masonry-grid-link" href="index.php?route=gif&gif={{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
 						</a>
 					</div>
 				{% endfor %}
@@ -25,7 +25,7 @@
 			<div class="masonry-grid">
 				{% for gif in gifs %}
 					<div class="masonry-grid-item">
-						<a href="index.php?route=gif&gif={{gif.id}}"><img src="{{gif.link}}">
+						<a class="masonry-grid-link" href="index.php?route=gif&gif={{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
 						</a>
 					</div>
 				{% endfor %}

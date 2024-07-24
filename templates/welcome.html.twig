@@ -7,6 +7,35 @@
 
 {% block main %}
 	<main>
-		<h1>Welcome</h1>
+		<h2 class="h2-regular">Trending hashtags</h2>
+		<div class="horizontal-trending-wrapper snaps-inline">
+			{% for key, hashtag in hashtags %}
+				<a href="index.php?route=hashtag-page&hashtag={{hashtag.id}}" class="horizontal-trending-card">
+					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}">
+					<p class="horizontal-trending-hashtag">#{{hashtag.name}}</p>
+				</a>
+			{% endfor %}
+		</div>
+		<h2 class="h2-regular">My collections</h2>
+		<div class="collections-container masonry-grid">
+
+			{% for collection in collections %}
+				<div class="collection-card masonry-grid-item">
+					<a href="index.php?route=collection&collection={{collection.id}}">
+						<img class="collection-card-gif" src="{{gifs[loop.index0].link}}" alt="">
+					</a>
+					<a href="index.php?route=collection&collection={{collection.id}}">
+						<div class="collection-card-pointer">
+							<div class="collection-card-pointer-text-wrapper">
+								<p class="collection-card-pointer-text">{{collection.name}}</p>
+							</div>
+							<img class="collection-card-pointer-arrow" src="../assets/images/Arrow-yellow.svg" alt="">
+						</div>
+					</a>
+
+				</div>
+
+			{% endfor %}
+		</div>
 	</main>
 {% endblock %}

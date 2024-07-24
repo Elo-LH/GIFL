@@ -18,9 +18,31 @@ class CollectionManager extends AbstractManager
 
             $um = new UserManager;
             $user = $um->findById($result['user_id']);
-            $collection = new Collection($user, $result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+            $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
+        } else {
+            return null;
+        }
+    }
+    public function findByUserId($id): ?array
+    {
+        $query = $this->db->prepare("SELECT * FROM collections WHERE user_id = :id ORDER BY created_at DESC");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $collections = [];
+        if ($results) {
+            $um = new UserManager;
+            $user = $um->findById($id);
+            foreach ($results as $result) {
+                $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+                $collection->setId($result["collection_id"]);
+                array_push($collections, $collection);
+            }
+            return $collections;
         } else {
             return null;
         }
