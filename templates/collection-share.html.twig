@@ -7,15 +7,19 @@
 
 {% block main %}
 	<main>
-		<h1 class="h1-regular">{{collection.name}}</h1>
-		<p>Created
-			{{collection.createdAt|format_datetime('short', 'none', locale='en')}}</p>
-		<nav>
-			<a href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
-			<a href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
-			<a href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
-			<a href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
-		</nav>
+		<div class="collection-top-wrapper">
+			<div class="collection-top-titles">
+				<h1 class="h1-regular">{{collection.name}}</h1>
+				<p class="subtitle">Created
+					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}</p>
+			</div>
+			<nav class="collection-nav">
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
+				<a class="link-button pink-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
+			</nav>
+		</div>
 		<div class="masonry-grid">
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">

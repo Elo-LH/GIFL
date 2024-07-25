@@ -70,6 +70,8 @@ class PrivateController extends AbstractController
                     } else {
                         $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     }
+                } else {
+                    $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                 }
             }
         }
