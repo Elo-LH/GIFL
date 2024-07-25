@@ -47,4 +47,31 @@ class PrivateController extends AbstractController
             $this->render("home.html.twig", []);
         }
     }
+    public function collection(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            //get collection id from params
+            if (isset($_GET['collection'])) {
+                //get collection infos
+                $id = $_GET['collection'];
+                $cm = new CollectionManager;
+                $collection = $cm->findById($id);
+                //get gifs from collection
+                $gm = new GifManager;
+                $gifs = $gm->findByCollection($id);
+                //get action from params
+                if (isset($_GET['action'])) {
+                    $action = $_GET['action'];
+                    if ($action == "manage") {
+                    } else if ($action == "upload") {
+                    } else if ($action == "add") {
+                        //else default load = share collection
+                    } else {
+                        $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
+                    }
+                }
+            }
+        }
+    }
 }

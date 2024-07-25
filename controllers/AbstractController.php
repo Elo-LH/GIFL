@@ -1,5 +1,7 @@
 <?php
 
+use Twig\Extra\Intl\IntlExtension;
+
 abstract class AbstractController
 {
     private \Twig\Environment $twig;
@@ -9,7 +11,7 @@ abstract class AbstractController
         $twig = new \Twig\Environment($loader, [
             'debug' => true,
         ]);
-
+        $twig->addExtension(new IntlExtension());
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal('session', $_SESSION);
         $twig->addGlobal('cookie', $_COOKIE);
