@@ -21,10 +21,10 @@
 
 			{% for collection in collections %}
 				<div class="collection-card masonry-grid-item">
-					<a href="index.php?route=collection&collection={{collection.id}}">
+					<a href="index.php?route=collection&collection={{collection.id}}&action=share">
 						<img class="collection-card-gif" src="{{gifs[loop.index0].link}}" alt="">
 					</a>
-					<a href="index.php?route=collection&collection={{collection.id}}">
+					<a href="index.php?route=collection&collection={{collection.id}}&action=share">
 						<div class="collection-card-pointer">
 							<div class="collection-card-pointer-text-wrapper">
 								<p class="collection-card-pointer-text">{{collection.name}}</p>

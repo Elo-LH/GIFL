@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	{% include 'header.html.twig' %}
+{% endblock %}
+
+
+{% block main %}
+	<main>
+		<div class="collection-top-wrapper">
+			<div class="collection-top-titles">
+				<h1 class="h1-regular">{{collection.name}}</h1>
+				<p class="subtitle">Created
+					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}</p>
+			</div>
+			<nav class="collection-nav">
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
+				<a class="link-button pink-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
+			</nav>
+		</div>
+		<div class="masonry-grid">
+			{% for gif in gifs %}
+				<div class="masonry-grid-item">
+					<a class="masonry-grid-link" href="index.php?route=gif&gif={{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</main>
+{% endblock %}
