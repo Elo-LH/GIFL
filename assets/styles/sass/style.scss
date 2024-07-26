@@ -781,3 +781,12 @@ padding-bottom: 2rem;
     }
   }
 }
+
+.masonry-grid-item-icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.lock-img{
+  height: clamp(14px, 2.6vw, 20px);
+}

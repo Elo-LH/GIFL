@@ -65,4 +65,31 @@ class CollectionManager extends AbstractManager
             return null;
         }
     }
+    public function toggleCollectionPrivacy($id): void
+    {
+        $query = $this->db->prepare("UPDATE collections SET private= !private WHERE collection_id =:id");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+    }
+    public function findPublicByName($name): ?Collection
+    {
+        $query = $this->db->prepare("SELECT * FROM collections WHERE name LIKE :name AND private = 0 ORDER BY created_at DESC");
+        $parameters = [
+            "name" => "%" . $name . "%"
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+
+            $um = new UserManager;
+            $user = $um->findById($result['user_id']);
+            $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+            $collection->setId($result["collection_id"]);
+            return $collection;
+        } else {
+            return null;
+        }
+    }
 }

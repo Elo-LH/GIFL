@@ -45,6 +45,10 @@ class Router
             $this->prc->myCollections();
         } else if ($get["route"] === "collection") {
             $this->prc->collection();
+        } else if ($get["route"] === "remove-gif-from-collection") {
+            $this->prc->removeGifFromCollection();
+        } else if ($get["route"] === "toggle-collection-privacy") {
+            $this->prc->toggleCollectionPrivacy();
         } else if ($get["route"] === "back-office") {
             $this->adc->backOffice();
         } else if ($get["route"] === "update-user") {

@@ -27,7 +27,11 @@
 					<a href="index.php?route=collection&collection={{collection.id}}&action=share">
 						<div class="collection-card-pointer">
 							<div class="collection-card-pointer-text-wrapper">
-								<p class="collection-card-pointer-text">{{collection.name}}</p>
+								<p class="collection-card-pointer-text">
+									{% if collection.private %}
+										<img class="lock-img" src="../assets/images/lock-aubergine.svg" alt="Private ">
+									{% endif %}
+									{{collection.name}}</p>
 							</div>
 							<img class="collection-card-pointer-arrow" src="../assets/images/Arrow-yellow.svg" alt="">
 						</div>

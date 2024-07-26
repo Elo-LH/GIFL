@@ -10,7 +10,11 @@
 		{% for collection in collections %}
 			<div class="collection-horizontal-pointer">
 				<a href="index.php?route=collection&collection={{collection.id}}" class="collection-horizontal-pointer-text-wrapper">
-					<p class="collection-horizontal-pointer-text">{{collection.name}}</p>
+					<p class="collection-horizontal-pointer-text">
+						{% if collection.private %}
+							<img class="lock-img" src="../assets/images/lock-aubergine.svg" alt="Private ">
+						{% endif %}
+						{{collection.name}}</p>
 				</a>
 				<img class="collection-horizontal-pointer-arrow" src="../assets/images/Arrow-yellow.svg" alt="">
 			</div>

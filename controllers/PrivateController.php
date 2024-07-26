@@ -64,8 +64,11 @@ class PrivateController extends AbstractController
                 if (isset($_GET['action'])) {
                     $action = $_GET['action'];
                     if ($action == "manage") {
+                        $this->render("collection-manage.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     } else if ($action == "upload") {
+                        $this->render("collection-upload.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     } else if ($action == "add") {
+                        $this->render("collection-add.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                         //else default load = share collection
                     } else {
                         $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
@@ -74,6 +77,57 @@ class PrivateController extends AbstractController
                     $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                 }
             }
+        }
+    }
+    public function removeGifFromCollection(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection id and gif id from params
+            if (isset($_GET['gif']) && isset($_GET['collection'])) {
+                $gifId = $_GET['gif'];
+                $collectionId = $_GET['collection'];
+                //check if collection is from connected user
+                $cm = new CollectionManager();
+                $collection = $cm->findById($collectionId);
+                if ($collection->getAuthor()->getId() == $userId) {
+                    $gm = new GifManager();
+                    $gm->removeGifFromCollection($gifId, $collectionId);
+                    $this->redirect("index.php?route=collection&collection=$collectionId&action=manage");
+                } else {
+                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
+            }
+        } else {
+            $this->redirect("index.php?route=error&error=Please sign in first");
+        }
+    }
+    public function toggleCollectionPrivacy(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection id from params
+            if (isset($_GET['collection'])) {
+                $id = $_GET['collection'];
+                //check if collection is from connected user
+                $cm = new CollectionManager();
+                $collection = $cm->findById($id);
+                if ($collection->getAuthor()->getId() == $userId) {
+                    $cm->toggleCollectionPrivacy($id);
+                    $this->redirect("index.php?route=collection&collection=$id");
+                } else {
+                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
+            }
+        } else {
+
+            $this->redirect("index.php?route=error&error=Please sign in first");
         }
     }
 }
