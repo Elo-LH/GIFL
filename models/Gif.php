@@ -3,8 +3,12 @@ class Gif
 {
     private ?int $id = null;
 
-    public function __construct(private string $link, private User $author, private DateTime $createdAt = new DateTime(), private bool $reported = false)
-    {
+    public function __construct(
+        private string $link,
+        private User $author,
+        private DateTime $createdAt = new DateTime(),
+        private bool $reported = false
+    ) {
     }
 
     public function getId(): ?int

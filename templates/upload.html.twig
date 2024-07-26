@@ -1,0 +1,23 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	{% include 'header.html.twig' %}
+{% endblock %}
+
+
+{% block main %}
+	<main>
+		<h1 class="h1-regular">Upload</h1>
+		{% if gif is defined %}
+			<p>Your GIF has been successfully uploaded !</p>
+			<img src="{{gif.link}}" alt="">
+		{% endif %}
+
+		<form class="sign-form" action="" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+			<input type="hidden" name="formName" value="fileUpload"/>
+			<input type="file" name="image"/>
+			<button class="yellow-button small-button" type="submit">Upload</button>
+		</form>
+	</main>
+{% endblock %}
