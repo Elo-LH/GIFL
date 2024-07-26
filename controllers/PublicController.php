@@ -46,7 +46,7 @@ class PublicController extends AbstractController
             } else {
                 //search in db the collection corresponding to input
                 $cm = new CollectionManager;
-                $collection = $cm->findByName($input);
+                $collection = $cm->findPublicByName($input);
                 if (is_null($collection)) {
                     //If no collection has been found, display nothing was found
                     $this->redirect("index.php?route=error&error=No collection found");
