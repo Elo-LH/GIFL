@@ -92,4 +92,15 @@ class CollectionManager extends AbstractManager
             return null;
         }
     }
+    public function initNewUserCollections($id): void
+    {
+        $dateTime = new DateTime();
+        $query = $this->db->prepare("INSERT INTO collections(user_id, name, private, created_at) VALUES(:id, 'favorites', 1, :createdAt), (:id, 'uploads', 1, :createdAt) ");
+        $parameters = [
+            "id" => $id,
+            "createdAt" => $dateTime->format('Y-m-d H:i:s')
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+    }
 }

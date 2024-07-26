@@ -175,7 +175,7 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare("UPDATE gifs SET reported = !reported WHERE gif_id =:id");
         $query->execute($parameters);
     }
-    public function findLatestInCollection($collection_id): Gif
+    public function findLatestInCollection($collection_id): ?Gif
     {
         $um = new UserManager;
         $query = $this->db->prepare('SELECT * FROM collections_gifs JOIN gifs ON collections_gifs.gif_id = gifs.gif_id JOIN collections ON collections_gifs.collection_id = collections.collection_id WHERE collections.collection_id = :id ORDER BY gifs.created_at DESC LIMIT 1');
@@ -184,10 +184,14 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
         $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        if ($item) {
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
+            $gif->setId($item['gif_id']);
+            return $gif;
+        } else {
+            return null;
+        }
     }
     public function removeGifFromCollection(int $gifId, int $collectionId): void
     {
