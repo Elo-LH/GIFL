@@ -189,4 +189,13 @@ class GifManager extends AbstractManager
         $gif->setId($item['gif_id']);
         return $gif;
     }
+    public function removeGifFromCollection(int $gifId, int $collectionId): void
+    {
+        $query = $this->db->prepare("DELETE FROM collections_gifs WHERE collection_id = :collection_id AND gif_id = :gif_id");
+        $parameters = [
+            "gif_id" => $gifId,
+            "collection_id" => $collectionId
+        ];
+        $query->execute($parameters);
+    }
 }

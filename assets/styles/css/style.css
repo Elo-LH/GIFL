@@ -825,4 +825,10 @@ COLLECTION
   }
 }
 
+.masonry-grid-item-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 /*# sourceMappingURL=style.css.map */

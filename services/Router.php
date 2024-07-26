@@ -45,6 +45,8 @@ class Router
             $this->prc->myCollections();
         } else if ($get["route"] === "collection") {
             $this->prc->collection();
+        } else if ($get["route"] === "removeFromCollection") {
+            $this->prc->removeFromCollection();
         } else if ($get["route"] === "back-office") {
             $this->adc->backOffice();
         } else if ($get["route"] === "update-user") {

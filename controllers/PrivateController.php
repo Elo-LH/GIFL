@@ -64,8 +64,11 @@ class PrivateController extends AbstractController
                 if (isset($_GET['action'])) {
                     $action = $_GET['action'];
                     if ($action == "manage") {
+                        $this->render("collection-manage.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     } else if ($action == "upload") {
+                        $this->render("collection-upload.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     } else if ($action == "add") {
+                        $this->render("collection-add.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                         //else default load = share collection
                     } else {
                         $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
@@ -74,6 +77,23 @@ class PrivateController extends AbstractController
                     $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                 }
             }
+        }
+    }
+    public function removeFromCollection(): void
+    {
+        if (isset($_GET['gif']) && isset($_GET['collection'])) {
+            $gifId = $_GET['gif'];
+            $collectionId = $_GET['collection'];
+            //get user id from params
+            if (isset($_GET['gif'])) {
+                $id = $_GET['gif'];
+                //init manager
+                $gm = new GifManager();
+                $gm->removeGifFromCollection($gifId, $collectionId);
+                $this->redirect("index.php?route=collection&collection=$collectionId&action=manage");
+            }
+        } else {
+            $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
         }
     }
 }
