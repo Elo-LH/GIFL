@@ -831,4 +831,8 @@ COLLECTION
   right: 0;
 }
 
+.lock-img {
+  height: clamp(14px, 2.6vw, 20px);
+}
+
 /*# sourceMappingURL=style.css.map */
