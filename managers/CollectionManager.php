@@ -65,4 +65,12 @@ class CollectionManager extends AbstractManager
             return null;
         }
     }
+    public function toggleCollectionPrivacy($id): void
+    {
+        $query = $this->db->prepare("UPDATE collections SET private= !private WHERE collection_id =:id");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+    }
 }

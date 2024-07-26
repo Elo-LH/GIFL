@@ -10,6 +10,15 @@
 		<div class="collection-top-wrapper">
 			<div class="collection-top-titles">
 				<h1 class="h1-regular">{{collection.name}}</h1>
+				{% if collection.private %}
+					<p class="subtitle">Private collection
+						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
+					</p>
+				{% else %}
+					<p class="subtitle">Public collection
+						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Make private</a>
+					</p>
+				{% endif %}
 				<p class="subtitle">Created
 					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}</p>
 			</div>
@@ -24,7 +33,7 @@
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">
 					<a class="masonry-grid-link" href="index.php?route=gif&gif={{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
-						<a href="index.php?route=removeFromCollection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
+						<a href="index.php?route=remove-gif-from-collection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
 					</a>
 				</div>
 			{% endfor %}

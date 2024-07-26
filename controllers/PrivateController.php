@@ -79,7 +79,7 @@ class PrivateController extends AbstractController
             }
         }
     }
-    public function removeFromCollection(): void
+    public function removeGifFromCollection(): void
     {
         if (isset($_GET['gif']) && isset($_GET['collection'])) {
             $gifId = $_GET['gif'];
@@ -94,6 +94,19 @@ class PrivateController extends AbstractController
             }
         } else {
             $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
+        }
+    }
+    public function toggleCollectionPrivacy(): void
+    {
+        if (isset($_GET['collection'])) {
+            $id = $_GET['collection'];
+            //get user id from params
+
+            $cm = new CollectionManager();
+            $cm->toggleCollectionPrivacy($id);
+            $this->redirect("index.php?route=collection&collection=$id");
+        } else {
+            $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
         }
     }
 }
