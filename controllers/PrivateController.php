@@ -81,32 +81,53 @@ class PrivateController extends AbstractController
     }
     public function removeGifFromCollection(): void
     {
-        if (isset($_GET['gif']) && isset($_GET['collection'])) {
-            $gifId = $_GET['gif'];
-            $collectionId = $_GET['collection'];
-            //get user id from params
-            if (isset($_GET['gif'])) {
-                $id = $_GET['gif'];
-                //init manager
-                $gm = new GifManager();
-                $gm->removeGifFromCollection($gifId, $collectionId);
-                $this->redirect("index.php?route=collection&collection=$collectionId&action=manage");
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection id and gif id from params
+            if (isset($_GET['gif']) && isset($_GET['collection'])) {
+                $gifId = $_GET['gif'];
+                $collectionId = $_GET['collection'];
+                //check if collection is from connected user
+                $cm = new CollectionManager();
+                $collection = $cm->findById($collectionId);
+                if ($collection->getAuthor()->getId() == $userId) {
+                    $gm = new GifManager();
+                    $gm->removeGifFromCollection($gifId, $collectionId);
+                    $this->redirect("index.php?route=collection&collection=$collectionId&action=manage");
+                } else {
+                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
             }
         } else {
-            $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
+            $this->redirect("index.php?route=error&error=Please sign in first");
         }
     }
     public function toggleCollectionPrivacy(): void
     {
-        if (isset($_GET['collection'])) {
-            $id = $_GET['collection'];
-            //get user id from params
-
-            $cm = new CollectionManager();
-            $cm->toggleCollectionPrivacy($id);
-            $this->redirect("index.php?route=collection&collection=$id");
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection id from params
+            if (isset($_GET['collection'])) {
+                $id = $_GET['collection'];
+                //check if collection is from connected user
+                $cm = new CollectionManager();
+                $collection = $cm->findById($id);
+                if ($collection->getAuthor()->getId() == $userId) {
+                    $cm->toggleCollectionPrivacy($id);
+                    $this->redirect("index.php?route=collection&collection=$id");
+                } else {
+                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
+            }
         } else {
-            $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
+
+            $this->redirect("index.php?route=error&error=Please sign in first");
         }
     }
 }
