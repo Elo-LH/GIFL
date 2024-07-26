@@ -133,15 +133,21 @@ class PrivateController extends AbstractController
     public function upload(): void
     {
         if (isset($_POST["formName"])) {
-            //upload GIF
-            $uploader = new Uploader();
-            $gif = $uploader->upload($_FILES, "image");
-            //add new GIF to DB
-            $gm = new GifManager();
-            $gm->createGIF($gif);
-            //add new GIF to uploads collection
+            // check CSRF token
+            $tokenManager = new CSRFTokenManager();
+            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                //upload GIF
+                $uploader = new Uploader();
+                $gif = $uploader->upload($_FILES, "image");
+                //add new GIF to DB
+                $gm = new GifManager();
+                $gm->createGIF($gif);
+                //add new GIF to uploads collection
 
-            $this->render("upload.html.twig", ["gif" => $gif]);
+                $this->render("upload.html.twig", ["gif" => $gif]);
+            } else {
+                $this->redirect("index.php?route=error&error=Invalid CSRF token");
+            }
         } else {
             $this->render("upload.html.twig", []);
         }
