@@ -49,6 +49,8 @@ class Router
             $this->prc->removeGifFromCollection();
         } else if ($get["route"] === "toggle-collection-privacy") {
             $this->prc->toggleCollectionPrivacy();
+        } else if ($get["route"] === "upload") {
+            $this->prc->upload();
         } else if ($get["route"] === "back-office") {
             $this->adc->backOffice();
         } else if ($get["route"] === "update-user") {

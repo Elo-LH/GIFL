@@ -56,4 +56,23 @@ class HashtagManager extends AbstractManager
             return null;
         }
     }
+    public function createHashtag(Hashtag $hashtag, int $gif_id): void
+    {
+        //add new Hashtag 
+        $query = $this->db->prepare("INSERT INTO hashtags(name, created_at) VALUES(:name, :createdAt) ");
+        $parameters = [
+            "name" => $hashtag->getName(),
+            "createdAt" => $hashtag->getCreatedAt()->format('Y-m-d H:i:s')
+        ];
+        $query->execute($parameters);
+        //add to link table with associated gif
+        $hashtag->setId($this->db->lastInsertId());
+        //add to uploads collection
+        $query = $this->db->prepare("INSERT INTO gifs_hashtags(gif_id, hashtag_id) VALUES(:gif_id, :hashtag_id) ");
+        $parameters = [
+            "gif_id" => $gif_id,
+            "hashtag_id" => $hashtag->getId()
+        ];
+        $query->execute($parameters);
+    }
 }

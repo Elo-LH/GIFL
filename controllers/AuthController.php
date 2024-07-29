@@ -90,15 +90,19 @@ class AuthController extends AbstractController
                         $hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
                         //init manager
                         $user = new User($email, $name, $hash, $avatar);
-                        $instance = new UserManager;
+                        $um = new UserManager;
                         //find user 
-                        $userFound = $instance->findByEmail($email);
+                        $userFound = $um->findByEmail($email);
                         //if email allready used give error
                         if ($userFound) {
                             $this->redirect("index.php?route=error&error=Email allready used, please log in.");
-                            //if email not found create new user
                         } else {
-                            $instance->createUser($user);
+                            //if email not found create new user
+                            $um->createUser($user);
+                            //create mandatory collections favorites and uploads
+                            $user = $um->findByEmail($email);
+                            $cm = new CollectionManager;
+                            $cm->initNewUserCollections($user->getId());
                             //redirect to back-office if user connected
                             if (isset($_SESSION['email'])) {
                                 $this->redirect("index.php?route=back-office");

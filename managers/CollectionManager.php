@@ -92,4 +92,33 @@ class CollectionManager extends AbstractManager
             return null;
         }
     }
+    public function initNewUserCollections($id): void
+    {
+        $dateTime = new DateTime();
+        $query = $this->db->prepare("INSERT INTO collections(user_id, name, private, created_at) VALUES(:id, 'favorites', 1, :createdAt), (:id, 'uploads', 1, :createdAt) ");
+        $parameters = [
+            "id" => $id,
+            "createdAt" => $dateTime->format('Y-m-d H:i:s')
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function findUserUploads($id): ?Collection
+    {
+        $query = $this->db->prepare("SELECT * FROM collections WHERE user_id = :id AND name = 'uploads'");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $um = new UserManager;
+            $user = $um->findById($result['user_id']);
+            $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+            $collection->setId($result["collection_id"]);
+            return $collection;
+        } else {
+            return null;
+        }
+    }
 }

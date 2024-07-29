@@ -65,9 +65,20 @@ button {
   text-transform: capitalize;
   margin: 0.6em;
   font-size: clamp(1.6rem, 3vw, 3rem);
+  cursor: pointer;
+}
+
+.link-button:active, button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.link-button:hover, button:hover {
+  background-color: #FFF1CD;
 }
 
 .link-button {
+  cursor: pointer;
   text-decoration: none;
   border: none;
   font-family: "Noto Sans", sans-serif;
@@ -833,6 +844,76 @@ COLLECTION
 
 .lock-img {
   height: clamp(14px, 2.6vw, 20px);
+}
+
+/* ==========================================================================
+UPLOAD
+========================================================================== */
+input[type=file] {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+input[type=file]:hover {
+  background-color: #110400;
+}
+
+input[type=file]::file-selector-button {
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  padding: 1em 2em;
+  border-radius: 2em;
+  box-shadow: 0 0.4em #70008A;
+  text-transform: capitalize;
+  margin: 0.6em;
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  background-color: #FFBA08;
+  color: #70008A;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #FFF1CD;
+}
+
+input[type=file]::file-selector-button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.upload-form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+}
+
+.drop-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  cursor: pointer;
+}
+
+.drop-container:hover {
+  background-color: #110400;
+}
+
+.upload-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline: 10%;
+  justify-content: center;
+}
+@media screen and (max-width: 900px) {
+  .upload-form {
+    padding-inline: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

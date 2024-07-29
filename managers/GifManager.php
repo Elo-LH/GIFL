@@ -175,7 +175,7 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare("UPDATE gifs SET reported = !reported WHERE gif_id =:id");
         $query->execute($parameters);
     }
-    public function findLatestInCollection($collection_id): Gif
+    public function findLatestInCollection($collection_id): ?Gif
     {
         $um = new UserManager;
         $query = $this->db->prepare('SELECT * FROM collections_gifs JOIN gifs ON collections_gifs.gif_id = gifs.gif_id JOIN collections ON collections_gifs.collection_id = collections.collection_id WHERE collections.collection_id = :id ORDER BY gifs.created_at DESC LIMIT 1');
@@ -184,10 +184,14 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
         $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        if ($item) {
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
+            $gif->setId($item['gif_id']);
+            return $gif;
+        } else {
+            return null;
+        }
     }
     public function removeGifFromCollection(int $gifId, int $collectionId): void
     {
@@ -195,6 +199,46 @@ class GifManager extends AbstractManager
         $parameters = [
             "gif_id" => $gifId,
             "collection_id" => $collectionId
+        ];
+        $query->execute($parameters);
+    }
+    public function addGifToCollection(int $gifId, int $collectionId): void
+    {
+        $query = $this->db->prepare("INSERT INTO collections_gifs(collection_id, gif_id) VALUES(:collection_id, :gif_id)");
+        $parameters = [
+            "gif_id" => $gifId,
+            "collection_id" => $collectionId
+        ];
+        $query->execute($parameters);
+    }
+    public function createGif(Gif $gif): void
+    {
+        //create new GIF
+        $query = $this->db->prepare("INSERT INTO gifs(link, user_id, created_at) VALUES(:link, :user_id, :createdAt) ");
+        $parameters = [
+            "link" => $gif->getLink(),
+            "user_id" => $_SESSION['id'],
+            "createdAt" => $gif->getCreatedAt()->format('Y-m-d H:i:s')
+        ];
+        $query->execute($parameters);
+        //load created GIF
+        $gif->setId($this->db->lastInsertId());
+        //add to uploads collection
+        $cm = new CollectionManager;
+        $collection = $cm->findUserUploads($_SESSION['id']);
+        $query = $this->db->prepare("INSERT INTO collections_gifs(collection_id, gif_id) VALUES(:collection_id, :gif_id) ");
+        $parameters = [
+            "collection_id" => $collection->getId(),
+            "gif_id" => $gif->getId()
+        ];
+        $query->execute($parameters);
+    }
+    public function addHashtag(int $gif_id, int $hashtag_id): void
+    {
+        $query = $this->db->prepare('INSERT INTO gifs_hashtags(gif_id, hashtag_id) VALUES(:gif_id, :hashtag_id)');
+        $parameters = [
+            "gif_id" => $gif_id,
+            "hashtag_id" => $hashtag_id
         ];
         $query->execute($parameters);
     }
