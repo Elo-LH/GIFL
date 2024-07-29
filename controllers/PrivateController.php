@@ -66,7 +66,26 @@ class PrivateController extends AbstractController
                     if ($action == "manage") {
                         $this->render("collection-manage.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                     } else if ($action == "upload") {
-                        $this->render("collection-upload.html.twig", ["collection" => $collection, "gifs" => $gifs]);
+                        if (isset($_POST["formName"])) {
+                            // check CSRF token
+                            $tokenManager = new CSRFTokenManager();
+                            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                                //upload GIF
+                                $uploader = new Uploader();
+                                $gif = $uploader->upload($_FILES, "image");
+                                //add new GIF to DB
+                                $gm = new GifManager();
+                                $gm->createGIF($gif);
+                                //add new GIF to collection
+                                $gm->addGifToCollection($gif->getId(), $id);
+
+                                $this->render("collection-upload.html.twig", ["gif" => $gif, "collection" => $collection, "gifs" => $gifs]);
+                            } else {
+                                $this->redirect("index.php?route=error&error=Invalid CSRF token");
+                            }
+                        } else {
+                            $this->render("collection-upload.html.twig", ["collection" => $collection, "gifs" => $gifs]);
+                        }
                     } else if ($action == "add") {
                         $this->render("collection-add.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                         //else default load = share collection

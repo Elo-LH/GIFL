@@ -202,6 +202,15 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
+    public function addGifToCollection(int $gifId, int $collectionId): void
+    {
+        $query = $this->db->prepare("INSERT INTO collections_gifs(collection_id, gif_id) VALUES(:collection_id, :gif_id)");
+        $parameters = [
+            "gif_id" => $gifId,
+            "collection_id" => $collectionId
+        ];
+        $query->execute($parameters);
+    }
     public function createGif(Gif $gif): void
     {
         //create new GIF
