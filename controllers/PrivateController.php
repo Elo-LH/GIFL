@@ -78,7 +78,23 @@ class PrivateController extends AbstractController
                                 $gm->createGIF($gif);
                                 //add new GIF to collection
                                 $gm->addGifToCollection($gif->getId(), $id);
-
+                                if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
+                                    $hm = new HashtagManager();
+                                    //if hashtags have been added, enter them in db
+                                    $hashtagsNames = explode(" ", $_POST['hashtags']);
+                                    foreach ($hashtagsNames as $hashtagName) {
+                                        //for each hashtag added, check if it exists in DB
+                                        $hashtag = $hm->findByName($hashtagName);
+                                        //if hashtag is found then add link gif-hahtags in link table
+                                        if ($hashtag) {
+                                            $gm->addHashtag($gif->getId(), $hashtag->getId());
+                                        } else {
+                                            //else create hashtag and then add link in gifs_hashtags table
+                                            $hashtag = new Hashtag($hashtagName);
+                                            $hm->createHashtag($hashtag, $gif->getId());
+                                        }
+                                    }
+                                }
                                 $this->render("collection-upload.html.twig", ["gif" => $gif, "collection" => $collection, "gifs" => $gifs]);
                             } else {
                                 $this->redirect("index.php?route=error&error=Invalid CSRF token");
@@ -162,6 +178,23 @@ class PrivateController extends AbstractController
                 $gm = new GifManager();
                 $gm->createGIF($gif);
                 //add new GIF to uploads collection
+                if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
+                    $hm = new HashtagManager();
+                    //if hashtags have been added, enter them in db
+                    $hashtagsNames = explode(" ", $_POST['hashtags']);
+                    foreach ($hashtagsNames as $hashtagName) {
+                        //for each hashtag added, check if it exists in DB
+                        $hashtag = $hm->findByName($hashtagName);
+                        //if hashtag is found then add link gif-hahtags in link table
+                        if ($hashtag) {
+                            $gm->addHashtag($gif->getId(), $hashtag->getId());
+                        } else {
+                            //else create hashtag and then add link in gifs_hashtags table
+                            $hashtag = new Hashtag($hashtagName);
+                            $hm->createHashtag($hashtag, $gif->getId());
+                        }
+                    }
+                }
 
                 $this->render("upload.html.twig", ["gif" => $gif]);
             } else {

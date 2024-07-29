@@ -233,4 +233,13 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
+    public function addHashtag(int $gif_id, int $hashtag_id): void
+    {
+        $query = $this->db->prepare('INSERT INTO gifs_hashtags(gif_id, hashtag_id) VALUES(:gif_id, :hashtag_id)');
+        $parameters = [
+            "gif_id" => $gif_id,
+            "hashtag_id" => $hashtag_id
+        ];
+        $query->execute($parameters);
+    }
 }
