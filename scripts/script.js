@@ -31,4 +31,32 @@ document.addEventListener('DOMContentLoaded', () => {
     searchResultWrapper.style.height = height / 5
     console.log(searchResultWrapper)
   }
+
+  //upload drag and drop
+  const dropContainer = document.getElementById('dropcontainer')
+  if (dropContainer) {
+    const fileInput = document.getElementById('image')
+
+    dropContainer.addEventListener(
+      'dragover',
+      (e) => {
+        e.preventDefault()
+      },
+      false
+    )
+
+    dropContainer.addEventListener('dragenter', () => {
+      dropContainer.classList.add('drag-active')
+    })
+
+    dropContainer.addEventListener('dragleave', () => {
+      dropContainer.classList.remove('drag-active')
+    })
+
+    dropContainer.addEventListener('drop', (e) => {
+      e.preventDefault()
+      dropContainer.classList.remove('drag-active')
+      fileInput.files = e.dataTransfer.files
+    })
+  }
 })
