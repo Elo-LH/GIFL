@@ -55,4 +55,14 @@ class Gif
     {
         $this->reported = $reported;
     }
+    public function toArray(): array
+    {
+        return [
+            "id" => $this->id,
+            "link" => $this->link,
+            "author" => $this->author,
+            "createdAt" => $this->createdAt,
+            "reported" => $this->reported
+        ];
+    }
 }

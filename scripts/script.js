@@ -1,12 +1,61 @@
+//initialize link to API
+
+const api = 'http://gifl/index.php?route='
+
+function fetchData(apiUrl) {
+  fetch(apiUrl).then((response) => {
+    console.log(response)
+    if (response.ok) {
+      //response.json().then(console.log)
+      response.json().then((data) => {
+        console.log('La requête a  réussi')
+        console.log(data)
+        return data
+      })
+    } else {
+      // La requete a echoué
+      console.log('La requête a échoué')
+      console.log(response)
+    }
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('script loaded')
 
-  //Getting input
-  // const inputSearch = document.querySelector('.input-search')
-  // if (inputSearch) {
-  //   let userInput = ''
-  //   inputSearch.addEventListener('input', (e) => (userInput = e.target.value))
-  // }
+  // Getting input
+  const inputSearch = document.querySelector('.input-search')
+  if (inputSearch) {
+    let userInput = ''
+    inputSearch.addEventListener('input', (e) => {
+      userInput = e.target.value
+      const searchResultDisplay = document.querySelector(
+        '.search-result-display'
+      )
+      searchResultDisplay.textContent = ''
+      fetch(api + 'get-hashtag-search-result&input=' + userInput).then(
+        (response) => {
+          console.log(response)
+          if (response.ok) {
+            //response.json().then(console.log)
+            response.json().then((data) => {
+              console.log('La requête a  réussi')
+              console.log(data)
+              data.forEach((gif) => {
+                const gifImg = document.createElement('img')
+                gifImg.src = gif.link
+                searchResultDisplay.appendChild(gifImg)
+              })
+            })
+          } else {
+            // La requete a echoué
+            console.log('La requête a échoué')
+            console.log(response)
+          }
+        }
+      )
+    })
+  }
 
   const toggleBurger = () => {
     console.log('toggle burger')
