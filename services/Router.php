@@ -54,6 +54,8 @@ class Router
             $this->prc->collection();
         } else if ($get["route"] === "remove-gif-from-collection") {
             $this->prc->removeGifFromCollection();
+        } else if ($get["route"] === "add-gif-to-collection") {
+            $this->prc->addGifToCollection();
         } else if ($get["route"] === "toggle-collection-privacy") {
             $this->prc->toggleCollectionPrivacy();
         } else if ($get["route"] === "upload") {
