@@ -7,6 +7,35 @@
 
 {% block main %}
 	<main>
-		<h1>Collection - Add</h1>
+		<div class="collection-top-wrapper">
+			<div class="collection-top-titles">
+				<h1 class="h1-regular">{{collection.name}}</h1>
+				{% if collection.private %}
+					<p class="subtitle">Private collection
+						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
+					</p>
+				{% else %}
+					<p class="subtitle">Public collection
+						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Make private</a>
+					</p>
+				{% endif %}
+				<p class="subtitle">Created
+					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}</p>
+			</div>
+			<nav class="collection-nav">
+				<a class="link-button pink-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
+				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
+			</nav>
+		</div>
+		<form action="" method="POST" class="search-bar">
+			<input type="text" name="input-search" id="input-search" class="input-search">
+			<div class="search-bar-buttons-wrapper">
+				<button type="submit" name="action" value="hashtag" class="yellow-button small-button">Search GIFs</button>
+				<button type="submit" name="action" value="collection" class="yellow-button small-button">Search collections</button>
+			</div>
+		</form>
+		<div class="js-search-result-display masonry-grid js-collection-add collection-{{collection.id}}"></div>
 	</main>
 {% endblock %}

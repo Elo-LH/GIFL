@@ -140,6 +140,32 @@ class PrivateController extends AbstractController
             $this->redirect("index.php?route=error&error=Please sign in first");
         }
     }
+    public function addGifToCollection(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection id and gif id from params
+            if (isset($_GET['gif']) && isset($_GET['collection'])) {
+                $gifId = $_GET['gif'];
+                $collectionId = $_GET['collection'];
+                //check if collection is from connected user
+                $cm = new CollectionManager();
+                $collection = $cm->findById($collectionId);
+                if ($collection->getAuthor()->getId() == $userId) {
+                    $gm = new GifManager();
+                    $gm->addGifToCollection($gifId, $collectionId);
+                    $this->redirect("index.php?route=collection&collection=$collectionId&action=add");
+                } else {
+                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
+            }
+        } else {
+            $this->redirect("index.php?route=error&error=Please sign in first");
+        }
+    }
     public function toggleCollectionPrivacy(): void
     {
         //check if connected

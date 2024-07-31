@@ -1,12 +1,105 @@
+//initialize link to API
+
+const api = 'http://gifl/index.php?route='
+
+function fetchData(apiUrl) {
+  fetch(apiUrl).then((response) => {
+    console.log(response)
+    if (response.ok) {
+      //response.json().then(console.log)
+      response.json().then((data) => {
+        console.log('La requête a  réussi')
+        console.log(data)
+        return data
+      })
+    } else {
+      // La requete a echoué
+      console.log('La requête a échoué')
+      console.log(response)
+    }
+  })
+}
+
+const getParameter = (key) => {
+  // Address of the current window
+  let address = window.location.search
+
+  // Returns a URLSearchParams object instance
+  let parameterList = new URLSearchParams(address)
+
+  // Returning the respected value associated
+  // with the provided key
+  return parameterList.get(key)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('script loaded')
 
-  //Getting input
-  // const inputSearch = document.querySelector('.input-search')
-  // if (inputSearch) {
-  //   let userInput = ''
-  //   inputSearch.addEventListener('input', (e) => (userInput = e.target.value))
-  // }
+  // Getting input
+  const inputSearch = document.querySelector('.input-search')
+  if (inputSearch) {
+    let userInput = ''
+    inputSearch.addEventListener('input', (e) => {
+      userInput = e.target.value
+      const searchResultDisplay = document.querySelector(
+        '.js-search-result-display'
+      )
+      searchResultDisplay.textContent = ''
+      fetch(api + 'get-hashtag-search-result&input=' + userInput).then(
+        (response) => {
+          console.log(response)
+          if (response.ok) {
+            //response.json().then(console.log)
+            response.json().then((data) => {
+              console.log('La requête a  réussi')
+              console.log(data)
+              data.forEach((gif) => {
+                const collectionId = getParameter('collection')
+                const gridItem = document.createElement('div')
+                gridItem.classList.add('masonry-grid-item')
+                const gridLink = document.createElement('a')
+                gridLink.classList.add('masonry-grid-link')
+                gridLink.href = `index.php?route=gif&gif=${gif.id}`
+                const gifImg = document.createElement('img')
+                gifImg.classList.add('masonry-grid-img')
+                gifImg.alt = ''
+                gifImg.src = gif.link
+                gridLink.appendChild(gifImg)
+                gridItem.appendChild(gridLink)
+                if (
+                  searchResultDisplay.classList.contains('js-collection-add')
+                ) {
+                  const gridAddLink = document.createElement('a')
+                  gridAddLink.classList.add(
+                    'link-button',
+                    'very-small-button',
+                    'yellow-button',
+                    'masonry-grid-item-icon'
+                  )
+                  gridAddLink.href = `index.php?route=add-gif-to-collection&gif=${gif.id}&collection=${collectionId}`
+                  gridAddLink.textContent = 'Add'
+                  gridItem.appendChild(gridAddLink)
+                }
+                searchResultDisplay.appendChild(gridItem)
+
+                var elem = document.querySelector('.masonry-grid')
+                var msnry = new Masonry(elem, {
+                  // options
+                  itemSelector: '.masonry-grid-item',
+
+                  gutter: 5,
+                })
+              })
+            })
+          } else {
+            // La requete a echoué
+            console.log('La requête a échoué')
+            console.log(response)
+          }
+        }
+      )
+    })
+  }
 
   const toggleBurger = () => {
     console.log('toggle burger')
