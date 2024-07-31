@@ -78,6 +78,8 @@ class Router
         // API routes
         else if ($get["route"] === "get-hashtag-search-result") {
             $this->apic->getHashtagSearchResult();
+        } else if ($get["route"] === "get-gif-info") {
+            $this->apic->getGifInfo();
         }
         // Other routes
         else if ($get["route"] === "error") {
