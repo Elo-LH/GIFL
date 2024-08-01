@@ -903,11 +903,17 @@ display: block;
    width: 70%;
   }
   margin-inline: auto;
-  height: 80vh;
+  padding-bottom: 2rem;
+  max-height: 80vh;
     margin-top: 10vh;
 }
 .close-modale-btn{
   position: absolute;
   right: 0;
   top: 0;
+}
+.gif-report-btn{
+  position: absolute;
+  top: 0;
+  left: 0;
 }

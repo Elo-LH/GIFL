@@ -125,7 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         authOptions.innerHTML = ''
         authOptions.classList.toggle('modale-hidden')
         const reportBtn = document.createElement('button')
-        reportBtn.classList.add('pink-button', 'very-small-button')
+        reportBtn.classList.add(
+          'pink-button',
+          'very-small-button',
+          'gif-report-btn'
+        )
         reportBtn.textContent = 'Report'
         reportBtn.addEventListener('click', () => {
           fetch(api + 'put-gif-reported&gif=' + gifId).then((response) => {
