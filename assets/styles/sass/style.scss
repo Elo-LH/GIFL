@@ -482,6 +482,7 @@ box-shadow: 0.2em 0.2em  $aubergine;
   .masonry-grid-link{
     display: block;
     width: 100%;
+    cursor: pointer;
   }
   .masonry-grid-img{
     width: 100%;
@@ -499,16 +500,23 @@ PUBLIC GIF PAGE
   display: flex;
   flex-direction: column;
 }
+
 .gif-card-top{
   display: flex;
-  img{
+  .gif-card-img-wrapper{
     width: 60%;
+    @media screen and (max-width: 900px) {
+      width: 100%;
+      }
+  }
+  img{
+    max-height: 60vh;
+    object-fit: contain;
+    width: 100%;
   }
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    img{
-      width: 100%;
-    }
+   
   }
   .hashtags-wrapper{
     padding-left: 1em;
@@ -525,6 +533,7 @@ PUBLIC GIF PAGE
  text-decoration: none;
   }
 }
+
 .gif-card-bottom{
   width: 100%;
   display: flex;
@@ -862,4 +871,49 @@ input[type=file]::file-selector-button:active{
   @media screen and (max-width: 900px) {
     padding-inline: 0;
   }
+}
+
+ /* ==========================================================================
+GIF MODALE
+========================================================================== */
+
+.gif-display-modale-overlay{
+display: block;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  position: fixed;
+  z-index: 1000000;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  pointer-events: all;
+}
+
+.modale-hidden{
+  display: none;
+}
+
+.gif-display-modale{
+  position: relative;
+  background-color: $darkPurple;
+  border: 2px solid $neonPink;
+  width: 90%;
+  @media screen and (min-width: 900px) {
+   width: 70%;
+  }
+  margin-inline: auto;
+  padding-bottom: 2rem;
+  max-height: 80vh;
+    margin-top: 10vh;
+}
+.close-modale-btn{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.gif-report-btn{
+  position: absolute;
+  top: 0;
+  left: 0;
 }

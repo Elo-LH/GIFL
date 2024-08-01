@@ -512,6 +512,7 @@ PUBLIC SEARCH PAGE
 .masonry-grid-item .masonry-grid-link {
   display: block;
   width: 100%;
+  cursor: pointer;
 }
 .masonry-grid-item .masonry-grid-img {
   width: 100%;
@@ -532,15 +533,22 @@ PUBLIC GIF PAGE
 .gif-card-top {
   display: flex;
 }
-.gif-card-top img {
+.gif-card-top .gif-card-img-wrapper {
   width: 60%;
+}
+@media screen and (max-width: 900px) {
+  .gif-card-top .gif-card-img-wrapper {
+    width: 100%;
+  }
+}
+.gif-card-top img {
+  max-height: 60vh;
+  object-fit: contain;
+  width: 100%;
 }
 @media screen and (max-width: 900px) {
   .gif-card-top {
     flex-direction: column;
-  }
-  .gif-card-top img {
-    width: 100%;
   }
 }
 .gif-card-top .hashtags-wrapper {
@@ -914,6 +922,54 @@ input[type=file]::file-selector-button:active {
   .upload-form {
     padding-inline: 0;
   }
+}
+
+/* ==========================================================================
+GIF MODALE
+========================================================================== */
+.gif-display-modale-overlay {
+  display: block;
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+  position: fixed;
+  z-index: 1000000;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  pointer-events: all;
+}
+
+.modale-hidden {
+  display: none;
+}
+
+.gif-display-modale {
+  position: relative;
+  background-color: #170327;
+  border: 2px solid #D108FF;
+  width: 90%;
+  margin-inline: auto;
+  padding-bottom: 2rem;
+  max-height: 80vh;
+  margin-top: 10vh;
+}
+@media screen and (min-width: 900px) {
+  .gif-display-modale {
+    width: 70%;
+  }
+}
+
+.close-modale-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.gif-report-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

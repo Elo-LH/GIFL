@@ -175,6 +175,14 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare("UPDATE gifs SET reported = !reported WHERE gif_id =:id");
         $query->execute($parameters);
     }
+    public function setReported(int $id)
+    {
+        $parameters = [
+            "id" => $id
+        ];
+        $query = $this->db->prepare("UPDATE gifs SET reported = 1 WHERE gif_id =:id");
+        $query->execute($parameters);
+    }
     public function findLatestInCollection($collection_id): ?Gif
     {
         $um = new UserManager;

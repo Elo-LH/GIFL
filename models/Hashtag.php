@@ -33,4 +33,13 @@ class Hashtag
     {
         $this->createdAt = $createdAt;
     }
+    public function toArray(): array
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "createdAt" => $this->createdAt
+
+        ];
+    }
 }
