@@ -163,6 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
       })
+      //Add keyboard control to open modale (accessibility)
+      gifItem.addEventListener('keydown', (event) => {
+        if (event.code === 'Space' || event.code === 'Enter') {
+          gifItem.click()
+        }
+      })
     })
 
     // Add event listener on close Button

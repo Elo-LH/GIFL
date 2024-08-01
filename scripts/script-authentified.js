@@ -104,11 +104,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Displaying GIF modale on click
   const gifModaleOverlay = document.querySelector('.gif-display-modale-overlay')
+
   if (gifModaleOverlay) {
     const gifModale = document.querySelector('.gif-display-modale')
     const gifItems = document.querySelectorAll('.js-gif-modale')
     const authOptions = document.querySelector('.gif-card-auth-options')
     console.log('query gifItems')
+
+    // close modale on click on overlaw
+    window.onclick = function (event) {
+      if (event.target.classList.contains('gif-display-modale-overlay')) {
+        gifModale.classList.toggle('modale-hidden')
+        gifModaleOverlay.classList.toggle('modale-hidden')
+        authOptions.classList.toggle('modale-hidden')
+      }
+    }
 
     // Add event listener on each gif item
     gifItems.forEach((gifItem) => {
