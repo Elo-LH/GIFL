@@ -500,16 +500,23 @@ PUBLIC GIF PAGE
   display: flex;
   flex-direction: column;
 }
+
 .gif-card-top{
   display: flex;
-  img{
+  .gif-card-img-wrapper{
     width: 60%;
+    @media screen and (max-width: 900px) {
+      width: 100%;
+      }
+  }
+  img{
+    max-height: 60vh;
+    object-fit: contain;
+    width: 100%;
   }
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    img{
-      width: 100%;
-    }
+   
   }
   .hashtags-wrapper{
     padding-left: 1em;
@@ -526,6 +533,7 @@ PUBLIC GIF PAGE
  text-decoration: none;
   }
 }
+
 .gif-card-bottom{
   width: 100%;
   display: flex;
@@ -895,8 +903,11 @@ display: block;
    width: 70%;
   }
   margin-inline: auto;
-  height: 70vh;
-  margin-top: 20vh;
+  height: 80vh;
+ 
+    margin-top: 10vh;
+ 
+ 
 }
 .close-modale-btn{
   position: absolute;

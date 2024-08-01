@@ -33,7 +33,7 @@
 		<div class="masonry-grid">
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">
-					<span class="masonry-grid-link js-gif-modale js-gif-id-{{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
+					<span class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
 					</span>
 				</div>
 			{% endfor %}
@@ -41,6 +41,20 @@
 		<div class="gif-display-modale-overlay modale-hidden">
 			<div class="gif-display-modale modale-hidden">
 				<button class="pink-button small-button close-modale-btn js-close-modale">Close</button>
+				<div class="gif-card-top">
+					<div class="gif-card-img-wrapper">
+						<img class="js-gif-modale-img" src="" alt="">
+					</div>
+					<div class="js-gif-modale-hashtags hashtags-wrapper"></div>
+				</div>
+				<div class="gif-card-bottom">
+					<input class="input-search js-gif-modale-input" type="text">
+					<div class="gif-card-buttons-wrapper">
+						<button class="yellow-button small-button">Copy Link</button>
+						<button class="yellow-button small-button">Download GIF</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 

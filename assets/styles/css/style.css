@@ -533,15 +533,22 @@ PUBLIC GIF PAGE
 .gif-card-top {
   display: flex;
 }
-.gif-card-top img {
+.gif-card-top .gif-card-img-wrapper {
   width: 60%;
+}
+@media screen and (max-width: 900px) {
+  .gif-card-top .gif-card-img-wrapper {
+    width: 100%;
+  }
+}
+.gif-card-top img {
+  max-height: 60vh;
+  object-fit: contain;
+  width: 100%;
 }
 @media screen and (max-width: 900px) {
   .gif-card-top {
     flex-direction: column;
-  }
-  .gif-card-top img {
-    width: 100%;
   }
 }
 .gif-card-top .hashtags-wrapper {
@@ -943,8 +950,8 @@ GIF MODALE
   border: 2px solid #D108FF;
   width: 90%;
   margin-inline: auto;
-  height: 70vh;
-  margin-top: 20vh;
+  height: 80vh;
+  margin-top: 10vh;
 }
 @media screen and (min-width: 900px) {
   .gif-display-modale {

@@ -36,9 +36,11 @@ class APIController extends AbstractController
             array_push($array, $gif->toArray());
             //find hashtags
             $hashtags = $gm->findHashtags($_GET['gif']);
+            if (!is_null($hashtags)) {
 
-            foreach ($hashtags as $hashtag) {
-                array_push($array, $hashtag->toArray());
+                foreach ($hashtags as $hashtag) {
+                    array_push($array, $hashtag->toArray());
+                }
             }
             echo json_encode($array);
         } else {

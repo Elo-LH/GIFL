@@ -108,17 +108,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const gifModale = document.querySelector('.gif-display-modale')
     const gifItems = document.querySelectorAll('.js-gif-modale')
     console.log('query gifItems')
+
+    // Add event listener on each gif item
     gifItems.forEach((gifItem) => {
       gifItem.addEventListener('click', (e) => {
         console.log('event click modale')
-        const gifImg = document.createElement('img')
-        gifImg.src =
-          'https://media1.tenor.com/m/qYQjQJ9WtZgAAAAC/sloth-baby.gif'
-        gifModale.appendChild(gifImg)
-        gifModaleOverlay.classList.toggle('modale-hidden')
-        gifModale.classList.toggle('modale-hidden')
+        // If click on GIF
+
+        //retrieve GIF id
+        const gifIdName = e.target.id
+        const gifId = gifIdName.slice(10)
+        console.log(gifId)
+        // Fetch gif infos from API
+        fetch(api + 'get-gif-info&gif=' + gifId).then((response) => {
+          console.log(response)
+          if (response.ok) {
+            //response.json().then(console.log)
+            response.json().then((data) => {
+              console.log('La requête a  réussi')
+              console.log(data)
+              // use fetched data to generate modale
+
+              // add gif img
+              const gifImg = document.querySelector('.js-gif-modale-img')
+              gifImg.src = data[0].link
+              const gifHashtags = document.querySelector(
+                '.js-gif-modale-hashtags'
+              )
+              // add each hashtag link
+              data.forEach((hashtag, i) => {
+                if (i == 0) {
+                  gifHashtags.innerHTML = ''
+                } else {
+                  const gifHashtag = document.createElement('a')
+                  gifHashtag.textContent = `#${hashtag.name}`
+                  gifHashtag.classList.add('gif-card-hashtag')
+                  gifHashtag.href = `index.php?route=hashtag-page&hashtag=${hashtag.id}`
+                  gifHashtags.appendChild(gifHashtag)
+                }
+              })
+              // fill input with link to gif page
+              const input = document.querySelector('.js-gif-modale-input')
+              input.value = data[0].link
+              //show modale
+              gifModaleOverlay.classList.toggle('modale-hidden')
+              gifModale.classList.toggle('modale-hidden')
+            })
+          } else {
+            // La requete a echoué
+            console.log('La requête a échoué')
+            console.log(response)
+          }
+        })
       })
     })
+
+    // Add event listener on close Button
     const closeBtn = document.querySelector('.js-close-modale')
     closeBtn.addEventListener('click', () => {
       gifModale.classList.toggle('modale-hidden')
