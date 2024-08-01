@@ -80,6 +80,8 @@ class Router
             $this->apic->getHashtagSearchResult();
         } else if ($get["route"] === "get-gif-info") {
             $this->apic->getGifInfo();
+        } else if ($get["route"] === "put-gif-reported") {
+            $this->apic->putGifReported();
         }
         // Other routes
         else if ($get["route"] === "error") {

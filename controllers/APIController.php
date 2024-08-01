@@ -47,4 +47,19 @@ class APIController extends AbstractController
             echo null;
         }
     }
+    public function putGifReported(): void
+    {
+        if (isset($_SESSION['admin'])) {
+            if (isset($_GET['gif'])) {
+                $id = $_GET['gif'];
+                //init manager
+                $gm = new GifManager;
+                //get post info
+                $gm->setReported($id);
+                echo 'gif reported';
+            }
+        } else {
+            echo 'fail';
+        }
+    }
 }

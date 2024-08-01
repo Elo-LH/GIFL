@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (gifModaleOverlay) {
     const gifModale = document.querySelector('.gif-display-modale')
     const gifItems = document.querySelectorAll('.js-gif-modale')
+    const authOptions = document.querySelector('.gif-card-auth-options')
     console.log('query gifItems')
 
     // Add event listener on each gif item
@@ -119,7 +120,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const gifIdName = e.target.id
         const gifId = gifIdName.slice(10)
         console.log(gifId)
-        // add link to report if user connected
+
+        // generate report button
+        authOptions.innerHTML = ''
+        authOptions.classList.toggle('modale-hidden')
+        const reportBtn = document.createElement('button')
+        reportBtn.classList.add('pink-button', 'very-small-button')
+        reportBtn.textContent = 'Report'
+        reportBtn.addEventListener('click', () => {
+          fetch(api + 'put-gif-reported&gif=' + gifId).then((response) => {
+            console.log(response)
+            if (response.ok) {
+              //response.json().then(console.log)
+              response.json().then((data) => {
+                console.log('La requête a  réussi')
+                console.log(data)
+                return data
+              })
+            } else {
+              // La requete a echoué
+              console.log('La requête a échoué')
+              console.log(response)
+            }
+          })
+        })
+        authOptions.appendChild(reportBtn)
 
         // Fetch gif infos from API
         fetch(api + 'get-gif-info&gif=' + gifId).then((response) => {
@@ -170,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', () => {
       gifModale.classList.toggle('modale-hidden')
       gifModaleOverlay.classList.toggle('modale-hidden')
+      authOptions.classList.toggle('modale-hidden')
     })
   }
   const toggleBurger = () => {
