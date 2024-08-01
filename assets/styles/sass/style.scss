@@ -482,6 +482,7 @@ box-shadow: 0.2em 0.2em  $aubergine;
   .masonry-grid-link{
     display: block;
     width: 100%;
+    cursor: pointer;
   }
   .masonry-grid-img{
     width: 100%;
@@ -869,7 +870,7 @@ GIF MODALE
 ========================================================================== */
 
 .gif-display-modale-overlay{
-  display: none;
+display: block;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
   position: fixed;
@@ -886,6 +887,7 @@ GIF MODALE
 }
 
 .gif-display-modale{
+  position: relative;
   background-color: $darkPurple;
   border: 2px solid $neonPink;
   width: 90%;
@@ -895,4 +897,9 @@ GIF MODALE
   margin-inline: auto;
   height: 70vh;
   margin-top: 20vh;
+}
+.close-modale-btn{
+  position: absolute;
+  right: 0;
+  top: 0;
 }

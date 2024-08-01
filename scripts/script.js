@@ -115,9 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
         gifImg.src =
           'https://media1.tenor.com/m/qYQjQJ9WtZgAAAAC/sloth-baby.gif'
         gifModale.appendChild(gifImg)
-        gifModaleOverlay.style.display = 'block'
+        gifModaleOverlay.classList.toggle('modale-hidden')
         gifModale.classList.toggle('modale-hidden')
       })
+    })
+    const closeBtn = document.querySelector('.js-close-modale')
+    closeBtn.addEventListener('click', () => {
+      gifModale.classList.toggle('modale-hidden')
+      gifModaleOverlay.classList.toggle('modale-hidden')
     })
   }
   const toggleBurger = () => {

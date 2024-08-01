@@ -512,6 +512,7 @@ PUBLIC SEARCH PAGE
 .masonry-grid-item .masonry-grid-link {
   display: block;
   width: 100%;
+  cursor: pointer;
 }
 .masonry-grid-item .masonry-grid-img {
   width: 100%;
@@ -920,7 +921,7 @@ input[type=file]::file-selector-button:active {
 GIF MODALE
 ========================================================================== */
 .gif-display-modale-overlay {
-  display: none;
+  display: block;
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
   position: fixed;
@@ -937,6 +938,7 @@ GIF MODALE
 }
 
 .gif-display-modale {
+  position: relative;
   background-color: #170327;
   border: 2px solid #D108FF;
   width: 90%;
@@ -948,6 +950,12 @@ GIF MODALE
   .gif-display-modale {
     width: 70%;
   }
+}
+
+.close-modale-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
