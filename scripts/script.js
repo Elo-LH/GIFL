@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 searchResultDisplay.appendChild(gridItem)
 
+                //Load masonry displaay
                 var elem = document.querySelector('.masonry-grid')
                 var msnry = new Masonry(elem, {
                   // options
@@ -101,6 +102,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  // Displaying GIF modale on click
+  const gifModaleOverlay = document.querySelector('.gif-display-modale-overlay')
+  if (gifModaleOverlay) {
+    const gifModale = document.querySelector('.gif-display-modale')
+    const gifItems = document.querySelectorAll('.js-gif-modale')
+    console.log('query gifItems')
+    gifItems.forEach((gifItem) => {
+      gifItem.addEventListener('click', (e) => {
+        console.log('event click modale')
+        const gifImg = document.createElement('img')
+        gifImg.src =
+          'https://media1.tenor.com/m/qYQjQJ9WtZgAAAAC/sloth-baby.gif'
+        gifModale.appendChild(gifImg)
+        gifModaleOverlay.style.display = 'block'
+        gifModale.classList.toggle('modale-hidden')
+      })
+    })
+  }
   const toggleBurger = () => {
     console.log('toggle burger')
     const pageHeaderNav = document.querySelector('.page-header-nav')

@@ -863,3 +863,36 @@ input[type=file]::file-selector-button:active{
     padding-inline: 0;
   }
 }
+
+ /* ==========================================================================
+GIF MODALE
+========================================================================== */
+
+.gif-display-modale-overlay{
+  display: none;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  position: fixed;
+  z-index: 1000000;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  pointer-events: all;
+}
+
+.modale-hidden{
+  display: none;
+}
+
+.gif-display-modale{
+  background-color: $darkPurple;
+  border: 2px solid $neonPink;
+  width: 90%;
+  @media screen and (min-width: 900px) {
+   width: 70%;
+  }
+  margin-inline: auto;
+  height: 70vh;
+  margin-top: 20vh;
+}

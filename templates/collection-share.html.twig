@@ -33,10 +33,14 @@
 		<div class="masonry-grid">
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">
-					<a class="masonry-grid-link" href="index.php?route=gif&gif={{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
-					</a>
+					<span class="masonry-grid-link js-gif-modale js-gif-id-{{gif.id}}"><img class="masonry-grid-img" src="{{gif.link}}">
+					</span>
 				</div>
 			{% endfor %}
 		</div>
+		<div class="gif-display-modale-overlay">
+			<div class="gif-display-modale modale-hidden"></div>
+		</div>
+
 	</main>
 {% endblock %}
