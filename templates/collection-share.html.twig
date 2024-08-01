@@ -33,12 +33,12 @@
 		<div class="masonry-grid">
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">
-					<span class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
+					<span tabindex="0" role="command" aria-label="Open GIF details" class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
 					</span>
 				</div>
 			{% endfor %}
 		</div>
-		<div class="gif-display-modale-overlay modale-hidden">
+		<div aria-modal="true" class="gif-display-modale-overlay modale-hidden">
 			<div class="gif-display-modale modale-hidden">
 				<button class="pink-button small-button close-modale-btn js-close-modale">Close</button>
 				<div class="gif-card-top">

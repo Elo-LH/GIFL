@@ -144,7 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           })
         })
+
         authOptions.appendChild(reportBtn)
+
+        //Generate select
+        const selectCollection = document.createElement('select')
+        //fetch collections from user
+        //for each collection generate an option with value = collection_id and collection name
 
         // Fetch gif infos from API
         fetch(api + 'get-gif-info&gif=' + gifId).then((response) => {
@@ -187,6 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(response)
           }
         })
+      })
+
+      //Add keyboard control to open modale (accessibility)
+      gifItem.addEventListener('keydown', (event) => {
+        if (event.code === 'Space' || event.code === 'Enter') {
+          gifItem.click()
+        }
       })
     })
 
