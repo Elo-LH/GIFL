@@ -60,6 +60,8 @@ class Router
             $this->prc->toggleCollectionPrivacy();
         } else if ($get["route"] === "create-collection") {
             $this->prc->createCollection();
+        } else if ($get["route"] === "delete-collection") {
+            $this->prc->deleteCollection();
         } else if ($get["route"] === "upload") {
             $this->prc->upload();
         }
