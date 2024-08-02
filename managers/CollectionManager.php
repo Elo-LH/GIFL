@@ -133,4 +133,27 @@ class CollectionManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
+    public function isCollectionFromUser(int $collection_id, int $user_id): bool
+    {
+        $query = $this->db->prepare("SELECT * FROM collections WHERE user_id = :user_id AND collection_id = :collection_id");
+        $parameters = [
+            "user_id" => $user_id,
+            "collection_id" => $collection_id
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function deleteCollection($id): void
+    {
+        $query = $this->db->prepare("DELETE FROM collections WHERE collection_id = :id");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+    }
 }

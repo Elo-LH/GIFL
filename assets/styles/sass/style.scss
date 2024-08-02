@@ -879,6 +879,21 @@ padding-bottom: 2rem;
   height: clamp(14px, 2.6vw, 20px);
 }
 
+.copy-message-alert{
+display: none;
+  position: relative;
+ 
+  width: 200px;
+  background-color: $darkBlue;
+  color: $white;
+  border-radius: 5px;
+  padding: 0.75rem 0.25rem;
+  font-size: 1.6rem;
+  text-align: center;
+  z-index: 30000000;
+}
+
+
  /* ==========================================================================
 UPLOAD
 ========================================================================== */

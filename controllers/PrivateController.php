@@ -256,4 +256,30 @@ class PrivateController extends AbstractController
             $this->redirect("index.php?route=error&error=Please sign in first");
         }
     }
+    public function deleteCollection(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get collection Id from get param
+            if (isset($_GET['collection'])) {
+                $collectionId = $_GET['collection'];
+                $cm = new CollectionManager();
+                //check if collection is from connected user
+                if ($cm->isCollectionFromUser($collectionId, $userId)) {
+
+                    //delete collection
+                    $cm->deleteCollection($collectionId);
+                    $this->redirect("index.php?route=my-collections");
+                } else {
+                    $this->redirect("index.php?route=error&error=This collection is not yours, you cant delete it");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't retrieve collection id");
+            }
+        } else {
+
+            $this->redirect("index.php?route=error&error=Please sign in first");
+        }
+    }
 }

@@ -12,11 +12,9 @@
 				<h1 class="h1-regular">{{collection.name}}</h1>
 				{% if collection.private %}
 					<p class="subtitle">Private collection
-						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
 					</p>
 				{% else %}
 					<p class="subtitle">Public collection
-						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Make private</a>
 					</p>
 				{% endif %}
 
