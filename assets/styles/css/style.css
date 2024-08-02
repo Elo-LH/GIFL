@@ -737,6 +737,22 @@ WELCOME
   width: 100%;
 }
 
+.collection-card-pointer:hover .collection-card-pointer-arrow {
+  transform: scaleY(1.1);
+}
+.collection-card-pointer:hover .collection-card-pointer-text-wrapper {
+  transform: scaleY(1.1);
+}
+
+.collection-card-pointer:active .collection-card-pointer-arrow {
+  transform: translateY(4px) scaleY(1.1);
+  filter: none;
+}
+.collection-card-pointer:active .collection-card-pointer-text-wrapper {
+  transform: translateY(4px) scaleY(1.1);
+  box-shadow: none;
+}
+
 .collection-card-pointer-arrow {
   display: block;
   height: 3em;
@@ -775,6 +791,22 @@ MY COLLECTIONS
   width: 98%;
   margin-inline: auto;
   z-index: 100;
+}
+
+.collection-horizontal-pointer:hover .collection-horizontal-pointer-arrow {
+  transform: scaleY(1.1);
+}
+.collection-horizontal-pointer:hover .collection-horizontal-pointer-text-wrapper {
+  transform: scaleY(1.1);
+}
+
+.collection-horizontal-pointer:active .collection-horizontal-pointer-arrow {
+  transform: translateY(4px) scaleY(1.1);
+  filter: none;
+}
+.collection-horizontal-pointer:active .collection-horizontal-pointer-text-wrapper {
+  transform: translateY(4px) scaleY(1.1);
+  box-shadow: none;
 }
 
 .collection-horizontal-pointer-arrow {
