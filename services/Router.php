@@ -28,6 +28,8 @@ class Router
             $this->pc->searchResult();
         } else if ($get["route"] === "hashtag-page") {
             $this->pc->hashtagPage();
+        } else if ($get["route"] === "collection-public") {
+            $this->pc->collection();
         } else if ($get["route"] === "gif") {
             $this->pc->gif();
         }

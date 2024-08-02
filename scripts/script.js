@@ -20,6 +20,33 @@ function fetchData(apiUrl) {
   })
 }
 
+function copyAdress() {
+  console.log('copyAdress')
+  // Copy the text inside the text field
+  const inputSearch = document.querySelector('.input-search')
+  const link = inputSearch.value
+  console.log(link)
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(link)
+  } else {
+    const input = document.createElement('textarea')
+    input.value = link
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand('copy')
+    document.body.removeChild(input)
+  }
+
+  const copyMessage = document.querySelector('.js-copy-message')
+
+  // Alert the copied text
+  console.log(copyMessage)
+  copyMessage.style.display = 'inline'
+  setTimeout(() => {
+    copyMessage.style.display = 'none'
+  }, 2000)
+}
+
 const getParameter = (key) => {
   // Address of the current window
   let address = window.location.search
@@ -34,6 +61,13 @@ const getParameter = (key) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('script loaded')
+
+  // Getting copy link button
+  const copyBtn = document.querySelector('.js-copy-btn')
+  if (copyBtn) {
+    console.log('add event')
+    copyBtn.addEventListener('click', copyAdress)
+  }
 
   // Getting input
   const inputSearch = document.querySelector('.input-search')

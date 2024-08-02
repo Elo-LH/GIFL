@@ -82,6 +82,33 @@ class PublicController extends AbstractController
             $this->redirect("index.php?route=search");
         }
     }
+    public function collection(): void
+    {
+        if (isset($_GET['collection'])) {
+            $collectionId = $_GET['collection'];
+            //search in db the collection corresponding to id
+            $cm = new CollectionManager;
+            $collection = $cm->findbyId($collectionId);
+
+            if ($collection) {
+                if ($collection->getPrivate()) {
+                    //If collection is private, show error
+                    $this->redirect("index.php?route=error&error=This collection is private");
+                } else {
+                    //else display collection share
+                    //get gifs from collection
+                    $gm = new GifManager;
+                    $gifs = $gm->findByCollection($collectionId);
+                    $this->render("collection-public.html.twig", ["collection" => $collection, "gifs" => $gifs]);
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Collection with this id was not found");
+            }
+        } else {
+            //If get is empty, redirect to search page
+            $this->redirect("index.php?route=search");
+        }
+    }
     public function gif(): void
     {
         if (isset($_GET['gif'])) {
