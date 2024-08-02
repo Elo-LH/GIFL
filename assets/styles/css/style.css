@@ -810,6 +810,33 @@ MY COLLECTIONS
   -webkit-box-orient: vertical;
 }
 
+.form-input-radio {
+  appearance: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 6px;
+  padding: 0;
+  border: 2px solid #D108FF;
+  border-radius: 50%;
+  background-color: transparent;
+  outline: none;
+}
+
+input[type=radio]:checked {
+  border-color: #D108FF;
+  background-color: #FFBA08;
+  background-clip: content-box;
+  padding: 2px;
+  background-image: radial-gradient(circle, #FFBA08 0%, #FFBA08 50%, transparent 60%, transparent 100%);
+}
+
+.form-label-radio {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.4rem, 2.6vw, 1.6rem);
+}
+
 /* ==========================================================================
 COLLECTION
 ========================================================================== */
