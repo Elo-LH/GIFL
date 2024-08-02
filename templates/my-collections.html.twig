@@ -7,6 +7,26 @@
 {% block main %}
 	<main>
 		<h1 class="h1-regular">My collections</h1>
+		<h2 class="subtitle">Create a new collection</h2>
+		<form class="sign-form" action="index.php?route=create-collection" method="post">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="name">Name</label>
+				<input class="form-input" type="text" name="name" id="name" required>
+			</div>
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="password">Privacy</label>
+				<label for="public">
+					<input type="radio" name="private" id="public" value="0" checked>
+					Public</label>
+				<label for="public">
+					<input type="radio" name="private" id="private" value="1">
+					Private</label>
+			</div>
+
+			<button class="yellow-button small-button" type="submit">Create</button>
+		</form>
+		<h2 class="subtitle">Browse collections</h2>
 		{% for collection in collections %}
 			<div class="collection-horizontal-pointer">
 				<a href="index.php?route=collection&collection={{collection.id}}" class="collection-horizontal-pointer-text-wrapper">
