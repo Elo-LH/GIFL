@@ -230,4 +230,30 @@ class PrivateController extends AbstractController
             $this->render("upload.html.twig", []);
         }
     }
+    public function createCollection(): void
+    {
+        //check if connected
+        if (isset($_SESSION['email'])) {
+            $userId = $_SESSION['id'];
+            //get form info from post data
+            if (isset($_POST['name']) && isset($_POST['private'])) {
+                $name = $_POST['name'];
+                $private = $_POST['private'];
+                $cm = new CollectionManager();
+                //check if collection with this name allready exits
+                if ($cm->findByName($name)) {
+                    $this->redirect("index.php?route=error&error=You allready have a collection with this name");
+                } else {
+                    //create new collection in db
+                    $cm->createCollection($userId, $name, $private);
+                    $this->redirect("index.php?route=my-collections");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Coudn't retrieve from data");
+            }
+        } else {
+
+            $this->redirect("index.php?route=error&error=Please sign in first");
+        }
+    }
 }

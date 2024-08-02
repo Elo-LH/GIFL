@@ -58,6 +58,8 @@ class Router
             $this->prc->addGifToCollection();
         } else if ($get["route"] === "toggle-collection-privacy") {
             $this->prc->toggleCollectionPrivacy();
+        } else if ($get["route"] === "create-collection") {
+            $this->prc->createCollection();
         } else if ($get["route"] === "upload") {
             $this->prc->upload();
         }

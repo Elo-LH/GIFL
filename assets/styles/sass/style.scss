@@ -698,6 +698,25 @@ left: 0;
 width: 100%;
 
 }
+.collection-card-pointer:hover{
+  .collection-card-pointer-arrow {
+    transform: scaleY(1.1);
+  }
+  .collection-card-pointer-text-wrapper{
+    transform: scaleY(1.1);
+  }
+}
+.collection-card-pointer:active{
+  .collection-card-pointer-arrow {
+    transform: translateY(4px) scaleY(1.1) ;
+    filter: none;
+  }
+  .collection-card-pointer-text-wrapper{
+    transform: translateY(4px) scaleY(1.1);
+    box-shadow: none;
+  }
+}
+
 .collection-card-pointer-arrow {
   display: block;
   height: 3em;
@@ -737,6 +756,26 @@ MY COLLECTIONS
  z-index: 100;
  
  }
+ .collection-horizontal-pointer:hover{
+  .collection-horizontal-pointer-arrow {
+    transform: scaleY(1.1);
+  }
+  .collection-horizontal-pointer-text-wrapper{
+    transform: scaleY(1.1);
+  }
+}
+
+ .collection-horizontal-pointer:active{
+  .collection-horizontal-pointer-arrow {
+    transform: translateY(4px) scaleY(1.1);
+    filter: none;
+  }
+  .collection-horizontal-pointer-text-wrapper{
+    transform: translateY(4px) scaleY(1.1);
+    box-shadow: none;
+  }
+}
+
  .collection-horizontal-pointer-arrow {
    display: block;
    height: 3em;
@@ -766,6 +805,38 @@ MY COLLECTIONS
          line-clamp: 2; 
  -webkit-box-orient: vertical;
  }
+
+ .form-input-radio{
+  appearance: none;
+  cursor: pointer;
+
+  width: 30px;
+  height: 30px;
+  margin: 6px;
+  padding: 0;
+  border: 2px solid $neonPink;
+  border-radius: 50%;
+  background-color: transparent;
+  outline: none;
+ }
+ input[type="radio"]:checked {
+  border-color: $neonPink;
+  background-color: $yellow;
+  background-clip: content-box;
+  padding: 2px;
+  background-image: radial-gradient(
+    circle,
+    $yellow 0%,
+    $yellow 50%,
+    transparent 60%,
+    transparent 100%
+  );
+}
+.form-label-radio{
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.4rem, 2.6vw, 1.6rem);
+}
 
  /* ==========================================================================
 COLLECTION

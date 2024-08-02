@@ -101,7 +101,6 @@ class CollectionManager extends AbstractManager
             "createdAt" => $dateTime->format('Y-m-d H:i:s')
         ];
         $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
     }
     public function findUserUploads($id): ?Collection
     {
@@ -120,5 +119,18 @@ class CollectionManager extends AbstractManager
         } else {
             return null;
         }
+    }
+    public function createCollection(int $user_id, string $name, bool $private): void
+    {
+        $dateTime = new DateTime();
+
+        $query = $this->db->prepare("INSERT INTO collections(user_id, name, private, created_at) VALUES(:user_id, :name, :private, :createdAt) ");
+        $parameters = [
+            "user_id" => $user_id,
+            "name" => $name,
+            "private" => $private,
+            "createdAt" => $dateTime->format('Y-m-d H:i:s')
+        ];
+        $query->execute($parameters);
     }
 }
