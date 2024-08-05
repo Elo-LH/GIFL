@@ -66,7 +66,10 @@ class Router
             $this->prc->deleteCollection();
         } else if ($get["route"] === "upload") {
             $this->prc->upload();
+        } else if ($get["route"] === "upload-with-url") {
+            $this->prc->uploadWithUrl();
         }
+
         // Admin routes
         else if ($get["route"] === "back-office") {
             $this->adc->backOffice();

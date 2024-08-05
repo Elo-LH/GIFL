@@ -66,19 +66,24 @@ class GifManager extends AbstractManager
         $gif->setId($item['gif_id']);
         return $gif;
     }
-    public function findLatestWithHashtag($hashtag_id): Gif
+    public function findLatestWithHashtag($hashtag_id): ?Gif
     {
         $um = new UserManager;
-        $query = $this->db->prepare('SELECT * FROM gifs_hashtags JOIN gifs ON gifs_hashtags.gif_id = gifs.gif_id JOIN hashtags ON gifs_hashtags.hashtag_id = hashtags.hashtag_id WHERE hashtags.hashtag_id = :id ORDER BY gifs.created_at DESC LIMIT 1');
+        $query = $this->db->prepare('SELECT * FROM gifs_hashtags JOIN gifs ON gifs_hashtags.gif_id = gifs.gif_id JOIN hashtags ON gifs_hashtags.hashtag_id = hashtags.hashtag_id WHERE hashtags.hashtag_id = :id ORDER BY RAND() DESC LIMIT 1');
         $parameters = [
             "id" => $hashtag_id
         ];
         $query->execute($parameters);
         $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        if ($item) {
+
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
+            $gif->setId($item['gif_id']);
+            return $gif;
+        } else {
+            return null;
+        }
     }
     public function findByHashtag($hashtag_id): ?array
     {
