@@ -12,7 +12,11 @@
 				<h1 class="h1-regular">{{collection.name}}</h1>
 				{% if collection.private %}
 					<p class="subtitle">Private collection
-						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
+						{% if collection.name != "uploads" and collection.name != "favorites" %}
+							<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
+
+						{% endif %}
+
 					</p>
 				{% else %}
 					<p class="subtitle">Public collection
@@ -22,7 +26,15 @@
 
 				<p class="subtitle">Created
 					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}
-					<a class="link-button pink-button very-small-button" href="index.php?route=delete-collection&collection={{collection.id}}">Delete</a>
+					{% if collection.name != "uploads" %}
+						<a class="link-button pink-button very-small-button" href="index.php?route=delete-collection&collection={{collection.id}}">Delete</a>
+					{% else %}
+						<p>
+							<i>
+								Uploads collection can't be public or modified
+							</i>
+						</p>
+					{% endif %}
 				</p>
 			</div>
 			<nav class="collection-nav">
@@ -37,7 +49,9 @@
 			{% for gif in gifs %}
 				<div class="masonry-grid-item">
 					<span tabindex="0" role="command" aria-label="Open GIF details" class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
-						<a href="index.php?route=remove-gif-from-collection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
+						{% if collection.name != "uploads" %}
+							<a href="index.php?route=remove-gif-from-collection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
+						{% endif %}
 					</span>
 				</div>
 			{% endfor %}
