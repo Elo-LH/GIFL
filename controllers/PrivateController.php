@@ -241,7 +241,7 @@ class PrivateController extends AbstractController
                 $private = $_POST['private'];
                 $cm = new CollectionManager();
                 //check if collection with this name allready exits
-                if ($cm->findByName($name)) {
+                if ($cm->findByNameFromUser($name, $userId)) {
                     $this->redirect("index.php?route=error&error=You allready have a collection with this name");
                 } else {
                     //create new collection in db

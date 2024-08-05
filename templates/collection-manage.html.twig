@@ -26,56 +26,66 @@
 
 				<p class="subtitle">Created
 					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}
-					{% if collection.name != "uploads" %}
+					{% if collection.name != "uploads" and collection.name != "favorites" %}
+
 						<a class="link-button pink-button very-small-button" href="index.php?route=delete-collection&collection={{collection.id}}">Delete</a>
 					{% else %}
-						<p>
-							<i>
-								Uploads collection can't be public or modified
-							</i>
-						</p>
+						{% if collection.name == "uploads" %}
+							<p>
+								<i>
+									Uploads collection can't be public or modified
+								</i>
+							</p>
+						{% elseif collection.name == "favorites" %}
+							<p>
+								<i>
+									Favorites collection can't be public or deleted
+								</i>
+							</p>
+						{% endif %}
+
 					{% endif %}
 				</p>
+			</p>
+		</div>
+		<nav class="collection-nav">
+			<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
+			<a class="link-button pink-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
+			<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
+			<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
+		</nav>
+	</div>
+
+	<div class="masonry-grid">
+		{% for gif in gifs %}
+			<div class="masonry-grid-item">
+				<span tabindex="0" role="command" aria-label="Open GIF details" class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
+					{% if collection.name != "uploads" %}
+						<a href="index.php?route=remove-gif-from-collection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
+					{% endif %}
+				</span>
 			</div>
-			<nav class="collection-nav">
-				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=add">Add</a>
-				<a class="link-button pink-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=manage">Manage</a>
-				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=share">Share</a>
-				<a class="link-button yellow-button small-button" href="index.php?route=collection&collection={{collection.id}}&action=upload">Upload</a>
-			</nav>
-		</div>
-
-		<div class="masonry-grid">
-			{% for gif in gifs %}
-				<div class="masonry-grid-item">
-					<span tabindex="0" role="command" aria-label="Open GIF details" class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
-						{% if collection.name != "uploads" %}
-							<a href="index.php?route=remove-gif-from-collection&gif={{gif.id}}&collection={{collection.id}}" class="link-button very-small-button pink-button masonry-grid-item-icon">Remove</a>
-						{% endif %}
-					</span>
+		{% endfor %}
+	</div>
+	<div aria-modal="true" class="gif-display-modale-overlay modale-hidden">
+		<div class="gif-display-modale modale-hidden">
+			<button class="pink-button small-button close-modale-btn js-close-modale">Close</button>
+			<div class="gif-card-top">
+				<div class="gif-card-img-wrapper">
+					<img class="js-gif-modale-img" src="" alt="">
 				</div>
-			{% endfor %}
-		</div>
-		<div aria-modal="true" class="gif-display-modale-overlay modale-hidden">
-			<div class="gif-display-modale modale-hidden">
-				<button class="pink-button small-button close-modale-btn js-close-modale">Close</button>
-				<div class="gif-card-top">
-					<div class="gif-card-img-wrapper">
-						<img class="js-gif-modale-img" src="" alt="">
-					</div>
-					<div class="js-gif-modale-hashtags hashtags-wrapper"></div>
-				</div>
-				<div class="gif-card-bottom">
-					<div class="gif-card-auth-options modale-hidden"></div>
-
-					<input class="input-search js-gif-modale-input" type="text">
-					<div class="gif-card-buttons-wrapper">
-						<button class="yellow-button small-button">Copy Link</button>
-						<button class="yellow-button small-button">Download GIF</button>
-					</div>
-				</div>
-
+				<div class="js-gif-modale-hashtags hashtags-wrapper"></div>
 			</div>
+			<div class="gif-card-bottom">
+				<div class="gif-card-auth-options modale-hidden"></div>
+
+				<input class="input-search js-gif-modale-input" type="text">
+				<div class="gif-card-buttons-wrapper">
+					<button class="yellow-button small-button">Copy Link</button>
+					<button class="yellow-button small-button">Download GIF</button>
+				</div>
+			</div>
+
 		</div>
-	</main>
-{% endblock %}
+	</div>
+</main>{% endblock %}
