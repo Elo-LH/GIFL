@@ -149,15 +149,21 @@ class PrivateController extends AbstractController
             if (isset($_GET['gif']) && isset($_GET['collection'])) {
                 $gifId = $_GET['gif'];
                 $collectionId = $_GET['collection'];
-                //check if collection is from connected user
+                //find collection
                 $cm = new CollectionManager();
                 $collection = $cm->findById($collectionId);
-                if ($collection->getAuthor()->getId() == $userId) {
-                    $gm = new GifManager();
-                    $gm->addGifToCollection($gifId, $collectionId);
-                    $this->redirect("index.php?route=collection&collection=$collectionId&action=add");
+                //check if collection is not "uploads"
+                if ($collection->getName() == "uploads") {
+                    $this->redirect("index.php?route=error&error=You can't add GIFs to uploads collection");
                 } else {
-                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    //check if collection is from connected user
+                    if ($collection->getAuthor()->getId() == $userId) {
+                        $gm = new GifManager();
+                        $gm->addGifToCollection($gifId, $collectionId);
+                        $this->redirect("index.php?route=collection&collection=$collectionId&action=add");
+                    } else {
+                        $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    }
                 }
             } else {
                 $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
