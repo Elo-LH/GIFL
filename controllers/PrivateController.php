@@ -31,7 +31,9 @@ class PrivateController extends AbstractController
             }
             $this->render("welcome.html.twig", ["hashtagsLatestGifs" => $hashtagsLatestGifs, "hashtags" => $hashtags, "collections" => $collections, "gifs" => $gifs]);
         } else {
-            $this->render("home.html.twig", []);
+            $gm = new GifManager;
+            $gifs = $gm->findRandom10();
+            $this->render("home.html.twig", ["gifs" => $gifs]);
         }
     }
     public function myCollections(): void
