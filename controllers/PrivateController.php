@@ -180,14 +180,20 @@ class PrivateController extends AbstractController
             //get collection id from params
             if (isset($_GET['collection'])) {
                 $id = $_GET['collection'];
-                //check if collection is from connected user
+                //get collection
                 $cm = new CollectionManager();
                 $collection = $cm->findById($id);
-                if ($collection->getAuthor()->getId() == $userId) {
-                    $cm->toggleCollectionPrivacy($id);
-                    $this->redirect("index.php?route=collection&collection=$id");
+                //check if collection is not uploads or favorites
+                if ($collection->getName() == "uploads" || $collection->getName() == "favorites") {
+                    $this->redirect("index.php?route=error&error=You can't publish favorites or uploads collections");
                 } else {
-                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    //check if collection is from connected user
+                    if ($collection->getAuthor()->getId() == $userId) {
+                        $cm->toggleCollectionPrivacy($id);
+                        $this->redirect("index.php?route=collection&collection=$id");
+                    } else {
+                        $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    }
                 }
             } else {
                 $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
