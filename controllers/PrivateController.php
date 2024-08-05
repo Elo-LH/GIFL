@@ -158,6 +158,8 @@ class PrivateController extends AbstractController
                     $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                 }
             }
+        } else {
+            $this->redirect("index.php?route=error&error=Please sign in to access your collections");
         }
     }
     public function removeGifFromCollection(): void
