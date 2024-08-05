@@ -224,7 +224,7 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
-    public function createGif(Gif $gif): void
+    public function createGif(Gif $gif): int
     {
         //create new GIF
         $query = $this->db->prepare("INSERT INTO gifs(link, user_id, created_at) VALUES(:link, :user_id, :createdAt) ");
@@ -236,6 +236,7 @@ class GifManager extends AbstractManager
         $query->execute($parameters);
         //load created GIF
         $gif->setId($this->db->lastInsertId());
+        $gifId = $this->db->lastInsertId();
         //add to uploads collection
         $cm = new CollectionManager;
         $collection = $cm->findUserUploads($_SESSION['id']);
@@ -245,6 +246,9 @@ class GifManager extends AbstractManager
             "gif_id" => $gif->getId()
         ];
         $query->execute($parameters);
+
+
+        return $gifId;
     }
     public function addHashtag(int $gif_id, int $hashtag_id): void
     {

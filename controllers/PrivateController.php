@@ -80,9 +80,9 @@ class PrivateController extends AbstractController
                                 $gif = $uploader->upload($_FILES, "image");
                                 //add new GIF to DB
                                 $gm = new GifManager();
-                                $gm->createGIF($gif);
+                                $gifId = $gm->createGIF($gif);
                                 //add new GIF to collection
-                                $gm->addGifToCollection($gif->getId(), $id);
+                                $gm->addGifToCollection($gifId, $id);
                                 if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
                                     $hm = new HashtagManager();
                                     //if hashtags have been added, enter them in db
@@ -101,6 +101,47 @@ class PrivateController extends AbstractController
                                     }
                                 }
                                 $this->render("collection-upload.html.twig", ["gif" => $gif, "collection" => $collection, "gifs" => $gifs]);
+                            } else {
+                                $this->redirect("index.php?route=error&error=Invalid CSRF token");
+                            }
+                        } else if (isset($_POST["gifUrl"])) {
+                            // check CSRF token
+                            $tokenManager = new CSRFTokenManager();
+                            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                                //check if user is connected
+                                if (isset($_SESSION['id'])) {
+                                    $userId = $_SESSION['id'];
+                                    //fetch user 
+                                    $um = new UserManager;
+                                    $user = $um->findById($userId);
+                                    //create gif with url
+                                    $gif = new Gif($_POST["gifUrl"], $user);
+                                    //add new GIF to DB
+                                    $gm = new GifManager();
+                                    $gifId = $gm->createGIF($gif);
+                                    //add new GIF to collection
+                                    $gm->addGifToCollection($gifId, $id);
+                                    if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
+                                        $hm = new HashtagManager();
+                                        //if hashtags have been added, enter them in db
+                                        $hashtagsNames = explode(" ", $_POST['hashtags']);
+                                        foreach ($hashtagsNames as $hashtagName) {
+                                            //for each hashtag added, check if it exists in DB
+                                            $hashtag = $hm->findByName($hashtagName);
+                                            //if hashtag is found then add link gif-hahtags in link table
+                                            if ($hashtag) {
+                                                $gm->addHashtag($gif->getId(), $hashtag->getId());
+                                            } else {
+                                                //else create hashtag and then add link in gifs_hashtags table
+                                                $hashtag = new Hashtag($hashtagName);
+                                                $hm->createHashtag($hashtag, $gif->getId());
+                                            }
+                                        }
+                                    }
+                                    $this->render("collection-upload.html.twig", ["gif" => $gif, "collection" => $collection, "gifs" => $gifs]);
+                                } else {
+                                    $this->redirect("index.php?route=error&error=You need to be signed in to upload");
+                                }
                             } else {
                                 $this->redirect("index.php?route=error&error=Invalid CSRF token");
                             }
