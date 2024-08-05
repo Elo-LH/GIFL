@@ -66,19 +66,24 @@ class GifManager extends AbstractManager
         $gif->setId($item['gif_id']);
         return $gif;
     }
-    public function findLatestWithHashtag($hashtag_id): Gif
+    public function findLatestWithHashtag($hashtag_id): ?Gif
     {
         $um = new UserManager;
-        $query = $this->db->prepare('SELECT * FROM gifs_hashtags JOIN gifs ON gifs_hashtags.gif_id = gifs.gif_id JOIN hashtags ON gifs_hashtags.hashtag_id = hashtags.hashtag_id WHERE hashtags.hashtag_id = :id ORDER BY gifs.created_at DESC LIMIT 1');
+        $query = $this->db->prepare('SELECT * FROM gifs_hashtags JOIN gifs ON gifs_hashtags.gif_id = gifs.gif_id JOIN hashtags ON gifs_hashtags.hashtag_id = hashtags.hashtag_id WHERE hashtags.hashtag_id = :id ORDER BY RAND() DESC LIMIT 1');
         $parameters = [
             "id" => $hashtag_id
         ];
         $query->execute($parameters);
         $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        if ($item) {
+
+            $user = $um->findById($item['user_id']);
+            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
+            $gif->setId($item['gif_id']);
+            return $gif;
+        } else {
+            return null;
+        }
     }
     public function findByHashtag($hashtag_id): ?array
     {
@@ -219,7 +224,7 @@ class GifManager extends AbstractManager
         ];
         $query->execute($parameters);
     }
-    public function createGif(Gif $gif): void
+    public function createGif(Gif $gif): int
     {
         //create new GIF
         $query = $this->db->prepare("INSERT INTO gifs(link, user_id, created_at) VALUES(:link, :user_id, :createdAt) ");
@@ -231,6 +236,7 @@ class GifManager extends AbstractManager
         $query->execute($parameters);
         //load created GIF
         $gif->setId($this->db->lastInsertId());
+        $gifId = $this->db->lastInsertId();
         //add to uploads collection
         $cm = new CollectionManager;
         $collection = $cm->findUserUploads($_SESSION['id']);
@@ -240,6 +246,9 @@ class GifManager extends AbstractManager
             "gif_id" => $gif->getId()
         ];
         $query->execute($parameters);
+
+
+        return $gifId;
     }
     public function addHashtag(int $gif_id, int $hashtag_id): void
     {

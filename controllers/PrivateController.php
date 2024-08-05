@@ -11,9 +11,14 @@ class PrivateController extends AbstractController
             //Getting the 10 latest created hashtags
             $hashtags = $hm->findLatest10();
             //For each of these latest hashtags, get the latest associated gif
-            foreach ($hashtags as $hashtag) {
+            foreach ($hashtags as $index => $hashtag) {
                 $gif = $gm->findLatestWithHashtag($hashtag->getId());
-                array_push($hashtagsLatestGifs, $gif);
+                //if no GIF is found for a latest hashtag, remove hashtag from list
+                if ($gif) {
+                    array_push($hashtagsLatestGifs, $gif);
+                } else {
+                    array_splice($hashtags, $index, 1);
+                }
             }
             //get all collections from user
             $cm = new CollectionManager;
@@ -75,9 +80,9 @@ class PrivateController extends AbstractController
                                 $gif = $uploader->upload($_FILES, "image");
                                 //add new GIF to DB
                                 $gm = new GifManager();
-                                $gm->createGIF($gif);
+                                $gifId = $gm->createGIF($gif);
                                 //add new GIF to collection
-                                $gm->addGifToCollection($gif->getId(), $id);
+                                $gm->addGifToCollection($gifId, $id);
                                 if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
                                     $hm = new HashtagManager();
                                     //if hashtags have been added, enter them in db
@@ -99,6 +104,47 @@ class PrivateController extends AbstractController
                             } else {
                                 $this->redirect("index.php?route=error&error=Invalid CSRF token");
                             }
+                        } else if (isset($_POST["gifUrl"])) {
+                            // check CSRF token
+                            $tokenManager = new CSRFTokenManager();
+                            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                                //check if user is connected
+                                if (isset($_SESSION['id'])) {
+                                    $userId = $_SESSION['id'];
+                                    //fetch user 
+                                    $um = new UserManager;
+                                    $user = $um->findById($userId);
+                                    //create gif with url
+                                    $gif = new Gif($_POST["gifUrl"], $user);
+                                    //add new GIF to DB
+                                    $gm = new GifManager();
+                                    $gifId = $gm->createGIF($gif);
+                                    //add new GIF to collection
+                                    $gm->addGifToCollection($gifId, $id);
+                                    if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
+                                        $hm = new HashtagManager();
+                                        //if hashtags have been added, enter them in db
+                                        $hashtagsNames = explode(" ", $_POST['hashtags']);
+                                        foreach ($hashtagsNames as $hashtagName) {
+                                            //for each hashtag added, check if it exists in DB
+                                            $hashtag = $hm->findByName($hashtagName);
+                                            //if hashtag is found then add link gif-hahtags in link table
+                                            if ($hashtag) {
+                                                $gm->addHashtag($gif->getId(), $hashtag->getId());
+                                            } else {
+                                                //else create hashtag and then add link in gifs_hashtags table
+                                                $hashtag = new Hashtag($hashtagName);
+                                                $hm->createHashtag($hashtag, $gif->getId());
+                                            }
+                                        }
+                                    }
+                                    $this->render("collection-upload.html.twig", ["gif" => $gif, "collection" => $collection, "gifs" => $gifs]);
+                                } else {
+                                    $this->redirect("index.php?route=error&error=You need to be signed in to upload");
+                                }
+                            } else {
+                                $this->redirect("index.php?route=error&error=Invalid CSRF token");
+                            }
                         } else {
                             $this->render("collection-upload.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                         }
@@ -112,6 +158,8 @@ class PrivateController extends AbstractController
                     $this->render("collection-share.html.twig", ["collection" => $collection, "gifs" => $gifs]);
                 }
             }
+        } else {
+            $this->redirect("index.php?route=error&error=Please sign in to access your collections");
         }
     }
     public function removeGifFromCollection(): void
@@ -209,29 +257,35 @@ class PrivateController extends AbstractController
             // check CSRF token
             $tokenManager = new CSRFTokenManager();
             if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
-                //upload GIF
-                $uploader = new Uploader();
-                $gif = $uploader->upload($_FILES, "image");
-                //add new GIF to DB
-                $gm = new GifManager();
-                $gm->createGIF($gif);
-                //add new GIF to uploads collection
-                if (isset($_POST["hashtags"]) && !is_null($_POST["hashtags"])) {
-                    $hm = new HashtagManager();
-                    //if hashtags have been added, enter them in db
-                    $hashtagsNames = explode(" ", $_POST['hashtags']);
-                    foreach ($hashtagsNames as $hashtagName) {
-                        //for each hashtag added, check if it exists in DB
-                        $hashtag = $hm->findByName($hashtagName);
-                        //if hashtag is found then add link gif-hahtags in link table
-                        if ($hashtag) {
-                            $gm->addHashtag($gif->getId(), $hashtag->getId());
-                        } else {
-                            //else create hashtag and then add link in gifs_hashtags table
-                            $hashtag = new Hashtag($hashtagName);
-                            $hm->createHashtag($hashtag, $gif->getId());
+
+                if (isset($_SESSION['id'])) {
+
+                    //upload GIF
+                    $uploader = new Uploader();
+                    $gif = $uploader->upload($_FILES, "image");
+                    //add new GIF to DB
+                    $gm = new GifManager();
+                    $gm->createGIF($gif);
+                    //add new GIF to uploads collection
+                    if (isset($_POST["hashtags"]) && $_POST["hashtags"] != "") {
+                        $hm = new HashtagManager();
+                        //if hashtags have been added, enter them in db
+                        $hashtagsNames = explode(" ", $_POST['hashtags']);
+                        foreach ($hashtagsNames as $hashtagName) {
+                            //for each hashtag added, check if it exists in DB
+                            $hashtag = $hm->findByName($hashtagName);
+                            //if hashtag is found then add link gif-hahtags in link table
+                            if ($hashtag) {
+                                $gm->addHashtag($gif->getId(), $hashtag->getId());
+                            } else {
+                                //else create hashtag and then add link in gifs_hashtags table
+                                $hashtag = new Hashtag($hashtagName);
+                                $hm->createHashtag($hashtag, $gif->getId());
+                            }
                         }
                     }
+                } else {
+                    $this->redirect("index.php?route=error&error=Please sign in to upload GIFs");
                 }
 
                 $this->render("upload.html.twig", ["gif" => $gif]);
@@ -292,6 +346,55 @@ class PrivateController extends AbstractController
         } else {
 
             $this->redirect("index.php?route=error&error=Please sign in first");
+        }
+    }
+
+    public function uploadWithUrl(): void
+    {
+        if (isset($_POST["gifUrl"])) {
+            // check CSRF token
+            $tokenManager = new CSRFTokenManager();
+            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                //check if user is connected
+                if (isset($_SESSION['id'])) {
+                    $userId = $_SESSION['id'];
+                    //fetch user 
+                    $um = new UserManager;
+                    $user = $um->findById($userId);
+                    //create gif with url
+                    $gif = new Gif($_POST["gifUrl"], $user);
+
+                    //create new GIF in DB and add to uploads collection
+                    $gm = new GifManager();
+                    $gm->createGIF($gif);
+                    //if hashtags have been added, enter them in db
+                    if (isset($_POST["hashtags"]) && $_POST["hashtags"] != "") {
+                        $hm = new HashtagManager();
+                        //take each hashtag separated by spaces
+                        $hashtagsNames = explode(" ", $_POST['hashtags']);
+                        foreach ($hashtagsNames as $hashtagName) {
+
+                            //for each hashtag added, check if it exists in DB
+                            $hashtag = $hm->findByExactName($hashtagName);
+                            //if hashtag is found then add link gif-hahtags in link table
+                            if ($hashtag) {
+                                $gm->addHashtag($gif->getId(), $hashtag->getId());
+                            } else {
+                                //else create hashtag and then add link in gifs_hashtags table
+                                $hashtag = new Hashtag($hashtagName);
+                                $hm->createHashtag($hashtag, $gif->getId());
+                            }
+                        }
+                    }
+                    $this->render("upload.html.twig", ["gif" => $gif]);
+                } else {
+                    $this->redirect("index.php?route=error&error=You need to be signed in to upload");
+                }
+            } else {
+                $this->redirect("index.php?route=error&error=Invalid CSRF token");
+            }
+        } else {
+            $this->redirect("index.php?route=error&error=No URL found");
         }
     }
 }
