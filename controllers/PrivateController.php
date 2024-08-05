@@ -149,15 +149,21 @@ class PrivateController extends AbstractController
             if (isset($_GET['gif']) && isset($_GET['collection'])) {
                 $gifId = $_GET['gif'];
                 $collectionId = $_GET['collection'];
-                //check if collection is from connected user
+                //find collection
                 $cm = new CollectionManager();
                 $collection = $cm->findById($collectionId);
-                if ($collection->getAuthor()->getId() == $userId) {
-                    $gm = new GifManager();
-                    $gm->addGifToCollection($gifId, $collectionId);
-                    $this->redirect("index.php?route=collection&collection=$collectionId&action=add");
+                //check if collection is not "uploads"
+                if ($collection->getName() == "uploads") {
+                    $this->redirect("index.php?route=error&error=You can't add GIFs to uploads collection");
                 } else {
-                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    //check if collection is from connected user
+                    if ($collection->getAuthor()->getId() == $userId) {
+                        $gm = new GifManager();
+                        $gm->addGifToCollection($gifId, $collectionId);
+                        $this->redirect("index.php?route=collection&collection=$collectionId&action=add");
+                    } else {
+                        $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    }
                 }
             } else {
                 $this->redirect("index.php?route=error&error=Coudn't delete GIF from collection");
@@ -174,14 +180,20 @@ class PrivateController extends AbstractController
             //get collection id from params
             if (isset($_GET['collection'])) {
                 $id = $_GET['collection'];
-                //check if collection is from connected user
+                //get collection
                 $cm = new CollectionManager();
                 $collection = $cm->findById($id);
-                if ($collection->getAuthor()->getId() == $userId) {
-                    $cm->toggleCollectionPrivacy($id);
-                    $this->redirect("index.php?route=collection&collection=$id");
+                //check if collection is not uploads or favorites
+                if ($collection->getName() == "uploads" || $collection->getName() == "favorites") {
+                    $this->redirect("index.php?route=error&error=You can't publish favorites or uploads collections");
                 } else {
-                    $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    //check if collection is from connected user
+                    if ($collection->getAuthor()->getId() == $userId) {
+                        $cm->toggleCollectionPrivacy($id);
+                        $this->redirect("index.php?route=collection&collection=$id");
+                    } else {
+                        $this->redirect("index.php?route=error&error=Collection is not from connected user");
+                    }
                 }
             } else {
                 $this->redirect("index.php?route=error&error=Coudn't toggle collection privacy");
@@ -241,7 +253,7 @@ class PrivateController extends AbstractController
                 $private = $_POST['private'];
                 $cm = new CollectionManager();
                 //check if collection with this name allready exits
-                if ($cm->findByName($name)) {
+                if ($cm->findByNameFromUser($name, $userId)) {
                     $this->redirect("index.php?route=error&error=You allready have a collection with this name");
                 } else {
                     //create new collection in db
