@@ -1057,4 +1057,11 @@ GIF MODALE
   left: 0;
 }
 
+.copy-message-gif-modale {
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  color: #70008A;
+}
+
 /*# sourceMappingURL=style.css.map */

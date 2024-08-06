@@ -25,6 +25,7 @@ function copyAdress() {
   // Copy the text inside the text field
   const inputSearch = document.querySelector('.input-search')
   const link = inputSearch.value
+  console.log(link)
   if (navigator.clipboard) {
     navigator.clipboard.writeText(link)
   } else {
@@ -36,6 +37,31 @@ function copyAdress() {
     document.body.removeChild(input)
   }
   const copyMessage = document.querySelector('.js-copy-message')
+
+  // Alert the copied text
+  console.log(copyMessage)
+  copyMessage.style.display = 'inline'
+  setTimeout(() => {
+    copyMessage.style.display = 'none'
+  }, 2000)
+}
+function copyAdressGif() {
+  console.log('copyAdressGif')
+  // Copy the text inside the text field
+  const inputSearch = document.querySelector('.js-input-search-gif')
+  const link = inputSearch.value
+  console.log(link)
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(link)
+  } else {
+    const input = document.createElement('textarea')
+    input.value = link
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand('copy')
+    document.body.removeChild(input)
+  }
+  const copyMessage = document.querySelector('.js-copy-message-gif')
 
   // Alert the copied text
   console.log(copyMessage)
@@ -63,8 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Getting copy link button
   const copyBtn = document.querySelector('.js-copy-btn')
   if (copyBtn) {
-    console.log('add event')
+    console.log('add copy adress event')
     copyBtn.addEventListener('click', copyAdress)
+  }
+  // Getting copy link button for gif modale
+  const copyBtnGif = document.querySelector('.js-copy-btn-gif')
+  if (copyBtnGif) {
+    console.log('add copy adress event for gif')
+    copyBtnGif.addEventListener('click', copyAdressGif)
   }
 
   // Getting input
@@ -223,6 +255,12 @@ document.addEventListener('DOMContentLoaded', () => {
               //show modale
               gifModaleOverlay.classList.toggle('modale-hidden')
               gifModale.classList.toggle('modale-hidden')
+              // Getting copy link button for gif modale
+              const copyBtnGif = document.querySelector('.js-copy-btn-gif')
+              if (copyBtnGif) {
+                console.log('add copy adress event for gif')
+                copyBtnGif.addEventListener('click', copyAdressGif)
+              }
             })
           } else {
             // La requete a echoué

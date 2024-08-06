@@ -30,7 +30,7 @@
 			</nav>
 		</div>
 		{% if not collection.private %}
-			<input class="input-search" type="text" value="http://gifl/index.php?route=collection-public&collection={{collection.id}}">
+			<input class="input-search " type="text" value="http://gifl/index.php?route=collection-public&collection={{collection.id}}">
 			<button class="yellow-button small-button js-copy-btn">Copy Link</button>
 			<span class="copy-message-alert js-copy-message">Link copied to clipboard</span>
 		{% endif %}
@@ -54,9 +54,10 @@
 				<div class="gif-card-bottom">
 					<div class="gif-card-auth-options modale-hidden"></div>
 
-					<input class="input-search js-gif-modale-input" type="text">
+					<input class="input-search js-gif-modale-input js-input-search-gif" type="text">
 					<div class="gif-card-buttons-wrapper">
-						<button class="yellow-button small-button">Copy Link</button>
+						<button class="yellow-button small-button js-copy-btn-gif">Copy Link</button>
+						<span class="js-copy-message-gif copy-message-gif-modale modale-hidden">GIF Link copied to clipboard</span>
 						<button class="yellow-button small-button">Download GIF</button>
 					</div>
 				</div>
