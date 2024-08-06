@@ -265,6 +265,7 @@ text-align: center;
   @media screen and (max-width: 900px) {
     display: none;
   }
+  width: 100%;
 }
 
 .arrow-burger-container{
@@ -303,8 +304,19 @@ width: 100%;
   position: absolute;
   top: 50%; 
   transform: translateY(-60%) rotate(180deg);
-
   width: 100%;
+  }
+
+  .public-links-wrapper{
+    margin-bottom: 2rem ;
+   
+    @media screen and (max-width: 900px) {
+      display: block;
+      width: auto;
+      margin-right: 2rem;
+      margin-bottom: 0;
+    }
+    
   }
 
 /* ==========================================================================

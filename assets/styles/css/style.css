@@ -272,6 +272,7 @@ HEADER
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 @media screen and (max-width: 900px) {
   .links-wrapper {
@@ -317,6 +318,18 @@ HEADER
   top: 50%;
   transform: translateY(-60%) rotate(180deg);
   width: 100%;
+}
+
+.public-links-wrapper {
+  margin-bottom: 2rem;
+}
+@media screen and (max-width: 900px) {
+  .public-links-wrapper {
+    display: block;
+    width: auto;
+    margin-right: 2rem;
+    margin-bottom: 0;
+  }
 }
 
 /* ==========================================================================

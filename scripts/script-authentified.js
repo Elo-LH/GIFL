@@ -113,15 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
                   gridItem.appendChild(gridAddLink)
                 }
                 searchResultDisplay.appendChild(gridItem)
-
-                //Load masonry displaay
-                var elem = document.querySelector('.masonry-grid')
-                var msnry = new Masonry(elem, {
-                  // options
-                  itemSelector: '.masonry-grid-item',
-
-                  gutter: 5,
-                })
               })
             })
           } else {
@@ -308,13 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fileInput.files = e.dataTransfer.files
     })
   }
-})
-
-window.onload = () => {
-  // const masonryGrid = document.querySelector('.masonry-grid')
-  // console.log(masonryGrid)
-  // const masonry = new Masonry(grid)
-
+  //load masonry display
   var elem = document.querySelector('.masonry-grid')
   var msnry = new Masonry(elem, {
     // options
@@ -322,4 +307,4 @@ window.onload = () => {
 
     gutter: 5,
   })
-}
+})

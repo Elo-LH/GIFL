@@ -115,16 +115,17 @@ document.addEventListener('DOMContentLoaded', () => {
                   gridItem.appendChild(gridAddLink)
                 }
                 searchResultDisplay.appendChild(gridItem)
-
-                //Load masonry displaay
+              })
+              if (gifImg.complete) {
+                //load masonry display
                 var elem = document.querySelector('.masonry-grid')
                 var msnry = new Masonry(elem, {
                   // options
                   itemSelector: '.masonry-grid-item',
 
-                  gutter: 5,
+                  gutter: 2,
                 })
-              })
+              }
             })
           } else {
             // La requete a echoué
@@ -263,18 +264,32 @@ document.addEventListener('DOMContentLoaded', () => {
       fileInput.files = e.dataTransfer.files
     })
   }
+
+  if (searchResultDisplay) {
+    $container.imagesLoaded(function () {
+      $container.masonry()
+    })
+  }
+  // //load masonry display
+  // var elem = document.querySelector('.masonry-grid')
+  // var msnry = new Masonry(elem, {
+  //   // options
+  //   itemSelector: '.masonry-grid-item',
+
+  //   gutter: 5,
+  // })
 })
 
-window.onload = () => {
-  // const masonryGrid = document.querySelector('.masonry-grid')
-  // console.log(masonryGrid)
-  // const masonry = new Masonry(grid)
+// window.onload = () => {
+//   // const masonryGrid = document.querySelector('.masonry-grid')
+//   // console.log(masonryGrid)
+//   // const masonry = new Masonry(grid)
 
-  var elem = document.querySelector('.masonry-grid')
-  var msnry = new Masonry(elem, {
-    // options
-    itemSelector: '.masonry-grid-item',
+//   var elem = document.querySelector('.masonry-grid')
+//   var msnry = new Masonry(elem, {
+//     // options
+//     itemSelector: '.masonry-grid-item',
 
-    gutter: 5,
-  })
-}
+//     gutter: 5,
+//   })
+// }
