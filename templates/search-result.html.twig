@@ -73,27 +73,6 @@
 				</div>
 			</div>
 		{% endif %}
-		<div aria-modal="true" class="gif-display-modale-overlay modale-hidden">
-			<div class="gif-display-modale modale-hidden">
-				<button class="pink-button small-button close-modale-btn js-close-modale">Close</button>
-				<div class="gif-card-top">
-					<div class="gif-card-img-wrapper">
-						<img class="js-gif-modale-img" src="" alt="">
-					</div>
-					<div class="js-gif-modale-hashtags hashtags-wrapper"></div>
-				</div>
-				<div class="gif-card-bottom">
-					<div class="gif-card-auth-options modale-hidden"></div>
-
-					<input class="input-search js-gif-modale-input js-input-search-gif" type="text">
-					<div class="gif-card-buttons-wrapper">
-						<button class="yellow-button small-button js-copy-btn-gif">Copy Link</button>
-						<span class="js-copy-message-gif copy-message-gif-modale modale-hidden">GIF Link copied to clipboard</span>
-						<button class="yellow-button small-button">Download GIF</button>
-					</div>
-				</div>
-
-			</div>
-		</div>
+		{% include 'modale-gif.html.twig' %}
 	</main>
 {% endblock %}

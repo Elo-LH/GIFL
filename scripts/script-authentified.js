@@ -255,11 +255,44 @@ document.addEventListener('DOMContentLoaded', () => {
               //show modale
               gifModaleOverlay.classList.toggle('modale-hidden')
               gifModale.classList.toggle('modale-hidden')
+
               // Getting copy link button for gif modale
               const copyBtnGif = document.querySelector('.js-copy-btn-gif')
               if (copyBtnGif) {
                 console.log('add copy adress event for gif')
                 copyBtnGif.addEventListener('click', copyAdressGif)
+              }
+
+              //getting download button for gif modale
+              const downloadBtn = document.querySelector('.js-download-gif')
+              if (downloadBtn) {
+                console.log('add event listener to dwnld btn')
+                downloadBtn.addEventListener('click', downloadGif, false)
+
+                async function downloadGif() {
+                  console.log('enter download gif')
+                  //create new a element
+                  let a = document.createElement('a')
+                  // get image as blob
+                  let response = await fetch(data[0].link)
+                  let file = await response.blob()
+                  console.log(file)
+                  // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
+                  a.download = data[0].id
+                  a.href = window.URL.createObjectURL(file)
+                  console.log(a.href)
+                  //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
+                  a.dataset.downloadurl = [
+                    'application/octet-stream',
+                    a.download,
+                    a.href,
+                  ].join(':')
+                  //click on element to start download
+                  a.click()
+                  window.URL.revokeObjectURL(file)
+                  downloadBtn.removeEventListener('click', downloadGif, false)
+                  console.log('remove event listener to dwnld btn')
+                }
               }
             })
           } else {
