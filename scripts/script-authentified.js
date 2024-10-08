@@ -1,6 +1,9 @@
 //initialize link to API
 
+//local API
 const api = 'http://gifl/index.php?route='
+//planetHoster API
+// const api = 'https://eloise-lh.go.yj.fr/index.php?route='
 
 function fetchData(apiUrl) {
   fetch(apiUrl).then((response) => {
