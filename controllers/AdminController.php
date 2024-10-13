@@ -38,22 +38,57 @@ class AdminController extends AbstractController
     }
     public function updateUser(): void
     {
+
         if (isset($_SESSION['admin'])) {
             if (isset($_GET['user'])) {
+
+
                 $id = $_GET['user'];
                 //init manager
                 $um = new UserManager;
                 //if modifications have been submitted
                 if (isset($_POST['email']) && isset($_POST['name'])) {
-                    if (isset($_POST['avatar']) && $_POST['avatar'] == "") {
-                        $gm = new GifManager;
-                        $avatar = $gm->getRandom1()->getLink();
+
+                    // check CSRF token
+                    $tokenManager = new CSRFTokenManager();
+                    if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+
+                        //update mail, name and avatar
+                        if (isset($_POST['avatar']) && $_POST['avatar'] == "") {
+                            $gm = new GifManager;
+                            $avatar = $gm->getRandom1()->getLink();
+                        } else {
+                            $avatar = $_POST['avatar'];
+                        }
+                        //apply modifications in db
+                        $um->updateUser($id, $_POST['email'], $_POST['name'], $avatar);
+
+                        //update password if a new one has been submitted
+                        if (isset($_POST['password']) && isset($_POST['password-confirm'])) {
+                            //check confirm password 
+                            if ($_POST["password"] === $_POST["password-confirm"]) {
+                                //check password is 8chars minimum with at least 1 maj, 1min 1 number and 1 special char
+                                $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}/';
+                                if (preg_match($password_pattern, $_POST["password"])) {
+                                    $hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
+                                    //init manager and apply to db
+                                    $um = new UserManager;
+                                    $um->updateUserPassword($id, $hash);
+                                    $this->redirect("index.php?route=back-office");
+                                } else {
+                                    $this->redirect("index.php?route=error&error=Passwords must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one number and one special character.");
+                                }
+                            } else {
+                                $this->redirect("index.php?route=error&error=Passwords do not match");
+                            }
+                        } else {
+                            $this->redirect("index.php?route=back-office");
+                        }
                     } else {
-                        $avatar = $_POST['avatar'];
+                        $this->redirect("index.php?route=error&error=Invalid CSRF token");
                     }
-                    //apply modifications in db
-                    $um->updateUser($id, $_POST['email'], $_POST['name'], $avatar);
                 }
+
                 //find user
                 $user = $um->findById($id);
                 $user->setId($id);
