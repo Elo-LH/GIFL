@@ -68,6 +68,10 @@ class Router
             $this->prc->upload();
         } else if ($get["route"] === "upload-with-url") {
             $this->prc->uploadWithUrl();
+        } else if ($get["route"] === "settings") {
+            $this->prc->settings();
+        } else if ($get["route"] === "update-settings") {
+            $this->prc->updateSettings();
         }
 
         // Admin routes

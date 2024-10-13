@@ -58,7 +58,7 @@ class AdminController extends AbstractController
                             $gm = new GifManager;
                             $avatar = $gm->getRandom1()->getLink();
                         } else {
-                            $avatar = $_POST['avatar'];
+                            $avatar = htmlspecialchars($_POST['avatar']);
                         }
                         //apply modifications in db
                         $um->updateUser($id, $_POST['email'], $_POST['name'], $avatar);
@@ -70,9 +70,9 @@ class AdminController extends AbstractController
                                 //check password is 8chars minimum with at least 1 maj, 1min 1 number and 1 special char
                                 $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}/';
                                 if (preg_match($password_pattern, $_POST["password"])) {
-                                    $hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
-                                    //init manager and apply to db
-                                    $um = new UserManager;
+                                    $password = htmlspecialchars($_POST["password"]);
+                                    $hash = password_hash($password, PASSWORD_BCRYPT);
+                                    // apply to db
                                     $um->updateUserPassword($id, $hash);
                                     $this->redirect("index.php?route=back-office");
                                 } else {

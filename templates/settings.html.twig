@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+	{% include 'header.html.twig' %}
+{% endblock %}
+
+
+{% block main %}
+	<main>
+		<h1 class="h1-regular">Settings</h1>
+		<h2 class="subtitle">Colors</h2>
+
+		<h2 class="subtitle">Font size</h2>
+		<p>You can control font size with automatic zoom of your browser, or your device font size parameter</p>
+
+		<h2 class="subtitle">Change your password</h2>
+		<form class="sign-form" action="index.php?route=update-settings" method="post">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+
+			<div class="sign-form-input-wrapper avatar">
+				<label class="form-label" for="old-password">Your current password</label>
+				<input class="form-input" type="password" name="old-password" id="old-password">
+			</div>
+
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="password">New password</label>
+				<input class="form-input" type="password" name="password" id="password">
+			</div>
+
+			<div class="sign-form-input-wrapper">
+				<label class="form-label" for="password-confirm">New password confirm</label>
+				<input class="form-input" type="password" name="password-confirm" id="password-confirm">
+			</div>
+
+
+			<button class="yellow-button small-button" type="submit">Update password</button>
+		</form>
+		<h2 class="subtitle">Change your avatar</h2>
+		<form class="sign-form" action="index.php?route=update-settings" method="post">
+			<input type="hidden" name="csrf-token" id="csrf-token" value="{{session.csrfToken}}"/>
+			<div class="sign-form-input-wrapper avatar">
+
+				<label class="form-label" for="avatar">Avatar</label>
+				<input class="form-input" type="avatar" name="avatar" id="avatar">
+			</div>
+
+			<button class="yellow-button small-button" type="submit">Update avatar</button>
+		</form>
+
+	</main>
+{% endblock %}
