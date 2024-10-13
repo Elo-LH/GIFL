@@ -12,7 +12,7 @@
 		<div class="horizontal-trending-wrapper snaps-inline">
 			{% for key, hashtag in hashtags %}
 				<a href="index.php?route=hashtag-page&hashtag={{hashtag.id}}" class="horizontal-trending-card">
-					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}">
+					<img class="horizontal-trending-gif" src="{{hashtagsLatestGifs[key].link}}" alt="">
 					<p class="horizontal-trending-hashtag">#{{hashtag.name}}</p>
 				</a>
 			{% endfor %}
