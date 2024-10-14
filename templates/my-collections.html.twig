@@ -42,9 +42,10 @@
 			{% set index = loop.index0 %}
 			<div class="horizontal-trending-wrapper snaps-inline">
 				{% for gif in collectionGifs[index] %}
-					<a href="index.php?route=gif&gif={{gif.id}}" class="horizontal-trending-card">
-						<img class="horizontal-trending-gif" src="{{gif.link}}" alt="">
-					</a>
+					<div class="horizontal-trending-card">
+						<span tabindex="0" role="command" aria-label="Open GIF details" class="masonry-grid-link js-gif-modale" id="js-gif-id-{{gif.id}}"><img alt="" class="masonry-grid-img horizontal-trending-gif" id="js-gif-id-{{gif.id}}" src=" {{gif.link}} ">
+						</span>
+					</div>
 				{% endfor %}
 			</div>
 		{% endfor %}

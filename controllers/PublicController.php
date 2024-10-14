@@ -30,7 +30,7 @@ class PublicController extends AbstractController
     {
 
         if (isset($_POST['input-search']) && $_POST['input-search'] != "") {
-            $input = $_POST['input-search'];
+            $input = htmlspecialchars($_POST['input-search']);
             if ($_POST['action'] === 'hashtag') {
                 //search in db the hashtag corresponding to input
                 $hm = new HashtagManager;
@@ -54,7 +54,7 @@ class PublicController extends AbstractController
                 //load gifs corresponding to this colllection
                 $gm = new GifManager;
                 $gifs = $gm->findByCollection($collection->getId());
-                $this->render("search-result.html.twig", ["search" => "collection", "collection" => $collection, "gifs" => $gifs]);
+                $this->render("collection-public.html.twig", ["collection" => $collection, "gifs" => $gifs]);
             }
         } else {
             //If input is empty, redirect to search page

@@ -25,7 +25,7 @@
 
 		</div>
 		{% if not collection.private %}
-			<input class="input-search" type="text" value="http://gifl/index.php?route=collection-public&collection={{collection.id}}">
+			<input class="input-search" type="text" value="{{giflUrl}}index.php?route=collection-public&collection={{collection.id}}">
 			<button class="yellow-button small-button js-copy-btn">Copy Link</button>
 			<span class="copy-message-alert js-copy-message">Link copied to clipboard</span>
 		{% endif %}
