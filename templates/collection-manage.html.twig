@@ -11,7 +11,7 @@
 			<div class="collection-top-titles">
 				<h1 class="h1-regular">{{collection.name}}</h1>
 				{% if collection.private %}
-					<p class="subtitle">Private collection
+					<p class="subtitle collection-manage-spacing-subtitle">Private collection
 						{% if collection.name != "uploads" and collection.name != "favorites" %}
 							<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Publish</a>
 
@@ -19,12 +19,12 @@
 
 					</p>
 				{% else %}
-					<p class="subtitle">Public collection
+					<p class="subtitle collection-manage-spacing-subtitle">Public collection
 						<a class="link-button yellow-button very-small-button" href="index.php?route=toggle-collection-privacy&collection={{collection.id}}">Make private</a>
 					</p>
 				{% endif %}
 
-				<p class="subtitle">Created
+				<p class="subtitle collection-manage-spacing-subtitle">Created
 					{{collection.createdAt|format_datetime('short', 'none', locale='en')}}
 					{% if collection.name != "uploads" and collection.name != "favorites" %}
 
