@@ -11,14 +11,14 @@ function fetchData(apiUrl) {
     if (response.ok) {
       //response.json().then(console.log)
       response.json().then((data) => {
-        console.log('La requête a  réussi')
+        console.log('Request succeeded')
         console.log(data)
         return data
       })
     } else {
       // La requete a echoué
-      console.log('La requête a échoué')
-      console.log(response)
+      console.error('Request failed')
+      console.error(response)
     }
   })
 }
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (response.ok) {
             //response.json().then(console.log)
             response.json().then((data) => {
-              console.log('La requête a  réussi')
+              console.log('Request succedeed')
               console.log(data)
               data.forEach((gif) => {
                 const collectionId = getParameter('collection')
@@ -203,13 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (response.ok) {
                           //response.json().then(console.log)
                           response.json().then((data) => {
-                            console.log('La requête a  réussi')
+                            console.log('Request succedeed')
                             console.log(data)
                             return data
                           })
                         } else {
                           // La requete a echoué
-                          console.log('La requête a échoué')
+                          console.error('Request failed')
                           console.log(response)
                         }
                       }
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (response.ok) {
                       //response.json().then(console.log)
                       response.json().then((data) => {
-                        console.log('La requête a  réussi')
+                        console.log('Request succedeed')
                         console.log(data)
                         // use fetched data to generate modale
 
@@ -256,7 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         const input = document.querySelector(
                           '.js-gif-modale-input'
                         )
-                        input.value = data[0].link
+                        if (!data[0].link.startsWith('http')) {
+                          input.value = baseUrl
+                        }
+                        input.value += data[0].link
                         //show modale
                         gifModaleOverlay.classList.toggle('modale-hidden')
                         gifModale.classList.toggle('modale-hidden')
@@ -312,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       })
                     } else {
                       // La requete a echoué
-                      console.log('La requête a échoué')
+                      console.error('Request failed')
                       console.log(response)
                     }
                   })
@@ -327,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
           } else {
             // La requete a echoué
-            console.log('La requête a échoué')
+            console.error('Request failed')
             console.log(response)
           }
         }
@@ -380,13 +383,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
               //response.json().then(console.log)
               response.json().then((data) => {
-                console.log('La requête a  réussi')
+                console.log('Request succedeed')
                 console.log(data)
                 return data
               })
             } else {
               // La requete a echoué
-              console.log('La requête a échoué')
+              console.error('Request failed')
               console.log(response)
             }
           })
@@ -405,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (response.ok) {
             //response.json().then(console.log)
             response.json().then((data) => {
-              console.log('La requête a  réussi')
+              console.log('Request succedeed')
               console.log(data)
               // use fetched data to generate modale
 
@@ -429,7 +432,10 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               // fill input with link to gif page
               const input = document.querySelector('.js-gif-modale-input')
-              input.value = data[0].link
+              if (!data[0].link.startsWith('http')) {
+                input.value = baseUrl
+              }
+              input.value += data[0].link
               //show modale
               gifModaleOverlay.classList.toggle('modale-hidden')
               gifModale.classList.toggle('modale-hidden')
@@ -475,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
           } else {
             // La requete a echoué
-            console.log('La requête a échoué')
+            console.error('Request failed')
             console.log(response)
           }
         })
