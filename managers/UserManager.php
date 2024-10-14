@@ -9,14 +9,11 @@ class UserManager extends AbstractManager
     public function findById(int $id): ?User
     {
         $query = $this->db->prepare('SELECT * FROM users WHERE user_id=:id');
-
         $parameters = [
             "id" => $id
         ];
-
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
-
         if ($result) {
             $user = new User($result["email"], $result["name"], $result["password"], $result["avatar"], $result["admin"]);
             $user->setId($result["user_id"]);
@@ -27,11 +24,9 @@ class UserManager extends AbstractManager
     public function findByEmail(string $email): ?User
     {
         $query = $this->db->prepare('SELECT * FROM users WHERE email=:email');
-
         $parameters = [
             "email" => $email
         ];
-
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -49,8 +44,8 @@ class UserManager extends AbstractManager
         $parameters = [];
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
-        $users = [];
         if ($results) {
+            $users = [];
             foreach ($results as $result) {
                 $user = new User($result["email"], $result["name"], $result["password"], $result["avatar"], $result["admin"]);
                 $user->setId($result["user_id"]);
@@ -73,33 +68,28 @@ class UserManager extends AbstractManager
         $query->execute($parameters);
         $user->setId($this->db->lastInsertId());
     }
+
     public function deleteUser(int $id): void
     {
         //change user_id of public collections to GIFL public domain
         $query = $this->db->prepare('UPDATE collections SET user_id=1 WHERE user_id=:id AND private=0');
-        $parameters = [
-            "id" => $id
-        ];
+        $parameters = ["id" => $id];
         $query->execute($parameters);
+
         //delete private collections 
         //delete from collections AND collections_hashtags AND collections_gifs
         $query = $this->db->prepare('DELETE FROM collections WHERE user_id=:id AND private=1');
-        $parameters = [
-            "id" => $id
-        ];
+        $parameters = ["id" => $id];
         $query->execute($parameters);
 
         //change user_id of all updated GIFS to GIFL public domain
         $query = $this->db->prepare('UPDATE gifs SET user_id=1 WHERE user_id=:id');
-        $parameters = [
-            "id" => $id
-        ];
+        $parameters = ["id" => $id];
         $query->execute($parameters);
+
         //delete from users 
         $query = $this->db->prepare('DELETE FROM users WHERE user_id=:id');
-        $parameters = [
-            "id" => $id
-        ];
+        $parameters = ["id" => $id];
         $query->execute($parameters);
     }
     public function updateUser(int $id, string $email, string $name, string $avatar)

@@ -12,7 +12,6 @@ class HashtagManager extends AbstractManager
         $parameters = [];
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
         if ($results) {
             $hashtags = [];
             foreach ($results as $result) {
@@ -36,9 +35,8 @@ class HashtagManager extends AbstractManager
             $hashtag = new Hashtag($result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $hashtag->setId($result["hashtag_id"]);
             return $hashtag;
-        } else {
-            return null;
         }
+        return null;
     }
     public function findByExactName($name): ?Hashtag
     {
@@ -52,9 +50,8 @@ class HashtagManager extends AbstractManager
             $hashtag = new Hashtag($result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $hashtag->setId($result["hashtag_id"]);
             return $hashtag;
-        } else {
-            return null;
         }
+        return null;
     }
     public function findById($id): ?Hashtag
     {
@@ -68,9 +65,8 @@ class HashtagManager extends AbstractManager
             $hashtag = new Hashtag($result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $hashtag->setId($result["hashtag_id"]);
             return $hashtag;
-        } else {
-            return null;
         }
+        return null;
     }
     public function createHashtag(Hashtag $hashtag, int $gif_id): void
     {

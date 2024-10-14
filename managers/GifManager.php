@@ -14,11 +14,14 @@ class GifManager extends AbstractManager
             "id" => $id
         ];
         $query->execute($parameters);
-        $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $user = $um->findById($result['user_id']);
+            $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+            $gif->setId($result['gif_id']);
+            return $gif;
+        }
+        return null;
     }
     public function findLatest10(): array
     {
@@ -26,16 +29,19 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare('SELECT * FROM gifs LIMIT 10');
         $parameters = [];
         $query->execute($parameters);
-        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
-        $gifs = [];
-        //enter fetched users from DB into instances array
-        foreach ($fetchedResults as $item) {
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
-            array_push($gifs, $gif);
-        };
-        return $gifs;
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            $gifs = [];
+            //enter fetched users from DB into instances array
+            foreach ($results as $result) {
+                $user = $um->findById($result['user_id']);
+                $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+                $gif->setId($result['gif_id']);
+                array_push($gifs, $gif);
+            };
+            return $gifs;
+        }
+        return null;
     }
     public function findRandom10(): array
     {
@@ -43,16 +49,19 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare('SELECT * FROM gifs ORDER BY RAND() LIMIT 10');
         $parameters = [];
         $query->execute($parameters);
-        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
-        $gifs = [];
-        //enter fetched users from DB into instances array
-        foreach ($fetchedResults as $item) {
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
-            array_push($gifs, $gif);
-        };
-        return $gifs;
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            $gifs = [];
+            //enter fetched users from DB into instances array
+            foreach ($results as $result) {
+                $user = $um->findById($result['user_id']);
+                $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+                $gif->setId($result['gif_id']);
+                array_push($gifs, $gif);
+            };
+            return $gifs;
+        }
+        return null;
     }
     public function getRandom1(): Gif
     {
@@ -60,11 +69,14 @@ class GifManager extends AbstractManager
         $query = $this->db->prepare('SELECT * FROM gifs ORDER BY RAND() LIMIT 1');
         $parameters = [];
         $query->execute($parameters);
-        $item = $query->fetch(PDO::FETCH_ASSOC);
-        $user = $um->findById($item['user_id']);
-        $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-        $gif->setId($item['gif_id']);
-        return $gif;
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $user = $um->findById($result['user_id']);
+            $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+            $gif->setId($result['gif_id']);
+            return $gif;
+        }
+        return null;
     }
     public function findLatestWithHashtag($hashtag_id): ?Gif
     {
@@ -74,16 +86,14 @@ class GifManager extends AbstractManager
             "id" => $hashtag_id
         ];
         $query->execute($parameters);
-        $item = $query->fetch(PDO::FETCH_ASSOC);
-        if ($item) {
-
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $user = $um->findById($result['user_id']);
+            $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+            $gif->setId($result['gif_id']);
             return $gif;
-        } else {
-            return null;
         }
+        return null;
     }
     public function findByHashtag($hashtag_id): ?array
     {
@@ -93,17 +103,21 @@ class GifManager extends AbstractManager
             "id" => $hashtag_id
         ];
         $query->execute($parameters);
-        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
-        $gifs = [];
-        //enter fetched gifs from DB into instances array
-        foreach ($fetchedResults as $item) {
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
-            array_push($gifs, $gif);
-        };
-        return $gifs;
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            $gifs = [];
+            //enter fetched gifs from DB into instances array
+            foreach ($results as $result) {
+                $user = $um->findById($result['user_id']);
+                $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+                $gif->setId($result['gif_id']);
+                array_push($gifs, $gif);
+            };
+            return $gifs;
+        }
+        return null;
     }
+
     public function findByCollection($collection_id): ?array
     {
         $um = new UserManager;
@@ -112,17 +126,21 @@ class GifManager extends AbstractManager
             "id" => $collection_id
         ];
         $query->execute($parameters);
-        $fetchedResults = $query->fetchAll(PDO::FETCH_ASSOC);
-        $gifs = [];
-        //enter fetched gifs from DB into instances array
-        foreach ($fetchedResults as $item) {
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
-            array_push($gifs, $gif);
-        };
-        return $gifs;
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            $gifs = [];
+            //enter fetched gifs from DB into instances array
+            foreach ($results as $result) {
+                $user = $um->findById($result['user_id']);
+                $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+                $gif->setId($result['gif_id']);
+                array_push($gifs, $gif);
+            };
+            return $gifs;
+        }
+        return null;
     }
+
     public function findHashtags($gif_id): ?array
     {
 
@@ -151,13 +169,12 @@ class GifManager extends AbstractManager
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if ($results) {
-
             $gifs = [];
             //enter fetched gifs from DB into instances array
-            foreach ($results as $item) {
-                $user = $um->findById($item['user_id']);
-                $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-                $gif->setId($item['gif_id']);
+            foreach ($results as $result) {
+                $user = $um->findById($result['user_id']);
+                $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+                $gif->setId($result['gif_id']);
                 array_push($gifs, $gif);
             };
             return $gifs;
@@ -196,15 +213,14 @@ class GifManager extends AbstractManager
             "id" => $collection_id
         ];
         $query->execute($parameters);
-        $item = $query->fetch(PDO::FETCH_ASSOC);
-        if ($item) {
-            $user = $um->findById($item['user_id']);
-            $gif = new Gif($item['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $item['created_at']), $item['reported']);
-            $gif->setId($item['gif_id']);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $user = $um->findById($result['user_id']);
+            $gif = new Gif($result['link'], $user, DateTime::createFromFormat('Y-m-d H:i:s', $result['created_at']), $result['reported']);
+            $gif->setId($result['gif_id']);
             return $gif;
-        } else {
-            return null;
         }
+        return null;
     }
     public function removeGifFromCollection(int $gifId, int $collectionId): void
     {
@@ -246,7 +262,6 @@ class GifManager extends AbstractManager
             "gif_id" => $gif->getId()
         ];
         $query->execute($parameters);
-
 
         return $gifId;
     }

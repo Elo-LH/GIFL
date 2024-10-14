@@ -21,9 +21,8 @@ class CollectionManager extends AbstractManager
             $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
-        } else {
-            return null;
         }
+        return null;
     }
     public function findById($id): ?Collection
     {
@@ -39,9 +38,8 @@ class CollectionManager extends AbstractManager
             $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
-        } else {
-            return null;
         }
+        return null;
     }
     public function findByUserId($id): ?array
     {
@@ -51,8 +49,8 @@ class CollectionManager extends AbstractManager
         ];
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
-        $collections = [];
         if ($results) {
+            $collections = [];
             $um = new UserManager;
             $user = $um->findById($id);
             foreach ($results as $result) {
@@ -61,9 +59,8 @@ class CollectionManager extends AbstractManager
                 array_push($collections, $collection);
             }
             return $collections;
-        } else {
-            return null;
         }
+        return null;
     }
     public function toggleCollectionPrivacy($id): void
     {
@@ -82,15 +79,13 @@ class CollectionManager extends AbstractManager
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-
             $um = new UserManager;
             $user = $um->findById($result['user_id']);
             $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
-        } else {
-            return null;
         }
+        return null;
     }
     public function initNewUserCollections($id): void
     {
@@ -116,9 +111,8 @@ class CollectionManager extends AbstractManager
             $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
-        } else {
-            return null;
         }
+        return null;
     }
     public function createCollection(int $user_id, string $name, bool $private): void
     {
@@ -144,9 +138,8 @@ class CollectionManager extends AbstractManager
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
     public function deleteCollection($id): void
     {
@@ -171,8 +164,7 @@ class CollectionManager extends AbstractManager
             $collection = new Collection($user, $result["name"], $result["private"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
             $collection->setId($result["collection_id"]);
             return $collection;
-        } else {
-            return null;
         }
+        return null;
     }
 }
