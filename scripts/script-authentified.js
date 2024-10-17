@@ -86,12 +86,108 @@ const getParameter = (key) => {
   return parameterList.get(key)
 }
 
+const updateTheme = (theme) => {
+  console.log('enter updateTheme')
+  // Get the root element
+  var r = document.querySelector(':root')
+  if (theme === 'blackOnWhite') {
+    // Update the value of color variables in css to chosen theme
+    r.style.setProperty('--color-neon-pink', '#000000')
+    r.style.setProperty('--color-neon-yellow', '#000000')
+    r.style.setProperty('--color-dark-yellow', '#a8a8a8')
+    r.style.setProperty('--color-dark-blue', '#ffffff')
+    r.style.setProperty('--color-dark-purple', '#ffffff')
+    r.style.setProperty('--color-aubergine', '#a8a8a8')
+    r.style.setProperty('--color-whitey', '#000000')
+    return
+  }
+  if (theme === 'whiteOnBlack') {
+    // Update the value of color variables in css to chosen theme
+    r.style.setProperty('--color-neon-pink', '#ffffff')
+    r.style.setProperty('--color-neon-yellow', '#ffffff')
+    r.style.setProperty('--color-dark-yellow', '#545454')
+    r.style.setProperty('--color-dark-blue', '#000000')
+    r.style.setProperty('--color-dark-purple', '#000000')
+    r.style.setProperty('--color-aubergine', '#545454')
+    r.style.setProperty('--color-whitey', '#ffffff')
+    return
+  }
+}
+
+const resetTheme = () => {
+  // Get the root element
+  var r = document.querySelector(':root')
+  // Update the value of color variables in css to chosen theme
+  r.style.setProperty('--color-neon-pink', '#D108FF')
+  r.style.setProperty('--color-neon-yellow', '#FFBA08')
+  r.style.setProperty('--color-dark-yellow', '#FAA307')
+  r.style.setProperty('--color-dark-blue', '#110400')
+  r.style.setProperty('--color-dark-purple', '#170327')
+  r.style.setProperty('--color-aubergine', '#70008A')
+  r.style.setProperty('--color-whitey', '#FFF1CD')
+  return
+}
+
+const updateThemeCookie = () => {
+  //Getting the theme inputs
+  const selectedTheme = document.querySelector(
+    'input[type = radio]:checked'
+  ).value
+  // set selected Theme as theme cookie
+  if (
+    selectedTheme === 'blackOnWhite' ||
+    selectedTheme === 'whiteOnBlack' ||
+    selectedTheme === 'default'
+  ) {
+    setCookie('theme', selectedTheme, 360)
+  }
+
+  // Updating theme with new cookie
+  if (document.cookie.theme != 'default') {
+    updateTheme(document.cookie.theme)
+  } else {
+    resetTheme()
+  }
+  // Refresh the page
+  location.reload()
+}
+
+function getCookie(name) {
+  var re = new RegExp(name + '=([^;]+)')
+  var value = re.exec(document.cookie)
+  return value != null ? unescape(value[1]) : null
+}
+
+function setCookie(name, value, expDays) {
+  let date = new Date()
+  date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000)
+  const expires = 'expires=' + date.toUTCString()
+  document.cookie = name + '=' + value + '; ' + expires + '; path=/'
+}
+
 /* ==========================================================================
 DOM CONTENT LOADED
 ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('script loaded')
+
+  console.log(document.cookie)
+  const themeCookie = getCookie('theme')
+
+  // Getting cookie for color theme
+  if (themeCookie) {
+    updateTheme(themeCookie)
+  } else {
+    resetTheme()
+  }
+
+  //Getting select theme button
+  const updateThemeBtn = document.querySelector('.js-theme-update')
+  if (updateThemeBtn) {
+    console.log('add update theme event')
+    updateThemeBtn.addEventListener('click', updateThemeCookie)
+  }
 
   // Getting copy link button
   const copyBtn = document.querySelector('.js-copy-btn')
