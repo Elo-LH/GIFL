@@ -1,7 +1,19 @@
-$neonPink : #D108FF;
-$yellow : #FFBA08;
-$darkYellow : #FAA307;
-$darkBlue : #110400;
-$darkPurple : #170327;
-$aubergine : #70008A;
-$white: #FFF1CD;
+$colors:(
+    neon-pink : #D108FF,
+    neon-yellow : #FFBA08,
+    dark-yellow : #FAA307,
+    dark-blue : #110400,
+    dark-purple : #170327,
+    aubergine : #70008A,
+    whitey: #FFF1CD,
+);
+
+:root {
+    @each $name, $color in $colors {
+        --color-#{$name}: #{$color};
+      }
+}
+
+@function color($color-name) {
+    @return var(--color-#{$color-name});
+}
