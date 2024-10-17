@@ -10,6 +10,26 @@
 		<h1 class="h1-regular">Settings</h1>
 		<h2 class="subtitle">Colors</h2>
 
+		<fieldset>
+			<legend>Select a color theme:</legend>
+
+			<div>
+				<input class="js-theme-input" type="radio" id="default" name="theme" value="default" checked/>
+				<label for="default">Default Theme</label>
+			</div>
+
+			<div>
+				<input class="js-theme-input" type="radio" id="blackOnWhite" name="theme" value="blackOnWhite"/>
+				<label for="blackOnWhite">High contrast black font on white background</label>
+			</div>
+
+			<div>
+				<input class="js-theme-input" type="radio" id="whiteOnBlack" name="theme" value="whiteOnBlack"/>
+				<label for="whiteOnBlack">High contrast white font on black background</label>
+			</div>
+		</fieldset>
+		<button class="yellow-button small-button js-theme-update">Update theme</button>
+
 		<h2 class="subtitle">Font size</h2>
 		<p>You can control font size with automatic zoom of your browser, or your device font size parameter</p>
 
