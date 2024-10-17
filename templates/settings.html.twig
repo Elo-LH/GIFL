@@ -10,24 +10,28 @@
 		<h1 class="h1-regular">Settings</h1>
 		<h2 class="subtitle">Colors</h2>
 
-		<fieldset>
-			<legend>Select a color theme:</legend>
+		<div class="sign-form-input-wrapper">
+			<p>Select a color theme:</p>
 
 			<div>
-				<input class="js-theme-input" type="radio" id="default" name="theme" value="default" checked/>
-				<label for="default">Default Theme</label>
+				<label class="form-label-radio" for="default">
+					<input class="js-theme-input form-input-radio" type="radio" id="default" name="theme" value="default" checked/>
+					Default Theme</label>
 			</div>
 
 			<div>
-				<input class="js-theme-input" type="radio" id="blackOnWhite" name="theme" value="blackOnWhite"/>
-				<label for="blackOnWhite">High contrast black font on white background</label>
+				<label class="form-label-radio" for="blackOnWhite">
+					<input class="js-theme-input form-input-radio" type="radio" id="blackOnWhite" name="theme" value="blackOnWhite"/>
+					High contrast black font on white background</label>
 			</div>
 
 			<div>
-				<input class="js-theme-input" type="radio" id="whiteOnBlack" name="theme" value="whiteOnBlack"/>
-				<label for="whiteOnBlack">High contrast white font on black background</label>
+				<label class="form-label-radio" for="whiteOnBlack">
+					<input class="js-theme-input form-input-radio" type="radio" id="whiteOnBlack" name="theme" value="whiteOnBlack"/>
+					High contrast white font on black background</label>
 			</div>
-		</fieldset>
+
+		</div>
 		<button class="yellow-button small-button js-theme-update">Update theme</button>
 
 		<h2 class="subtitle">Font size</h2>
