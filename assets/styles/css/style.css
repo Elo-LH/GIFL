@@ -1104,4 +1104,28 @@ GIF MODALE
   color: var(--color-aubergine);
 }
 
+/* ==========================================================================
+FOOTER 
+========================================================================== */
+.page-footer {
+  text-align: center;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+/* ==========================================================================
+TERMS
+========================================================================== */
+.terms-page {
+  max-width: 90ch;
+}
+.terms-page p, .terms-page li, .terms-page ul, .terms-page address {
+  margin: 0 0.4rem;
+}
+.terms-page li {
+  display: list-item;
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
 /*# sourceMappingURL=style.css.map */

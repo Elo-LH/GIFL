@@ -32,6 +32,8 @@ class Router
             $this->pc->collection();
         } else if ($get["route"] === "gif") {
             $this->pc->gif();
+        } else if ($get["route"] === "terms") {
+            $this->pc->terms();
         }
         // Authentification routes
         else if ($get["route"] === "sign-in") {

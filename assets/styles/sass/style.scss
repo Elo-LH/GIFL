@@ -1041,3 +1041,30 @@ display: block;
   border-radius: 5px;
   color: color(aubergine);
 }
+
+/* ==========================================================================
+FOOTER 
+========================================================================== */
+
+.page-footer{
+  text-align: center;
+  padding: 2rem;
+  margin: 2rem;
+
+}
+
+/* ==========================================================================
+TERMS
+========================================================================== */
+
+.terms-page{
+  max-width: 90ch;
+  p, li, ul, address{
+    margin: 0 0.4rem;
+  }
+  li{
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 2rem;
+  }
+}

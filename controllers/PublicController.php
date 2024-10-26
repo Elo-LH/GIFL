@@ -127,4 +127,8 @@ class PublicController extends AbstractController
             $this->redirect("index.php?route=search");
         }
     }
+    public function terms(): void
+    {
+        $this->render("terms.html.twig", []);
+    }
 }
