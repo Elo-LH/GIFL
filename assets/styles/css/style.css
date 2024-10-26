@@ -711,7 +711,7 @@ SIGN OUT PAGE
 BACK OFFICE
 ========================================================================== */
 .back-office-users-table {
-  width: 90%;
+  max-width: 90%;
   margin-inline: auto;
   margin-bottom: 5rem;
   border-collapse: collapse;
@@ -734,6 +734,7 @@ BACK OFFICE
 }
 .back-office-users-table td {
   min-width: 30px;
+  padding-inline: clamp(0.2rem, 1.6vw, 3rem);
 }
 
 .reported-gifs-wrapper {
