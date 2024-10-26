@@ -3,7 +3,7 @@
 class APIController extends AbstractController
 {
 
-    public function getHashtagSearchResult(): void
+    public function getFirstHashtagSearchResult(): void
     {
         //get search input in GET params
         if (isset($_GET['input'])) {
@@ -18,6 +18,51 @@ class APIController extends AbstractController
                 array_push($array, $gif->toArray());
             }
             echo json_encode($array);
+        } else {
+            echo null;
+        }
+    }
+    public function getHashtagSearchResult(): void
+    {
+        //get search input in GET params
+        if (isset($_GET['input']) && $_GET['input'] != "") {
+            $input = htmlspecialchars($_GET['input']);
+            //find all hashtags containing this input 
+            $hm = new HashtagManager();
+            $hashtags = $hm->findAllContaining($input);
+            $array = [];
+            if ($hashtags != []) {
+                foreach ($hashtags as $hashtag) {
+                    // for each hashtag found add all its gifs to the return array;
+                    $gm = new GifManager();
+                    $gifs = $gm->findByHashtag($hashtag->getId());
+                    if ($gifs != []) {
+                        foreach ($gifs as $gif) {
+                            array_push($array, $gif);
+                        }
+                    } else {
+                        echo null;
+                    }
+                }
+                // $cleanedArray = array_map("unserialize", array_unique(array_map("serialize", $array)));
+                //filter duplicate gifs
+                $cleanedArray = array_filter($array, function ($gif) {
+                    static $idList = array();
+                    if (in_array($gif->getId(), $idList)) {
+                        return false;
+                    }
+                    $idList[] = $gif->getId();
+                    return true;
+                });
+                $resultArray = [];
+                foreach ($cleanedArray as $gif) {
+                    array_push($resultArray, $gif->toArray());
+                }
+
+                echo json_encode($resultArray);
+            } else {
+                echo null;
+            }
         } else {
             echo null;
         }

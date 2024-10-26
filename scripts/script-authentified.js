@@ -16,7 +16,7 @@ function fetchData(apiUrl) {
         return data
       })
     } else {
-      // La requete a echoué
+      // Request failed
       console.error('Request failed')
       console.error(response)
     }
@@ -212,225 +212,248 @@ document.addEventListener('DOMContentLoaded', () => {
         '.js-search-result-display'
       )
       searchResultDisplay.textContent = ''
-      fetch(api + 'get-hashtag-search-result&input=' + userInput).then(
-        (response) => {
+      fetch(api + 'get-hashtag-search-result&input=' + userInput)
+        .then((response) => {
           console.log(response)
-          if (response.ok) {
+          if (
+            response.ok &&
+            Number(response.headers.get('content-length')) > 0
+          ) {
             //response.json().then(console.log)
-            response.json().then((data) => {
-              console.log('Request succedeed')
-              console.log(data)
-              data.forEach((gif) => {
-                const collectionId = getParameter('collection')
-                //masonry-grid-item
-                const gridItem = document.createElement('div')
-                gridItem.classList.add('masonry-grid-item')
-                //masonry span for gif modale
-                const spanGIF = document.createElement('span')
-                spanGIF.classList.add('masonry-grid-link', 'js-gif-modale')
-                spanGIF.id = `js-gif-id-${gif.id}`
-                spanGIF.position = 'relative'
-                //masonry gif img
-                const gifImg = document.createElement('img')
-                gifImg.classList.add('masonry-grid-img')
-                gifImg.alt = ''
-                gifImg.src = gif.link
-                gifImg.id = `js-gif-id-${gif.id}`
+            response
+              .json()
+              .then((data) => {
+                console.log('Request succedeed')
+                console.log(data)
+                if (data) {
+                  data.forEach((gif) => {
+                    const collectionId = getParameter('collection')
+                    //masonry-grid-item
+                    const gridItem = document.createElement('div')
+                    gridItem.classList.add('masonry-grid-item')
+                    //masonry span for gif modale
+                    const spanGIF = document.createElement('span')
+                    spanGIF.classList.add('masonry-grid-link', 'js-gif-modale')
+                    spanGIF.id = `js-gif-id-${gif.id}`
+                    spanGIF.position = 'relative'
+                    //masonry gif img
+                    const gifImg = document.createElement('img')
+                    gifImg.classList.add('masonry-grid-img')
+                    gifImg.alt = ''
+                    gifImg.src = gif.link
+                    gifImg.id = `js-gif-id-${gif.id}`
 
-                //appending all elements
-                spanGIF.appendChild(gifImg)
-                gridItem.appendChild(spanGIF)
+                    //appending all elements
+                    spanGIF.appendChild(gifImg)
+                    gridItem.appendChild(spanGIF)
 
-                if (
-                  searchResultDisplay.classList.contains('js-collection-add')
-                ) {
-                  const gridAddLink = document.createElement('a')
-                  gridAddLink.classList.add(
-                    'link-button',
-                    'very-small-button',
-                    'yellow-button',
-                    'masonry-grid-item-icon'
-                  )
-                  gridAddLink.href = `index.php?route=add-gif-to-collection&gif=${gif.id}&collection=${collectionId}`
-                  gridAddLink.textContent = 'Add'
-                  spanGIF.appendChild(gridAddLink)
-                }
-                searchResultDisplay.appendChild(gridItem)
-
-                if (gifImg.complete) {
-                  //load masonry display
-                  var elem = document.querySelector('.masonry-grid')
-                  var msnry = new Masonry(elem, {
-                    // options
-                    itemSelector: '.masonry-grid-item',
-
-                    gutter: 2,
-                  })
-                }
-                // Add event listener on each gif item
-                const gifModale = document.querySelector('.gif-display-modale')
-                const gifItems = document.querySelectorAll('.js-gif-modale')
-                const authOptions = document.querySelector(
-                  '.gif-card-auth-options'
-                )
-                gridItem.addEventListener('click', (e) => {
-                  console.log('event click modale')
-                  // If click on GIF
-
-                  //retrieve GIF id
-                  const gifIdName = e.target.id
-                  const gifId = gifIdName.slice(10)
-                  console.log(gifId)
-
-                  // generate report button
-                  authOptions.innerHTML = ''
-                  authOptions.classList.toggle('modale-hidden')
-                  const reportBtn = document.createElement('button')
-                  reportBtn.classList.add(
-                    'pink-button',
-                    'very-small-button',
-                    'gif-report-btn'
-                  )
-                  reportBtn.textContent = 'Report'
-                  reportBtn.addEventListener('click', () => {
-                    fetch(api + 'put-gif-reported&gif=' + gifId).then(
-                      (response) => {
-                        console.log(response)
-                        if (response.ok) {
-                          //response.json().then(console.log)
-                          response.json().then((data) => {
-                            console.log('Request succedeed')
-                            console.log(data)
-                            return data
-                          })
-                        } else {
-                          // La requete a echoué
-                          console.error('Request failed')
-                          console.log(response)
-                        }
-                      }
-                    )
-                  })
-
-                  authOptions.appendChild(reportBtn)
-
-                  //Generate select
-                  const selectCollection = document.createElement('select')
-                  //fetch collections from user
-                  //for each collection generate an option with value = collection_id and collection name
-
-                  // Fetch gif infos from API
-                  fetch(api + 'get-gif-info&gif=' + gifId).then((response) => {
-                    console.log(response)
-                    if (response.ok) {
-                      //response.json().then(console.log)
-                      response.json().then((data) => {
-                        console.log('Request succedeed')
-                        console.log(data)
-                        // use fetched data to generate modale
-
-                        // add gif img
-                        const gifImg =
-                          document.querySelector('.js-gif-modale-img')
-                        gifImg.src = data[0].link
-                        const gifHashtags = document.querySelector(
-                          '.js-gif-modale-hashtags'
-                        )
-                        // add each hashtag link
-                        data.forEach((hashtag, i) => {
-                          if (i == 0) {
-                            gifHashtags.innerHTML = ''
-                          } else {
-                            const gifHashtag = document.createElement('a')
-                            gifHashtag.textContent = `#${hashtag.name}`
-                            gifHashtag.classList.add('gif-card-hashtag')
-                            gifHashtag.href = `index.php?route=hashtag-page&hashtag=${hashtag.id}`
-                            gifHashtags.appendChild(gifHashtag)
-                          }
-                        })
-                        // fill input with link to gif page
-                        const input = document.querySelector(
-                          '.js-gif-modale-input'
-                        )
-                        if (!data[0].link.startsWith('http')) {
-                          input.value = baseUrl
-                        }
-                        input.value += data[0].link
-                        //show modale
-                        gifModaleOverlay.classList.toggle('modale-hidden')
-                        gifModale.classList.toggle('modale-hidden')
-
-                        // Getting copy link button for gif modale
-                        const copyBtnGif =
-                          document.querySelector('.js-copy-btn-gif')
-                        if (copyBtnGif) {
-                          console.log('add copy adress event for gif')
-                          copyBtnGif.addEventListener('click', copyAdressGif)
-                        }
-
-                        //getting download button for gif modale
-                        const downloadBtn =
-                          document.querySelector('.js-download-gif')
-                        if (downloadBtn) {
-                          console.log('add event listener to dwnld btn')
-                          downloadBtn.addEventListener(
-                            'click',
-                            downloadGif,
-                            false
-                          )
-
-                          async function downloadGif() {
-                            console.log('enter download gif')
-                            //create new a element
-                            let a = document.createElement('a')
-                            // get image as blob
-                            let response = await fetch(data[0].link)
-                            let file = await response.blob()
-                            console.log(file)
-                            // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
-                            a.download = data[0].id
-                            a.href = window.URL.createObjectURL(file)
-                            console.log(a.href)
-                            //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
-                            a.dataset.downloadurl = [
-                              'application/octet-stream',
-                              a.download,
-                              a.href,
-                            ].join(':')
-                            //click on element to start download
-                            a.click()
-                            window.URL.revokeObjectURL(file)
-                            downloadBtn.removeEventListener(
-                              'click',
-                              downloadGif,
-                              false
-                            )
-                            console.log('remove event listener to dwnld btn')
-                          }
-                        }
-                      })
-                    } else {
-                      // La requete a echoué
-                      console.error('Request failed')
-                      console.log(response)
+                    if (
+                      searchResultDisplay.classList.contains(
+                        'js-collection-add'
+                      )
+                    ) {
+                      const gridAddLink = document.createElement('a')
+                      gridAddLink.classList.add(
+                        'link-button',
+                        'very-small-button',
+                        'yellow-button',
+                        'masonry-grid-item-icon'
+                      )
+                      gridAddLink.href = `index.php?route=add-gif-to-collection&gif=${gif.id}&collection=${collectionId}`
+                      gridAddLink.textContent = 'Add'
+                      spanGIF.appendChild(gridAddLink)
                     }
+                    searchResultDisplay.appendChild(gridItem)
+
+                    if (gifImg.complete) {
+                      //load masonry display
+                      var elem = document.querySelector('.masonry-grid')
+                      var msnry = new Masonry(elem, {
+                        // options
+                        itemSelector: '.masonry-grid-item',
+
+                        gutter: 2,
+                      })
+                    }
+                    // Add event listener on each gif item
+                    const gifModale = document.querySelector(
+                      '.gif-display-modale'
+                    )
+                    const gifItems = document.querySelectorAll('.js-gif-modale')
+                    const authOptions = document.querySelector(
+                      '.gif-card-auth-options'
+                    )
+                    gridItem.addEventListener('click', (e) => {
+                      console.log('event click modale')
+                      // If click on GIF
+
+                      //retrieve GIF id
+                      const gifIdName = e.target.id
+                      const gifId = gifIdName.slice(10)
+                      console.log(gifId)
+
+                      // generate report button
+                      authOptions.innerHTML = ''
+                      authOptions.classList.toggle('modale-hidden')
+                      const reportBtn = document.createElement('button')
+                      reportBtn.classList.add(
+                        'pink-button',
+                        'very-small-button',
+                        'gif-report-btn'
+                      )
+                      reportBtn.textContent = 'Report'
+                      reportBtn.addEventListener('click', () => {
+                        fetch(api + 'put-gif-reported&gif=' + gifId).then(
+                          (response) => {
+                            console.log(response)
+                            if (response.ok) {
+                              //response.json().then(console.log)
+                              response.json().then((data) => {
+                                console.log('Request succedeed')
+                                console.log(data)
+                                return data
+                              })
+                            } else {
+                              // Request failed
+                              console.error('Request failed')
+                              console.log(response)
+                            }
+                          }
+                        )
+                      })
+
+                      authOptions.appendChild(reportBtn)
+
+                      //Generate select
+                      const selectCollection = document.createElement('select')
+                      //fetch collections from user
+                      //for each collection generate an option with value = collection_id and collection name
+
+                      // Fetch gif infos from API
+                      fetch(api + 'get-gif-info&gif=' + gifId).then(
+                        (response) => {
+                          console.log(response)
+                          if (response.ok) {
+                            //response.json().then(console.log)
+                            response.json().then((data) => {
+                              console.log('Request succedeed')
+                              console.log(data)
+                              // use fetched data to generate modale
+
+                              // add gif img
+                              const gifImg =
+                                document.querySelector('.js-gif-modale-img')
+                              gifImg.src = data[0].link
+                              const gifHashtags = document.querySelector(
+                                '.js-gif-modale-hashtags'
+                              )
+                              // add each hashtag link
+                              data.forEach((hashtag, i) => {
+                                if (i == 0) {
+                                  gifHashtags.innerHTML = ''
+                                } else {
+                                  const gifHashtag = document.createElement('a')
+                                  gifHashtag.textContent = `#${hashtag.name}`
+                                  gifHashtag.classList.add('gif-card-hashtag')
+                                  gifHashtag.href = `index.php?route=hashtag-page&hashtag=${hashtag.id}`
+                                  gifHashtags.appendChild(gifHashtag)
+                                }
+                              })
+                              // fill input with link to gif page
+                              const input = document.querySelector(
+                                '.js-gif-modale-input'
+                              )
+                              if (!data[0].link.startsWith('http')) {
+                                input.value = baseUrl
+                              }
+                              input.value += data[0].link
+                              //show modale
+                              gifModaleOverlay.classList.toggle('modale-hidden')
+                              gifModale.classList.toggle('modale-hidden')
+
+                              // Getting copy link button for gif modale
+                              const copyBtnGif =
+                                document.querySelector('.js-copy-btn-gif')
+                              if (copyBtnGif) {
+                                console.log('add copy adress event for gif')
+                                copyBtnGif.addEventListener(
+                                  'click',
+                                  copyAdressGif
+                                )
+                              }
+
+                              //getting download button for gif modale
+                              const downloadBtn =
+                                document.querySelector('.js-download-gif')
+                              if (downloadBtn) {
+                                console.log('add event listener to dwnld btn')
+                                downloadBtn.addEventListener(
+                                  'click',
+                                  downloadGif,
+                                  false
+                                )
+
+                                async function downloadGif() {
+                                  console.log('enter download gif')
+                                  //create new a element
+                                  let a = document.createElement('a')
+                                  // get image as blob
+                                  let response = await fetch(data[0].link)
+                                  let file = await response.blob()
+                                  console.log(file)
+                                  // use download attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes
+                                  a.download = data[0].id
+                                  a.href = window.URL.createObjectURL(file)
+                                  console.log(a.href)
+                                  //store download url in javascript https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes#JavaScript_access
+                                  a.dataset.downloadurl = [
+                                    'application/octet-stream',
+                                    a.download,
+                                    a.href,
+                                  ].join(':')
+                                  //click on element to start download
+                                  a.click()
+                                  window.URL.revokeObjectURL(file)
+                                  downloadBtn.removeEventListener(
+                                    'click',
+                                    downloadGif,
+                                    false
+                                  )
+                                  console.log(
+                                    'remove event listener to dwnld btn'
+                                  )
+                                }
+                              }
+                            })
+                          } else {
+                            // Request failed
+                            console.error('Request failed')
+                            console.log(response)
+                          }
+                        }
+                      )
+                    })
+                    //Add keyboard control to open modale (accessibility)
+                    gridItem.addEventListener('keydown', (event) => {
+                      if (event.code === 'Space' || event.code === 'Enter') {
+                        gifItem.click()
+                      }
+                    })
                   })
-                })
-                //Add keyboard control to open modale (accessibility)
-                gridItem.addEventListener('keydown', (event) => {
-                  if (event.code === 'Space' || event.code === 'Enter') {
-                    gifItem.click()
-                  }
-                })
+                } else {
+                  // Request failed
+                  console.error('Request empty')
+                  console.log(response)
+                }
               })
-            })
+              .catch((e) => console.error(e))
           } else {
-            // La requete a echoué
-            console.error('Request failed')
+            // Request failed
+            console.error('Request failed or empty')
             console.log(response)
           }
-        }
-      )
+        })
+        .catch((e) => console.error(e))
     })
   }
 
@@ -484,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return data
               })
             } else {
-              // La requete a echoué
+              // Request failed
               console.error('Request failed')
               console.log(response)
             }
@@ -576,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             })
           } else {
-            // La requete a echoué
+            // Request failed
             console.error('Request failed')
             console.log(response)
           }

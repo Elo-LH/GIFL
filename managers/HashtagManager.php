@@ -38,6 +38,25 @@ class HashtagManager extends AbstractManager
         }
         return null;
     }
+    public function findAllContaining($input): ?array
+    {
+        $query = $this->db->prepare("SELECT * FROM hashtags WHERE name LIKE :input ORDER BY created_at DESC");
+        $parameters = [
+            "input" => "%" . $input . "%"
+        ];
+        $query->execute($parameters);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            $hashtags = [];
+            foreach ($results as $result) {
+                $hashtag = new Hashtag($result["name"], DateTime::createFromFormat('Y-m-d H:i:s', $result["created_at"]));
+                $hashtag->setId($result["hashtag_id"]);
+                array_push($hashtags, $hashtag);
+            }
+            return $hashtags;
+        }
+        return null;
+    }
     public function findByExactName($name): ?Hashtag
     {
         $query = $this->db->prepare("SELECT * FROM hashtags WHERE name = :name ORDER BY created_at DESC");
