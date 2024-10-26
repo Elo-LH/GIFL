@@ -2,8 +2,6 @@
 
 class Uploader
 {
-
-
     private string $uploadFolder = "uploads";
     private RandomStringGenerator $gen;
 
@@ -24,11 +22,21 @@ class Uploader
                 $file_name = $files[$uploadField]['name'];
                 $file_tmp = $files[$uploadField]['tmp_name'];
 
+                // Check if the file was uploaded successfully
+                if (!is_uploaded_file($file_tmp)) {
+                    throw new Exception("File upload failed.");
+                }
+
                 $tabFileName = explode('.', $file_name);
                 $file_ext = strtolower(end($tabFileName));
 
                 $newFileName = $this->gen->generate(8);
 
+                // check the MIME type
+                $mimeType = mime_content_type($file_tmp);
+                if ($mimeType != "image/gif") {
+                    throw new Exception("Bad file extension. Please upload a GIF file.");
+                }
                 if ($file_ext != "gif") {
                     throw new Exception("Bad file extension. Please upload a GIF file.");
                 } else {
@@ -43,7 +51,6 @@ class Uploader
                 return null;
             }
         }
-
         return null;
     }
 }

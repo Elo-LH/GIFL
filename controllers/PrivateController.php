@@ -265,6 +265,9 @@ class PrivateController extends AbstractController
                     //upload GIF
                     $uploader = new Uploader();
                     $gif = $uploader->upload($_FILES, "image");
+                    if (is_null($gif)) {
+                        $this->redirect("index.php?route=error&error=File upload failed. Please upload a GIF file.");
+                    }
                     //add new GIF to DB
                     $gm = new GifManager();
                     $gm->createGIF($gif);
