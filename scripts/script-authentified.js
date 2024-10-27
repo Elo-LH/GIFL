@@ -233,10 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(api + 'get-hashtag-search-result&input=' + userInput)
         .then((response) => {
           console.log(response)
-          if (
-            response.ok &&
-            Number(response.headers.get('content-length')) > 0
-          ) {
+          if (response.ok) {
             //response.json().then(console.log)
             response
               .json()
