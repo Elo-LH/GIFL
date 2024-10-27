@@ -1,11 +1,27 @@
 //initialize link to API
 
 //local API
-const api = 'http://gifl/index.php?route='
-const baseUrl = 'http://gifl/'
+// const api = 'http://gifl/index.php?route='
+// const baseUrl = 'http://gifl/'
 //planetHoster API
-// const api = 'https://eloise-lh.go.yj.fr/index.php?route='
-// const baseUrl = 'https://eloise-lh.go.yj.fr/'
+const api = 'https://eloise-lh.go.yj.fr/index.php?route='
+const baseUrl = 'https://eloise-lh.go.yj.fr/'
+
+var consoleHolder = console
+function debug(bool) {
+  if (!bool) {
+    console = {}
+    Object.keys(consoleHolder).forEach(function (key) {
+      console[key] = function () {}
+    })
+  } else {
+    console = consoleHolder
+  }
+}
+// Attach the debug function to the global window object
+window.debug = debug
+// Call the debug function to disable console logs
+debug(false)
 
 function fetchData(apiUrl) {
   fetch(apiUrl).then((response) => {

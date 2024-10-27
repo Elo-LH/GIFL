@@ -16,8 +16,8 @@ abstract class AbstractController
         $twig->addGlobal('session', $_SESSION);
         $twig->addGlobal('cookie', $_COOKIE);
         // Loading GIFL URL for local or online hosting
-        $twig->addGlobal('giflUrl', 'http://gifl/');
-        // $twig->addGlobal('giflUrl', 'https://eloise-lh.go.yj.fr/');
+        // $twig->addGlobal('giflUrl', 'http://gifl/');
+        $twig->addGlobal('giflUrl', 'https://eloise-lh.go.yj.fr/');
         $this->twig = $twig;
     }
 
